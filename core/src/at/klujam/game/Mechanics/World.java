@@ -29,7 +29,7 @@ public class World {
         //Add SkeletonControlledObject
         skeletonControlledObject = new SkeletonControlledObject(new Vector2(0f,0f),this);
         gameObjects.add(skeletonControlledObject);
-        gameObjects.add(new Wall(new Vector2(200,200),new Vector2(64,64),this));
+        gameObjects.add(new Wall(new Vector2(20,20),new Vector2(6.4f,6.4f),this));
 
     }
 
