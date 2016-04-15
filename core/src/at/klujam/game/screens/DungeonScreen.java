@@ -28,4 +28,11 @@ public class DungeonScreen extends GameplayScreen {
         b2Cam.update();
         debugRenderer.render(world.b2dWorld, b2Cam.combined);
     }
+
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+        b2Cam.viewportWidth = ((Game.GAME_HEIGHT / (float)height) * width) * Game.SCALING_TO_B2_WORLD; //calculate aspect ratio
+        b2Cam.update();
+    }
 }

@@ -32,6 +32,7 @@ public class GameplayScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+        resize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         handleInput();
         // camera:
         cam.update();
@@ -51,4 +52,9 @@ public class GameplayScreen extends ScreenAdapter {
         }
     }
 
+    @Override
+    public void resize(int width, int height) {
+        cam.viewportWidth = (Game.GAME_HEIGHT / (float)height) * width; //calculate aspect ratio
+        cam.update();
+    }
 }

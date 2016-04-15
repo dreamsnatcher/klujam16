@@ -29,13 +29,14 @@ public class World {
         b2dWorld = new com.badlogic.gdx.physics.box2d.World(new Vector2(0, 0), false); //TODO if performance problems, do sleep
 
         //Add SkeletonControlledObject
-        player = new DPlayerOne(new Vector2(0f, 0f), new Vector2(1, 1), this);
+        player = new DPlayerOne(new Vector2(0f, 0f), new Vector2(10, 10), this);
         gameObjects.add(player);
         gameObjects.add(new Wall(new Vector2(20,20),new Vector2(6.4f,6.4f),this));
 
     }
 
     public void update(float delta) {
+        b2dWorld.step(1 / 60f, 3, 8);
         for (GameObject go : gameObjects) {
             go.update(delta);
         }

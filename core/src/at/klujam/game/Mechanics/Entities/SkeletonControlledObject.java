@@ -54,7 +54,6 @@ public class SkeletonControlledObject extends MoveableObject {
     @Override
     void handleMovement(Float delta) {
         calcDirection();
-        this.position.add(direction.nor().scl(speed));
         if (!direction.nor().isZero()) {
             if (direction.x > 0) {
                 heading = 2;
@@ -76,7 +75,7 @@ public class SkeletonControlledObject extends MoveableObject {
     /**
      * Calculates the direction Vector
      */
-    private void calcDirection() {
+    void calcDirection() {
         direction = new Vector2(0, 0);
         if (moveUp && !moveDown) {
             direction.y = 1;
@@ -119,24 +118,20 @@ public class SkeletonControlledObject extends MoveableObject {
         switch (heading) {
             case 1:
                 frame = movingUpAnimation.getKeyFrame(movingTime, true);
-                spriteBatch.draw(frame, position.x, position.y);
                 break;
             case 2:
                 frame = movingSideAnimation.getKeyFrame(movingTime, true);
-                spriteBatch.draw(frame, position.x, position.y);
                 break;
             case 3:
                 frame = movingDownAnimation.getKeyFrame(movingTime, true);
-                spriteBatch.draw(frame, position.x, position.y);
                 break;
             case 4:
                 frame = movingSideAnimation.getKeyFrame(movingTime, true);
-                spriteBatch.draw(frame, position.x, position.y);
                 break;
             default:
                 frame = idleAnimation.getKeyFrame(movingTime, true);
-                spriteBatch.draw(frame, position.x, position.y);
         }
+        spriteBatch.draw(frame, position.x-dimension.x/2f, position.y-dimension.y/2f);
     }
 
     public void touch(Vector3 touchCoordinates) {
