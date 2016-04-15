@@ -3,6 +3,7 @@ package at.klujam.game;
 import com.badlogic.gdx.Screen;
 
 import at.klujam.game.screens.CreditsScreen;
+import at.klujam.game.screens.FightingSceneScreen;
 import at.klujam.game.screens.GameplayScreen;
 import at.klujam.game.screens.LoadingScreen;
 import at.klujam.game.screens.MenuScreen;
@@ -11,7 +12,7 @@ import at.klujam.game.screens.MenuScreen;
  * Created by Mathias Lux, mathias@juggle.at, on 04.02.2016.
  */
 public class ScreenManager {
-    public enum ScreenState {Loading, Menu, Game, Credits, Help, GameOver};
+    public enum ScreenState {Loading, Menu, Game, Credits, Fighting, Help, GameOver};
     private Screen currentScreen;
     private ScreenState currentState;
     private Game parentGame;
@@ -39,6 +40,8 @@ public class ScreenManager {
                 currentScreen = new CreditsScreen(parentGame);
             } else if (state == ScreenState.Game) {
                 currentScreen = new GameplayScreen(parentGame);
+            } else if (state == ScreenState.Fighting) {
+                currentScreen = new FightingSceneScreen(parentGame);
             }
         }
     }
