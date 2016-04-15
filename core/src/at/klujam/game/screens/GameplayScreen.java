@@ -18,7 +18,6 @@ public class GameplayScreen extends ScreenAdapter {
     public Game parentGame;
     World world;
 
-
     public GameplayScreen(Game game) {
         this.parentGame = game;
         this.world = new World(this);
@@ -37,10 +36,6 @@ public class GameplayScreen extends ScreenAdapter {
         // camera:
         cam.update();
         batch.setProjectionMatrix(cam.combined);
-
-
-
-
 
         Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

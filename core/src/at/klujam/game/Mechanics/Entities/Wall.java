@@ -8,8 +8,9 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class Wall extends GameObject {
+
     public Wall(Vector2 position, Vector2 dimension, World world) {
-        super(position,dimension, world);
+        super(position, dimension, world);
         initPhysics(world.b2dWorld);
     }
 
@@ -20,15 +21,14 @@ public class Wall extends GameObject {
 
         b2Body = b2dWorld.createBody(bodyDef);
 
-        PolygonShape edgeShape =new PolygonShape();
-        edgeShape.setAsBox(dimension.x,dimension.y);
+        PolygonShape edgeShape = new PolygonShape();
+        edgeShape.setAsBox(dimension.x, dimension.y);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = edgeShape;
         fixtureDef.friction = 1f;
 
         b2Body.createFixture(fixtureDef);
-
     }
 
     @Override

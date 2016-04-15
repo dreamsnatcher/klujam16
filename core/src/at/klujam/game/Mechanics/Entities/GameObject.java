@@ -14,6 +14,7 @@ import java.awt.*;
  * Created by Veit on 06.02.2016.
  */
 public abstract class GameObject {
+
     Vector2 position;
     Rectangle bounds;
     World world;
@@ -22,7 +23,6 @@ public abstract class GameObject {
     Body b2Body;
     Vector2 dimension;
 
-
     public GameObject(Vector2 position, Vector2 dimension, World world) {
         this.position = position;
         this.dimension = dimension;
@@ -30,26 +30,23 @@ public abstract class GameObject {
         states = new Array<State>();
     }
 
-    public void removeState(State state){
+    public void removeState(State state) {
         this.states.removeValue(state, false);
-}
+    }
 
-    public void addState(State state){
-        if(state.stackable){
+    public void addState(State state) {
+        if (state.stackable) {
             states.add(state);
-        }
-        else if(!states.contains(state, false)){
+        } else if (!states.contains(state, false)) {
             states.add(state);
         }
     }
 
-    public void update(float delta){
-        for (State state: states) {
+    public void update(float delta) {
+        for (State state : states) {
             state.update(delta);
         }
-    };
+    }
+
     public abstract void render(float delta, SpriteBatch spriteBatch);
-
-
-
 }
