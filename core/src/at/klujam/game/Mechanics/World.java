@@ -7,7 +7,6 @@ import at.klujam.game.screens.GameplayScreen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.utils.Array;
 
 
@@ -15,7 +14,6 @@ import com.badlogic.gdx.utils.Array;
  * Created by Veit on 06.02.2016.
  */
 public class World {
-    private final Box2DDebugRenderer debugRenderer;
     private SpriteBatch spriteBatch;
     public Array<GameObject> gameObjects;
     public GameplayScreen gameplayScreen;
@@ -31,8 +29,7 @@ public class World {
         //Add SkeletonControlledObject
         skeletonControlledObject = new SkeletonControlledObject(new Vector2(0f,0f),this);
         gameObjects.add(skeletonControlledObject);
-        gameObjects.add(new Wall(new Vector2(1,1),new Vector2(1,1),this));
-        debugRenderer = new Box2DDebugRenderer();
+        gameObjects.add(new Wall(new Vector2(200,200),new Vector2(64,64),this));
 
     }
 
@@ -43,7 +40,6 @@ public class World {
     }
 
     public void render(float delta) {
-        debugRenderer.render(b2dWorld,);
         spriteBatch.begin();
         for (GameObject go: gameObjects) {
             go.render(delta, spriteBatch);

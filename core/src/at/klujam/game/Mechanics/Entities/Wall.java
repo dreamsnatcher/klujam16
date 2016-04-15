@@ -4,8 +4,8 @@ import at.klujam.game.Mechanics.World;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class Wall extends GameObject {
     public Wall(Vector2 position, Vector2 dimension, World world) {
@@ -20,13 +20,8 @@ public class Wall extends GameObject {
 
         b2Body = b2dWorld.createBody(bodyDef);
 
-        EdgeShape edgeShape = new EdgeShape();
-        edgeShape.set(new Vector2(0, 1), new Vector2(dimension.x, 0));
-
-        edgeShape.setVertex0(new Vector2(-dimension.x, dimension.y));
-        edgeShape.setVertex3(new Vector2(2 * dimension.x, dimension.y));
-        edgeShape.setHasVertex0(true);
-        edgeShape.setHasVertex3(true);
+        PolygonShape edgeShape =new PolygonShape();
+        edgeShape.setAsBox(dimension.x,dimension.y);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = edgeShape;
