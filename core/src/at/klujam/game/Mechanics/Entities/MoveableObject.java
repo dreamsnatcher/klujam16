@@ -14,7 +14,7 @@ public abstract class MoveableObject extends GameObject {
     Float movingTime;
 
     public MoveableObject(Vector2 position, World world) {
-        super(position, world);
+        super(position, , world);
         movement = Movement.IDLE;
         movingTime = 0f;
     }
