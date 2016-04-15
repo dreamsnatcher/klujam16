@@ -17,8 +17,8 @@ import at.klujam.game.Mechanics.World;
  * Created by Mathias Lux, mathias@juggle.at,  on 04.02.2016.
  */
 public class GameplayScreen extends ScreenAdapter {
-    private final SpriteBatch batch;
-    public final OrthographicCamera cam;
+    final SpriteBatch batch;
+    final OrthographicCamera cam;
     public Game parentGame;
 
     Texture backgroundImage;
@@ -59,17 +59,6 @@ public class GameplayScreen extends ScreenAdapter {
 
         world.update(delta);
         world.render(delta);
-
-//        batch.begin();
-//        // draw bgImage ...
-//        batch.draw(backgroundImage, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
-//        // draw Strings ...
-//        for (int i = 0; i < menuStrings.length; i++) {
-//            if (i == currentMenuItem) menuFont.setColor(0.2f, 1f, 0.2f, 1f);
-//            else menuFont.setColor(0.2f, 0.2f, 1f, 1f);
-//            menuFont.draw(batch, menuStrings[i], offsetLeft, Game.GAME_HEIGHT - offsetTop - i * offsetY);
-//        }
-//        batch.end();
     }
 
     private void handleInput() {
