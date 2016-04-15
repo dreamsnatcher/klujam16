@@ -17,8 +17,8 @@ public class Game extends ApplicationAdapter {
 
 	// gives the original size for all screen working with the scaling orthographic camera
 	// set in DesktopLauncher to any resolution and it will be scaled automatically.
-	public static final int GAME_WIDTH = 1080;
-	public static final int GAME_HEIGHT = 720;
+	public static final int GAME_WIDTH = 1920;
+	public static final int GAME_HEIGHT = 1080;
 
 
 	@Override
