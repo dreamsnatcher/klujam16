@@ -1,8 +1,7 @@
 package at.klujam.game.Mechanics.Entities;
 
-import com.badlogic.gdx.math.Vector2;
-
 import at.klujam.game.Mechanics.World;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by Veit on 07.02.2016.
@@ -13,8 +12,8 @@ public abstract class MoveableObject extends GameObject {
     Movement movement;
     Float movingTime;
 
-    public MoveableObject(Vector2 position, World world) {
-        super(position, world);
+    public MoveableObject(Vector2 position, Vector2 dimension, World world) {
+        super(position, dimension, world);
         movement = Movement.IDLE;
         movingTime = 0f;
     }
@@ -22,25 +21,23 @@ public abstract class MoveableObject extends GameObject {
     @Override
     public void update(float delta) {
         super.update(delta);
-        movingTime+=delta;
+        movingTime += delta;
     }
 
     void handleMovement(Float delta) {
-        this.position.add(direction.nor().scl(speed*delta));
-        if(!(direction.nor().scl(speed*delta).isZero())){
+        this.position.add(direction.nor().scl(speed * delta));
+        if (!(direction.nor().scl(speed * delta).isZero())) {
             changeMovementTo(Movement.MOVING);
-        }
-        else{
+        } else {
             changeMovementTo(Movement.IDLE);
         }
     }
 
-    public void changeMovementTo(Movement movement){
-        if(this.movement != movement){
+    public void changeMovementTo(Movement movement) {
+        if (this.movement != movement) {
             this.movement = movement;
             movingTime = 0f;
         }
-
     }
 
     public enum Movement {

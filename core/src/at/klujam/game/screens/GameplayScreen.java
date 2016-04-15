@@ -1,17 +1,13 @@
 package at.klujam.game.screens;
 
+import at.klujam.game.Game;
+import at.klujam.game.Mechanics.World;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector3;
-
-import at.klujam.game.Game;
-import at.klujam.game.Mechanics.World;
 
 /**
  * Created by Mathias Lux, mathias@juggle.at,  on 04.02.2016.
@@ -21,7 +17,6 @@ public class GameplayScreen extends ScreenAdapter {
     final OrthographicCamera cam;
     public Game parentGame;
     World world;
-
 
     public GameplayScreen(Game game) {
         this.parentGame = game;
@@ -37,10 +32,12 @@ public class GameplayScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+        resize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         handleInput();
         // camera:
         cam.update();
         batch.setProjectionMatrix(cam.combined);
+
         Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -55,4 +52,9 @@ public class GameplayScreen extends ScreenAdapter {
         }
     }
 
+    @Override
+    public void resize(int width, int height) {
+        cam.viewportWidth = (Game.GAME_HEIGHT / (float)height) * width; //calculate aspect ratio
+        cam.update();
+    }
 }

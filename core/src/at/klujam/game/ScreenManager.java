@@ -1,9 +1,9 @@
 package at.klujam.game;
 
+import at.klujam.game.screens.*;
 import com.badlogic.gdx.Screen;
 
 import at.klujam.game.screens.CreditsScreen;
-import at.klujam.game.screens.FightingSceneScreen;
 import at.klujam.game.screens.GameplayScreen;
 import at.klujam.game.screens.LoadingScreen;
 import at.klujam.game.screens.MenuScreen;
@@ -39,7 +39,8 @@ public class ScreenManager {
             } else if (state == ScreenState.Credits) {
                 currentScreen = new CreditsScreen(parentGame);
             } else if (state == ScreenState.Game) {
-                currentScreen = new GameplayScreen(parentGame);
+                currentScreen = new DungeonScreen(parentGame);
+                //currentScreen = new GameplayScreen(parentGame);
             } else if (state == ScreenState.Fighting) {
                 currentScreen = new FightingSceneScreen(parentGame);
             }
