@@ -39,7 +39,6 @@ public class SoundManager {
         event2music.put("song1", "music/song1.mp3");
         event2music.put("song2", "music/song2.mp3");
 
-        event2speech = new HashMap<String, String>(20);
         //event2speech.put("song1", "music/blip.wav");
         //event2speech.put("song2", "music/explosion.wav");
     }
@@ -62,6 +61,7 @@ public class SoundManager {
         if (event2speech.get(speech) != null) {
             parentGame.getAssMan().get(event2speech.get(speech), Sound.class).play();
         } else {
+            System.out.println(speech);
             System.err.println("Speech unknown.");
         }
     }
