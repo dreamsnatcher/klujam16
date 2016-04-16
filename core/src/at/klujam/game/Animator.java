@@ -1,6 +1,5 @@
 package at.klujam.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -27,7 +26,7 @@ public class Animator {
 
         for (int i = 0; i < frames; i++) {
 
-            Texture tex = game.getAssetManager().get(path + (i + 1) + ".png");
+            Texture tex = game.getAssMan().get(path + (i + 1) + ".png");
             tex.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             regions[i] = new TextureRegion(tex);
         }
@@ -43,7 +42,7 @@ public class Animator {
      * @return
      */
     public Animation loadAnimation(String filename, float frameDuration,int width, int height) {
-        Texture tex = game.getAssetManager().get(filename);
+        Texture tex = game.getAssMan().get(filename);
         int h = tex.getHeight()/height;
         int w = tex.getWidth()/width;
 

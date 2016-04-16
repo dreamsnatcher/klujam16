@@ -39,7 +39,7 @@ public class SkeletonControlledObject extends MoveableObject {
                 .loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
         this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator()
                 .loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
-//        this.texture = world.gameplayScreen.parentGame.getAssetManager().get("gameplay/spritesheet.png");
+//        this.texture = world.gameplayScreen.parentGame.getAssMan().get("gameplay/spritesheet.png");
 //        for (int i = 0; i<3; i++){
 //            for (int j = 0; j<4; j++){
 //                regions[i+(j*3)]= new TextureRegion(texture, i*46, j*64, 46, 64);

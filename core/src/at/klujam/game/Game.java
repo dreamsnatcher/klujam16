@@ -87,7 +87,7 @@ public class Game extends ApplicationAdapter {
 		screenManager.getCurrentScreen().render(Gdx.graphics.getDeltaTime());
 	}
 
-	public AssetManager getAssetManager() {
+	public AssetManager getAssMan() {
 		return assMan;
 	}
 

@@ -28,13 +28,13 @@ public class F_Enemy extends F_Entity {
 
         switch (type){
             case Bitch:
-                this.texture = world.fightingSceneScreen.parentGame.getAssetManager().get("gameplay/bitch_butterfly.png");
+                this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/bitch_butterfly.png");
                 break;
             case UNICORN:
-                this.texture = world.fightingSceneScreen.parentGame.getAssetManager().get("gameplay/unicorn.png");
+                this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/unicorn.png");
                 break;
             case PIXIE:
-                this.texture = world.fightingSceneScreen.parentGame.getAssetManager().get("gameplay/pixie_pixelated.png");
+                this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/pixie_pixelated.png");
                 break;
         }
     }

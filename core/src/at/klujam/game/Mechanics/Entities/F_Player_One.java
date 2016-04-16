@@ -16,6 +16,6 @@ public class F_Player_One extends F_Entity{
         this.abilities.add(new Attack("Insult1",world,this));
         this.abilities.add(new Attack("Charm",world,this));
 
-        this.texture = world.fightingSceneScreen.parentGame.getAssetManager().get("gameplay/goblin_1.png");
+        this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/goblin_1.png");
     }
 }
