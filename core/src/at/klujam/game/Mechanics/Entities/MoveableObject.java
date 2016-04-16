@@ -1,6 +1,5 @@
 package at.klujam.game.Mechanics.Entities;
 
-import at.klujam.game.Mechanics.World;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -12,8 +11,8 @@ public abstract class MoveableObject extends GameObject {
     Movement movement;
     Float movingTime;
 
-    public MoveableObject(Vector2 position, Vector2 dimension, World world) {
-        super(position, dimension, world);
+    public MoveableObject(Vector2 position, Vector2 dimension) {
+        super(position, dimension);
         movement = Movement.IDLE;
         movingTime = 0f;
     }

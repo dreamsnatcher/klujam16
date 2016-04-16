@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 public class Wall extends GameObject {
 
     public Wall(Vector2 position, Vector2 dimension, World world) {
-        super(position, dimension, world);
+        super(position, dimension);
         initPhysics(world.b2dWorld);
     }
 

@@ -17,16 +17,14 @@ public abstract class GameObject {
 
     Vector2 position;
     Rectangle bounds;
-    World world;
     Texture texture;
     Array<State> states;
     Body b2Body;
     Vector2 dimension;
 
-    public GameObject(Vector2 position, Vector2 dimension, World world) {
+    public GameObject(Vector2 position, Vector2 dimension) {
         this.position = position;
         this.dimension = dimension;
-        this.world = world;
         states = new Array<State>();
     }
 

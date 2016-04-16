@@ -24,7 +24,7 @@ public class SkeletonControlledObject extends MoveableObject {
     private TextureRegion frame;
 
     public SkeletonControlledObject(Vector2 position, Vector2 dimension, World world) {
-        super(position,dimension, world);
+        super(position, dimension);
 
         this.speed = 10f;
         this.idleAnimation = world.gameplayScreen.parentGame.getAnimator()
@@ -134,7 +134,7 @@ public class SkeletonControlledObject extends MoveableObject {
             default:
                 frame = idleAnimation.getKeyFrame(movingTime, true);
         }
-        spriteBatch.draw(frame, position.x-dimension.x/2f, position.y-dimension.y/2f);
+        spriteBatch.draw(frame, position.x - dimension.x / 2f, position.y - dimension.y / 2f);
     }
 
     public void touch(Vector3 touchCoordinates) {

@@ -31,7 +31,7 @@ public class World {
         //Add SkeletonControlledObject
         player = new DPlayerOne(new Vector2(0f, 0f), new Vector2(10, 10), this);
         gameObjects.add(player);
-        gameObjects.add(new Wall(new Vector2(20,20),new Vector2(6.4f,6.4f),this));
+        gameObjects.add(new Wall(new Vector2(20, 20), new Vector2(6.4f, 6.4f), this));
 
     }
 
@@ -48,6 +48,10 @@ public class World {
             go.render(delta, spriteBatch);
         }
         spriteBatch.end();
+    }
+
+    public void addGameObject(GameObject object) {
+        this.gameObjects.add(object);
     }
 
     public void touch(Vector3 touchCoords) {

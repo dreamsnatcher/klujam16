@@ -21,13 +21,13 @@ public class GameplayScreen extends ScreenAdapter {
     public GameplayScreen(Game game) {
         this.parentGame = game;
         this.world = new World(this);
+        batch = new SpriteBatch();
+
         // Create camera that projects the game onto the actual screen size.
         cam = new OrthographicCamera(Game.GAME_WIDTH, Game.GAME_HEIGHT);
-
         cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
         cam.update();
 
-        batch = new SpriteBatch();
     }
 
     @Override
