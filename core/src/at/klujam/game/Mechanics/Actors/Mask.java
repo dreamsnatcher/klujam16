@@ -19,7 +19,7 @@ public class Mask extends Actor {
         this.position = position;
         this.dimension = dimension;
         this.fightWorld = fightWorld;
-        texture = fightWorld.fightingSceneScreen.parentGame.getAssetManager().get("gameplay/floor.png");
+        texture = fightWorld.fightingSceneScreen.parentGame.getAssMan().get("gameplay/floor.png");
     }
 
     @Override

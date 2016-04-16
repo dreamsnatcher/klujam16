@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,14 +35,16 @@ public abstract class F_Entity{
     Array<F_State> states;
     public int armor;
     protected F_Entity forcedEntity;
+    private Font numberFont;
 
 
     public F_Entity(Vector2 position, FightWorld world) {
         this.position = position;
         this.world = world;
         states = new Array<F_State>();
-        selector1Textur = world.fightingSceneScreen.parentGame.getAssetManager().get("gameplay/selected1.png");
-        selector2Textur = world.fightingSceneScreen.parentGame.getAssetManager().get("gameplay/selected2.png");
+        selector1Textur = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/selected1.png");
+        selector2Textur = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/selected2.png");
+        numberFont = world.fightingSceneScreen.parentGame.getAssMan().get("fonts/celtic.fnt");
     }
 
     public void removeState(F_State state){
