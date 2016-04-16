@@ -1,6 +1,7 @@
 package at.klujam.game.util;
 
 import at.klujam.game.Mechanics.Entities.DPlayerOne;
+import at.klujam.game.Mechanics.Entities.DPlayerTwo;
 import at.klujam.game.Mechanics.Entities.Wall;
 import at.klujam.game.Mechanics.World;
 import com.badlogic.gdx.maps.MapObjects;
@@ -22,6 +23,8 @@ public final class GameObjects {
 //        MapProperties goalProps = objects.get("goal").getProperties();
         DPlayerOne player = new DPlayerOne(new Vector2(playerProps.get("x", Float.class), playerProps.get("y", Float.class)), new Vector2(1, 1), world);
         world.setPlayer(player);
+        DPlayerTwo playerTwo = new DPlayerTwo(new Vector2(player.position).add(0, -50), new Vector2(1,1), world);
+        world.setPlayerTwo(playerTwo);
 //        Goal goal = new Goal(new Vector2(goalProps.get("x", Float.class) / TILE_SIZE, goalProps.get("y", Float.class)  / TILE_SIZE));
 //        entities.add(goal);
 

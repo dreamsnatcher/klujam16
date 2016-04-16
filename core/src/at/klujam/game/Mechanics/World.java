@@ -1,13 +1,11 @@
 package at.klujam.game.Mechanics;
 
 import at.klujam.game.Mechanics.Entities.DPlayerOne;
+import at.klujam.game.Mechanics.Entities.DPlayerTwo;
 import at.klujam.game.Mechanics.Entities.GameObject;
-import at.klujam.game.Mechanics.Entities.SkeletonControlledObject;
 import at.klujam.game.screens.GameplayScreen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
@@ -23,6 +21,7 @@ public class World {
     public Array<GameObject> gameObjects;
     public GameplayScreen gameplayScreen;
     public DPlayerOne player;
+    public DPlayerTwo playerTwo;
 
     public World(GameplayScreen gameplayScreen) {
         this.gameplayScreen = gameplayScreen;
@@ -31,6 +30,7 @@ public class World {
 
     public void update(float delta) {
         player.update(delta);
+        playerTwo.update(delta);
         for (GameObject go : gameObjects) {
             go.update(delta);
         }
@@ -39,6 +39,7 @@ public class World {
     public void render(float delta, SpriteBatch batch) {
         batch.begin();
         player.render(delta, batch);
+        playerTwo.render(delta, batch);
         for (GameObject go : gameObjects) {
             go.render(delta, batch);
         }
@@ -55,5 +56,10 @@ public class World {
 
     public void setPlayer(DPlayerOne player) {
         this.player = player;
+    }
+
+
+    public void setPlayerTwo(DPlayerTwo playerTwo) {
+        this.playerTwo = playerTwo;
     }
 }
