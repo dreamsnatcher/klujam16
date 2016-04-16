@@ -2,7 +2,8 @@ package at.klujam.game.util;
 
 import at.klujam.game.Mechanics.Entities.DPlayerOne;
 import at.klujam.game.Mechanics.Entities.DPlayerTwo;
-import at.klujam.game.Mechanics.Entities.Wall;
+import at.klujam.game.Mechanics.Entities.Tooth1;
+import at.klujam.game.Mechanics.Entities.Tooth2;
 import at.klujam.game.Mechanics.World;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
@@ -23,7 +24,7 @@ public final class GameObjects {
 //        MapProperties goalProps = objects.get("goal").getProperties();
         DPlayerOne player = new DPlayerOne(new Vector2(playerProps.get("x", Float.class), playerProps.get("y", Float.class)), new Vector2(1, 1), world);
         world.setPlayer(player);
-        DPlayerTwo playerTwo = new DPlayerTwo(new Vector2(player.position).add(0, -50), new Vector2(1,1), world);
+        DPlayerTwo playerTwo = new DPlayerTwo(new Vector2(player.position).add(0, -50), new Vector2(1, 1), world);
         world.setPlayerTwo(playerTwo);
 //        Goal goal = new Goal(new Vector2(goalProps.get("x", Float.class) / TILE_SIZE, goalProps.get("y", Float.class)  / TILE_SIZE));
 //        entities.add(goal);
@@ -41,61 +42,17 @@ public final class GameObjects {
         }
 
         // create objects
-//        for (int i = 0; i < objects.getCount(); i++) {
-//            MapProperties object = objects.get(i).getProperties();
-//            String type = object.get("type", String.class);
-//            if (type.equals("enemy1")) {
-//                Enemy enemy = new Enemy(object.get("x", Float.class), object.get("y", Float.class));
-//                enemy.position.scl(unitScale);
-//                entities.add(enemy);
-//                enemies.add(enemy);
-//            } else if (type.equals("enemy2")) {
-//                Enemy enemy = new Enemy2(object.get("x", Float.class), object.get("y", Float.class));
-//                enemy.position.scl(unitScale);
-//                entities.add(enemy);
-//                enemies.add(enemy);
-//            } else if (type.equals("pille")) {
-//                Pill pill = new Pill(object.get("x", Float.class), object.get("y", Float.class));
-//                pill.position.scl(unitScale);
-//                pill.bounds.x /= Constants.TILE_SIZE;
-//                pill.bounds.y /= Constants.TILE_SIZE;
-//                entities.add(pill);
-//            } else if (type.equals("axe")) {
-//                Axe axe = new Axe(object.get("x", Float.class), object.get("y", Float.class));
-//                axe.position.scl(1f / TILE_SIZE);
-//                axe.bounds.x /= TILE_SIZE;
-//                axe.bounds.y /= TILE_SIZE;
-//                entities.add(axe);
-//            } else if (type.equals("switch")) {
-//                Switch doorswitch = new Switch(object.get("x", Float.class), object.get("y", Float.class));
-//                doorswitch.position.scl(1f / TILE_SIZE);
-//                doorswitch.name = object.get("name", String.class);
-//                entities.add(doorswitch);
-//            } else if (type.equals("door_h")) {
-//                Door door = new Door(object.get("x", Float.class), object.get("y", Float.class));
-//                door.switchname = object.get("switch", String.class);
-//                door.position.scl(1f / TILE_SIZE);
-//                door.position.x = (float) Math.floor(door.position.x + 0.5f);
-//                door.position.y = (float) Math.floor(door.position.y + 0.5f);
-//                door.bounds.x = door.position.x;
-//                door.bounds.y = door.position.y;
-//                door.bounds.width = 1;
-//                door.bounds.height = 2;
-//                entities.add(door);
-//                walls[(int) door.position.x][(int) door.position.y] = new Rectangle(door.position.x, door.position.y, 1, 1);
-//            }
-//            if (type.equals("door_v")) {
-//                DoorVertical door = new DoorVertical(object.get("x", Float.class), object.get("y", Float.class));
-//                door.position.scl(1f / TILE_SIZE);
-//                door.position.x = (float) Math.floor(door.position.x + 0.5f);
-//                door.position.y = (float) Math.floor(door.position.y + 0.5f);
-//                door.bounds.x = door.position.x;
-//                door.bounds.y = door.position.y;
-//                door.bounds.width = 1;
-//                door.bounds.height = 1;
-//                entities.add(door);
-//                walls[(int) door.position.x][(int) door.position.y] = new Rectangle(door.position.x, door.position.y, 1, 1);
-//            }
-//        }
+        MapProperties object;
+        for (int i = 0; i < objects.getCount(); i++) {
+            object = objects.get(i).getProperties();
+            String type = object.get("type", String.class);
+            if (type.equals("tooth1")) {
+                Tooth1 tooth1 = new Tooth1(new Vector2(object.get("x", Float.class), object.get("y", Float.class)), new Vector2(1, 1), world);
+                world.addGameObject(tooth1);
+            } else if (type.equals("tooth2")) {
+                Tooth2 tooth2 = new Tooth2(new Vector2(object.get("x", Float.class), object.get("y", Float.class)), new Vector2(1, 1), world);
+                world.addGameObject(tooth2);
+            }
+        }
     }
 }

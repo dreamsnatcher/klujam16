@@ -103,6 +103,7 @@ public class GameplayScreen extends ScreenAdapter {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             System.out.println("ESCAPE PRESSED");
             parentGame.getSoundManager().playEvent("blip");
+            Gdx.app.exit();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
             cam.zoom += 0.02;
