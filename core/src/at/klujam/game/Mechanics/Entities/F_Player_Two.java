@@ -14,6 +14,7 @@ public class F_Player_Two extends F_Entity{
         this.abilities.add(new Attack("Attack",world,this));
         this.abilities.add(new Attack("Charm",world,this));
         this.abilities.add(new Attack("Insult",world,this));
+        this.abilities.add(new Attack("DoStuff",world,this));
         this.texture = world.fightingSceneScreen.parentGame.getAssetManager().get("gameplay/goblin_2.png");
     }
 }

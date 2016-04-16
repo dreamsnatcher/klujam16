@@ -1,6 +1,8 @@
 package at.klujam.game.screens;
 
 import at.klujam.game.Game;
+import at.klujam.game.Mechanics.Entities.F_Enemy;
+import at.klujam.game.Mechanics.Entities.F_Entity;
 import at.klujam.game.Mechanics.FightWorld;
 import at.klujam.game.Mechanics.Fighting.F_Ability;
 import com.badlogic.gdx.Gdx;
@@ -9,6 +11,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -17,14 +20,25 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
+import java.util.ArrayList;
+
 /**
  * Created by Veit on 15.04.2016.
  */
 public class FightingSceneScreen extends GameplayScreen {
 
+    private static final int SELECT_ABILITY = 0;
+    private static final int SELECT_ENEMY = 1;
     private final InputMultiplexer multiplexer;
     private final TextButton playerOneAbilities;
+    private final TextButton playerTwoAbilities;
+    private final ArrayList<F_Enemy> enemies;
+    private final TextButton.TextButtonStyle buttonStyleSelected;
+    private final TextButton.TextButtonStyle buttonStyle;
     TextButton playerOneBackButton;
+    int statePlayerOne = SELECT_ABILITY;
+    int statePlayerTwo = SELECT_ABILITY;
+    TextButton playerTwoBackButton;
     Skin buttonSkins;
     BitmapFont font;
     FightWorld fightingWorld;
@@ -38,8 +52,17 @@ public class FightingSceneScreen extends GameplayScreen {
 
 
     Array<TextButton> playerOneAbilitiesButtonGroup = new Array<TextButton>();
+    Array<TextButton> playerTwoAbilitiesButtonGroup = new Array<TextButton>();
     Array<TextButton> playerOneBaseButtonGroup= new Array<TextButton>();
+    Array<TextButton> playerTwoBaseButtonGroup= new Array<TextButton>();
     Array<TextButton> allButtonsPlayerOne = new Array<TextButton>();
+    Array<TextButton> allButtonsPlayerTwo = new Array<TextButton>();
+    private int button_selected_p1;
+    private Array<TextButton> currentButtonsPlayerOne;
+    private Array<TextButton> currentButtonsPlayerTwo;
+    private int button_selected_p2 = 0;
+    private int currentEnemyPlayerOne = -1;
+    private int currentEnemyPlayerTwo = -1;
 
 
     public FightingSceneScreen(Game game) {
@@ -52,10 +75,16 @@ public class FightingSceneScreen extends GameplayScreen {
         font = parentGame.getAssetManager().get("menu/Ravie_42.fnt");
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
-        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle();
+        buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = buttonSkins.getDrawable("button_UP");
         buttonStyle.down = buttonSkins.getDrawable("button_DOWN");
         buttonStyle.font = font;
+
+
+        buttonStyleSelected = new TextButton.TextButtonStyle();
+        buttonStyleSelected.up = buttonSkins.getDrawable("button_DOWN");
+        buttonStyleSelected.down = buttonSkins.getDrawable("button_DOWN");
+        buttonStyleSelected.font = font;
 
 
         playerOneAbilities = new TextButton("Abilities", buttonStyle);
@@ -67,7 +96,7 @@ public class FightingSceneScreen extends GameplayScreen {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                setButtonGroup(playerOneAbilitiesButtonGroup);
+                setButtonGroupPlayerOne(playerOneAbilitiesButtonGroup, FightingSceneScreen.this.allButtonsPlayerOne);
             }
         });
         allButtonsPlayerOne.add(playerOneAbilities);
@@ -85,16 +114,12 @@ public class FightingSceneScreen extends GameplayScreen {
 
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                    System.out.println("Button pressed"); //TODO
                     ability.useOn(null);
                 }
             });
             int i = count % 2;
             if(i==0) i= 1;
             textButton.setPosition(i *spaceBetweenButtonsH + (count%2) * (buttonWidth+ spaceBetweenButtonsH), (((count/2)+2) * spaceBetweenButtonsV)+ ((count/2)+1) *buttonHeigth);
-            System.out.println(ability.name);
-            System.out.println(textButton.getX());
-            System.out.println(textButton.getY());
             stage.addActor(textButton);
             playerOneAbilitiesButtonGroup.add(textButton);
             allButtonsPlayerOne.add(textButton);
@@ -102,40 +127,143 @@ public class FightingSceneScreen extends GameplayScreen {
         }
 
 
-        playerOneBackButton = new TextButton("Back", buttonStyle);
-        playerOneBackButton.addListener(new InputListener() {
+//        playerOneBackButton = new TextButton("Back", buttonStyle);
+//        playerOneBackButton.addListener(new InputListener() {
+//            @Override
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                return true;
+//            }
+//
+//            @Override
+//            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+//                setButtonGroupPlayerOne(playerOneBaseButtonGroup, allButtonsPlayerOne);
+//            }
+//        });
+//        playerOneAbilitiesButtonGroup.add(playerOneBackButton);
+//        allButtonsPlayerOne.add(playerOneBackButton);
+//        playerOneBackButton.setPosition(2*spaceBetweenButtonsH + buttonWidth, spaceBetweenButtonsV);
+
+
+        setButtonGroupPlayerOne(playerOneBaseButtonGroup, allButtonsPlayerOne);
+
+        for (TextButton button: allButtonsPlayerOne){
+            stage.addActor(button);
+        }
+
+        //////////////////////////////////////player 2
+        int xOffsetPlayerTwo = 800;
+
+        playerTwoAbilities = new TextButton("Abilities", buttonStyle);
+        playerTwoAbilities.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
-                setButtonGroup(playerOneBaseButtonGroup);
                 return true;
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button pressed"); //TODO
+                setButtonGroupPlayerTwo(playerTwoAbilitiesButtonGroup, FightingSceneScreen.this.allButtonsPlayerTwo);
             }
         });
-        playerOneAbilitiesButtonGroup.add(playerOneBackButton);
-        allButtonsPlayerOne.add(playerOneBackButton);
-        playerOneBackButton.setPosition(2*spaceBetweenButtonsH + buttonWidth, spaceBetweenButtonsV);
+        allButtonsPlayerTwo.add(playerTwoAbilities);
+        playerTwoBaseButtonGroup.add(playerTwoAbilities);
+        playerTwoAbilities.setPosition(xOffsetPlayerTwo+spaceBetweenButtonsH, 3 * spaceBetweenButtonsV + 2 * buttonHeigth);
+
+        count = 0;
+        for (final F_Ability ability:fightingWorld.playerTwo.abilities) {
+            TextButton textButton = new TextButton(ability.name, buttonStyle);
+            textButton.addListener(new InputListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    return true;
+                }
+
+                @Override
+                public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                    ability.useOn(null);
+                }
+            });
+            int i = count % 2;
+            if(i==0) i= 1;
+            textButton.setPosition(xOffsetPlayerTwo + (i *spaceBetweenButtonsH + (count%2) * (buttonWidth+ spaceBetweenButtonsH)), (((count/2)+2) * spaceBetweenButtonsV)+ ((count/2)+1) *buttonHeigth);
+            System.out.println(ability.name);
+            System.out.println(textButton.getX());
+            System.out.println(textButton.getY());
+            stage.addActor(textButton);
+            playerTwoAbilitiesButtonGroup.add(textButton);
+            allButtonsPlayerTwo.add(textButton);
+            count++;
+        }
 
 
-        setButtonGroup(playerOneBaseButtonGroup);
+//        playerTwoBackButton = new TextButton("Back", buttonStyle);
+//        playerTwoBackButton.addListener(new InputListener() {
+//            @Override
+//            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//
+//                return true;
+//            }
+//
+//            @Override
+//            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+//                System.out.println("Button pressed"); //TODO
+//                setButtonGroupPlayerTwo(playerTwoBaseButtonGroup, FightingSceneScreen.this.allButtonsPlayerTwo);
+//
+//            }
+//
+//        });
+//        playerTwoAbilitiesButtonGroup.add(playerTwoBackButton);
+//        allButtonsPlayerTwo.add(playerTwoBackButton);
+//        playerTwoBackButton.setPosition(xOffsetPlayerTwo + (2*spaceBetweenButtonsH + buttonWidth), spaceBetweenButtonsV);
 
-        for (TextButton button: allButtonsPlayerOne){
+
+        setButtonGroupPlayerTwo(playerTwoBaseButtonGroup, allButtonsPlayerTwo);
+
+        for (TextButton button: allButtonsPlayerTwo){
             stage.addActor(button);
         }
+        /////
+
+
+        /////////////////////////////////////////////////////////////////////////enemies
+
+        enemies = new ArrayList<F_Enemy>();
+        enemies.add(new F_Enemy(new Vector2(700,400),fightingWorld, F_Enemy.Bitch));
+        enemies.add(new F_Enemy(new Vector2(800,400),fightingWorld,F_Enemy.PIXIE));
+        enemies.add(new F_Enemy(new Vector2(900,400),fightingWorld,F_Enemy.UNICORN));
+        for (F_Entity f : enemies) {
+            fightingWorld.f_entities.add(f);
+        }
+
+
         multiplexer = new InputMultiplexer();
         Gdx.input.setInputProcessor(multiplexer);
         multiplexer.addProcessor(stage);
     }
 
-    private void setButtonGroup(Array<TextButton> buttonGroup) {
-        for (TextButton button: allButtonsPlayerOne){
+    private void setButtonGroupPlayerOne(Array<TextButton> buttonGroup, Array<TextButton> textButtons) {
+        currentButtonsPlayerOne = buttonGroup;
+        for (TextButton button: textButtons){
             button.setVisible(false);
             button.setDisabled(false);
         }
+
+        for (TextButton button: buttonGroup){
+            button.setVisible(true);
+            button.setDisabled(true);
+        }
+
+    }
+
+
+
+    private void setButtonGroupPlayerTwo(Array<TextButton> buttonGroup, Array<TextButton> textButtons) {
+        currentButtonsPlayerTwo = buttonGroup;
+        for (TextButton button: textButtons){
+            button.setVisible(false);
+            button.setDisabled(false);
+        }
+
         for (TextButton button: buttonGroup){
             button.setVisible(true);
             button.setDisabled(true);
@@ -164,6 +292,122 @@ public class FightingSceneScreen extends GameplayScreen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             System.out.println("ESCAPE PRESSED");
             parentGame.getSoundManager().playEvent("blip");
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.D)){
+            PlayerOneSelectNextButton();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.A)){
+            PlayerOneSelectPreviousButton();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
+            PlayerTwoSelectNextButton();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
+            PlayerTwoSelectPreviousButton();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+            PlayerOneEnter();
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+            PlayerTwoEnter();
+        }
+
+        if(currentEnemyPlayerOne>=0) {
+            SelectForPlayerOne(enemies.get(currentEnemyPlayerOne));
+        }
+        if(currentEnemyPlayerTwo>=0) {
+
+            SelectForPlayerTwo(enemies.get(currentEnemyPlayerTwo));
+        }
+    }
+
+    private void SelectForPlayerTwo(F_Enemy f_enemy) {
+        for (F_Enemy enemy:enemies         ) {
+            enemy.SelectPlayerTwo(false);
+        }
+        f_enemy.SelectPlayerTwo(true);
+    }
+
+    private void SelectForPlayerOne(F_Enemy f_enemy) {
+        for (F_Enemy enemy:enemies         ) {
+            enemy.SelectPlayerOne(false);
+        }
+        f_enemy.SelectPlayerOne(true);
+    }
+
+    private void PlayerTwoEnter() {
+        if(statePlayerTwo == SELECT_ABILITY) {
+            InputEvent event = new InputEvent();
+            event.setType(InputEvent.Type.touchUp);
+            currentButtonsPlayerTwo.get(button_selected_p2).fire(event);
+            statePlayerTwo = SELECT_ENEMY;
+            currentEnemyPlayerTwo = 0;
+        }else{
+            statePlayerTwo = SELECT_ABILITY;
+        }
+    }
+
+    private void PlayerOneEnter() {
+        if(statePlayerOne == SELECT_ABILITY) {
+            InputEvent event = new InputEvent();
+            event.setType(InputEvent.Type.touchUp);
+            currentButtonsPlayerOne.get(button_selected_p1).fire(event);
+            statePlayerOne = SELECT_ENEMY;
+            currentEnemyPlayerOne = 0;
+
+        }else{
+            statePlayerOne = SELECT_ABILITY;
+
+        }
+    }
+
+    private void PlayerTwoSelectPreviousButton() {
+        if(statePlayerTwo == SELECT_ABILITY) {
+            currentButtonsPlayerTwo.get(button_selected_p2 % currentButtonsPlayerTwo.size).setStyle(buttonStyle);
+            button_selected_p2--;
+            if (button_selected_p2 < 0) {
+                button_selected_p2 = currentButtonsPlayerTwo.size - 1;
+            }
+            currentButtonsPlayerTwo.get(button_selected_p2 % currentButtonsPlayerTwo.size).setStyle(buttonStyleSelected);
+        }else{
+            currentEnemyPlayerTwo = currentEnemyPlayerTwo-- <= 0 ?enemies.size()-1:currentEnemyPlayerTwo--;
+        }
+    }
+
+    private void PlayerTwoSelectNextButton() {
+        if(statePlayerTwo == SELECT_ABILITY) {
+            currentButtonsPlayerTwo.get(button_selected_p2 % currentButtonsPlayerTwo.size).setStyle(buttonStyle);
+            button_selected_p2++;
+            button_selected_p2 = button_selected_p2 % currentButtonsPlayerTwo.size;
+            currentButtonsPlayerTwo.get(button_selected_p2 % currentButtonsPlayerTwo.size).setStyle(buttonStyleSelected);
+        }else{
+            currentEnemyPlayerTwo = (currentEnemyPlayerTwo+1) % enemies.size();
+        }
+    }
+
+
+    private void PlayerOneSelectPreviousButton() {
+        if(statePlayerOne == SELECT_ABILITY) {
+            currentButtonsPlayerOne.get(button_selected_p1 % currentButtonsPlayerOne.size).setStyle(buttonStyle);
+            button_selected_p1--;
+            if (button_selected_p1 < 0) {
+                button_selected_p1 = currentButtonsPlayerOne.size - 1;
+            }
+            currentButtonsPlayerOne.get(button_selected_p1 % currentButtonsPlayerOne.size).setStyle(buttonStyleSelected);
+        }else{
+            currentEnemyPlayerOne = currentEnemyPlayerOne--<=0?enemies.size()-1:currentEnemyPlayerOne--;
+        }
+    }
+
+    private void PlayerOneSelectNextButton() {
+        if(statePlayerOne == SELECT_ABILITY) {
+            currentButtonsPlayerOne.get(button_selected_p1 % currentButtonsPlayerOne.size).setStyle(buttonStyle);
+            button_selected_p1++;
+            currentButtonsPlayerOne.get(button_selected_p1 % currentButtonsPlayerOne.size).setStyle(buttonStyleSelected);
+            button_selected_p1 = button_selected_p1 % currentButtonsPlayerOne.size;
+        }else{
+            currentEnemyPlayerOne = (currentEnemyPlayerOne+1) % enemies.size();
         }
     }
 }
