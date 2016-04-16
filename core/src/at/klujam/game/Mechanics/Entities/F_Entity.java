@@ -20,6 +20,7 @@ import java.util.List;
  */
 public abstract class F_Entity{
 
+    public static final Color NOT_GREEN = new Color(11, 110, 29, 1);
     protected Animation animation;
     private final GlyphLayout glyphLayout;
     public int hitpoints = 100;
@@ -106,9 +107,9 @@ public abstract class F_Entity{
             spriteBatch.draw(selector2Textur, position.x + texture.getWidth()/2 - 9, position.y + texture.getHeight());
         }
         if(hitpoints < 10){
-            numberFont.setColor(Color.RED);
+            numberFont.setColor(Color.GOLD);
         }else{
-            numberFont.setColor(Color.GREEN);
+            numberFont.setColor(Color.RED);
         }
 
         float sumWidth = 0;
@@ -131,10 +132,10 @@ public abstract class F_Entity{
 
         numberFont.draw(spriteBatch,hitPoints,position.x + (texture.getWidth()/2f) - sumWidth/2f ,position.y - numberFont.getXHeight() +10);
 
-        numberFont.setColor(Color.BLUE);
+        numberFont.setColor(Color.GOLDENROD);
         numberFont.draw(spriteBatch, armorString,position.x + (texture.getWidth()/2f) -sumWidth/2f +apOffset,position.y - numberFont.getXHeight() +10);
 
-        numberFont.setColor(Color.RED);
+        numberFont.setColor(NOT_GREEN);
         numberFont.draw(spriteBatch, attack,position.x + (texture.getWidth()/2f) - sumWidth/2f + atOffset,position.y - numberFont.getXHeight() +10);
 
 

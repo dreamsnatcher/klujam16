@@ -265,7 +265,7 @@ public class FightingSceneScreen extends GameplayScreen {
         entities = new ArrayList<F_Entity>();
         entities.add(fightingWorld.playerOne);
         entities.add(fightingWorld.playerTwo);
-        float heightOpponents = (Gdx.graphics.getHeight() / 3f*2);
+        float heightOpponents = ((Gdx.graphics.getHeight() / 10f)*8);
         entities.add(new F_Enemy(new Vector2(Gdx.graphics.getWidth()/10f*2, heightOpponents),fightingWorld, F_Enemy.Bitch));
         entities.add(new F_Enemy(new Vector2(Gdx.graphics.getWidth()/10*5, heightOpponents),fightingWorld,F_Enemy.PIXIE));
         entities.add(new F_Enemy(new Vector2(Gdx.graphics.getWidth()/10*8, heightOpponents),fightingWorld,F_Enemy.UNICORN));

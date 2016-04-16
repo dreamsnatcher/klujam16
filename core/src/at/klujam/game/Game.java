@@ -154,6 +154,7 @@ public class Game extends ApplicationAdapter {
 
 		assMan.load("graphics/wallbg.png", Texture.class);
 		assMan.load("graphics/room.png", Texture.class);
+		assMan.load("graphics/paper.png", Texture.class);
 
 		//assMan.load("fonts/font.fnt", BitmapFont.class);
 	}

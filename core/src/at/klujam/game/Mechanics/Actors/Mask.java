@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Mask extends F_Entity{
     public static final int ROOM = 0;
-    public static final int CARPET = 0;
+    public static final int CARPET = 1;
     private final Texture texture;
     private final Vector2 position;
     private final Vector2 dimension;
