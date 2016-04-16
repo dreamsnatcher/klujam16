@@ -97,8 +97,8 @@ public class FightingSceneScreen extends GameplayScreen {
         buttonStyleSelected.font = font;
         buttonStyleSelected.fontColor = Color.CYAN;
 
-        full_mask = new Mask(new Vector2(0,Game.GAME_HEIGHT/4f),new Vector2(Game.GAME_WIDTH,(Game.GAME_HEIGHT/4f)*2),fightingWorld);
-        lower_mask = new Mask(new Vector2(0,0),new Vector2(Game.GAME_WIDTH,Game.GAME_HEIGHT/4f),fightingWorld);
+        full_mask = new Mask(new Vector2(0,Game.GAME_HEIGHT/4f),new Vector2(Game.GAME_WIDTH/1.5f,(Game.GAME_HEIGHT/4f)*2),fightingWorld,Mask.ROOM);
+        lower_mask = new Mask(new Vector2(0,0),new Vector2(Game.GAME_WIDTH,Game.GAME_HEIGHT/4f),fightingWorld,Mask.CARPET);
 
         fightingWorld.playerOne = new F_Player_One(new Vector2((Game.GAME_WIDTH/15f), Game.GAME_HEIGHT/4f), fightingWorld);
         fightingWorld.playerTwo = new F_Player_Two(new Vector2((Game.GAME_WIDTH/10f)*4, Game.GAME_HEIGHT/4f), fightingWorld);
