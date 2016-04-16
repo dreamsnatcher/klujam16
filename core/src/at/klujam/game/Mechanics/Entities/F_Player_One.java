@@ -15,10 +15,10 @@ public class F_Player_One extends F_Entity{
     public F_Player_One(Vector2 position, FightWorld world) {
         super(position, world);
         baseDamage = 10;
-        this.abilities.add(new Attack("Attack",world,this));
+        this.abilities.add(new Attack("Bitchslap",world,this));
         this.abilities.add(new Insult("Insult",world,this));
-        this.abilities.add(new Heal("Heal",world,this));
-        this.abilities.add(new HeavyAttack("HeavyAttack",world,this));
+        this.abilities.add(new Heal("Wololo!",world,this));
+        this.abilities.add(new HeavyAttack("Mega Bitchslap",world,this));
 
         this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/goblin_1.png");
     }
