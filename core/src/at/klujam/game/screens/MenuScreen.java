@@ -3,6 +3,7 @@ package at.klujam.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -24,7 +25,7 @@ public class MenuScreen extends ScreenAdapter {
     Texture backgroundImage;
     BitmapFont menuFont;
 
-    String[] menuStrings = {"Play", "Credits", "Exit"};
+    String[] menuStrings = {"Enter Dungeon", "Hall of Creators", "Filthy Peasant!"};
     int currentMenuItem = 0;
 
     float offsetLeft = Game.GAME_WIDTH / 8, offsetTop = Game.GAME_WIDTH / 8, offsetY = Game.GAME_HEIGHT / 8;
@@ -34,7 +35,7 @@ public class MenuScreen extends ScreenAdapter {
         this.parentGame = game;
 
         backgroundImage = parentGame.getAssMan().get("menu/menu_background.jpg");
-        menuFont = parentGame.getAssMan().get("menu/Ravie_72.fnt");
+        menuFont = parentGame.getAssMan().get("fonts/celtic.fnt");
         menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         // Create camera that projects the game onto the actual screen size.
         cam = new OrthographicCamera(Game.GAME_WIDTH, Game.GAME_HEIGHT);
@@ -60,8 +61,8 @@ public class MenuScreen extends ScreenAdapter {
         batch.draw(backgroundImage, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT);
         // draw Strings ...
         for (int i = 0; i < menuStrings.length; i++) {
-            if (i == currentMenuItem) menuFont.setColor(0.2f, 1f, 0.2f, 1f);
-            else menuFont.setColor(0.2f, 0.2f, 1f, 1f);
+            if (i == currentMenuItem) menuFont.setColor(Color.CHARTREUSE);
+            else menuFont.setColor(Color.WHITE);
             menuFont.draw(batch, menuStrings[i], offsetLeft, Game.GAME_HEIGHT - offsetTop - i * offsetY);
         }
         batch.end();
@@ -71,10 +72,10 @@ public class MenuScreen extends ScreenAdapter {
         // keys ...
         if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
             currentMenuItem = (currentMenuItem + 1) % menuStrings.length;
-            parentGame.getSoundManager().playEvent("blip");
+            parentGame.getSoundManager().playEvent("rage");
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             currentMenuItem = (currentMenuItem - 1) % menuStrings.length;
-            parentGame.getSoundManager().playEvent("blip");
+            parentGame.getSoundManager().playEvent("rage");
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             if (menuStrings[currentMenuItem].equals("Exit")) {
                 Gdx.app.exit();
@@ -92,11 +93,11 @@ public class MenuScreen extends ScreenAdapter {
                     float pos = Game.GAME_HEIGHT - offsetTop - i * offsetY;
                     if (touchWorldCoords.y < pos && touchWorldCoords.y > pos-menuFont.getLineHeight()) {
                         // it's there
-                        if (menuStrings[i].equals("Exit")) {
+                        if (menuStrings[i].equals("Filthy Peasant!")) {
                             Gdx.app.exit();
-                        } else if (menuStrings[i].equals("Play")) {
+                        } else if (menuStrings[i].equals("Enter Dungeon")) {
                             parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Intro);
-                        } else if (menuStrings[i].equals("Credits")) {
+                        } else if (menuStrings[i].equals("Hall of Creators")) {
                             parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Fighting);
                         }
                     }

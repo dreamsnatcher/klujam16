@@ -66,7 +66,7 @@ public class IntroScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        moveY += delta*50;
+        moveY += delta*35;
         handleInput();
         // camera:
         cam.update();
@@ -81,7 +81,7 @@ public class IntroScreen extends ScreenAdapter {
 
         // draw moving text:
         for (int i = 0; i < credits.length; i++) {
-            creditsFont.draw(batch, credits[i], Game.GAME_WIDTH/8, moveY - i*creditsFont.getLineHeight()*1.5f);
+            creditsFont.draw(batch, credits[i], Game.GAME_WIDTH/14, moveY - i*creditsFont.getLineHeight()*1.5f);
         }
 
 

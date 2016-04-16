@@ -19,6 +19,8 @@ public class F_Player_Two extends F_Entity{
         this.abilities.add(new Insult("Insult",world,this));
         this.abilities.add(new Heal("Heal",world,this));
         this.abilities.add(new HeavyAttack("HeavyAttack",world,this));
-        this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/goblin_2.png");
+        this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/gobo_2_big_000.png");
+        animation = world.fightingSceneScreen.parentGame.getAnimator().loadAnimation("gameplay/gobo_2_big_00", 2, 0.3f);
+
     }
 }

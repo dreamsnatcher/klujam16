@@ -21,5 +21,6 @@ public class F_Player_One extends F_Entity{
         this.abilities.add(new HeavyAttack("Mega Bitchslap",world,this));
 
         this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/gobo_1_big_000.png");
+        animation = world.fightingSceneScreen.parentGame.getAnimator().loadAnimation("gameplay/gobo_1_big_00", 2, 0.3f);
     }
 }

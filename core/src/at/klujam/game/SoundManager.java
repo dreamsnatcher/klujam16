@@ -28,6 +28,7 @@ public class SoundManager {
         event2sound.put("laser", "sfx/laser.wav");
         event2sound.put("pickup", "sfx/pickup.wav");
         event2sound.put("powerup", "sfx/powerup.wav");
+        event2sound.put("rage", "sfx/rage.wav");
 
         event2speech = new HashMap<String, String>(20);
         event2speech.put("hokus_attack", "speech/Pokus-attack01.mp3");
