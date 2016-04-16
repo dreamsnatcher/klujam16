@@ -4,8 +4,11 @@ import at.klujam.game.Game;
 import at.klujam.game.Mechanics.Actors.Mask;
 import at.klujam.game.Mechanics.Entities.F_Enemy;
 import at.klujam.game.Mechanics.Entities.F_Entity;
+import at.klujam.game.Mechanics.Entities.F_Player_One;
+import at.klujam.game.Mechanics.Entities.F_Player_Two;
 import at.klujam.game.Mechanics.FightWorld;
 import at.klujam.game.Mechanics.Fighting.F_Ability;
+import at.klujam.game.ScreenManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
@@ -91,8 +94,12 @@ public class FightingSceneScreen extends GameplayScreen {
         buttonStyleSelected.down = buttonSkins.getDrawable("button_DOWN");
         buttonStyleSelected.font = font;
 
-        lower_mask = new Mask(new Vector2(0,0),new Vector2(Game.GAME_WIDTH,Game.GAME_HEIGHT/3f),fightingWorld);
-        stage.addActor(lower_mask);
+        lower_mask = new Mask(new Vector2(0,0),new Vector2(stage.getWidth(),stage.getHeight()/3f),fightingWorld);
+
+        fightingWorld.playerOne = new F_Player_One(new Vector2((stage.getWidth()/6f)*1, stage.getHeight()/4f), fightingWorld);
+        fightingWorld.playerTwo = new F_Player_Two(new Vector2((stage.getWidth()/6f)*3, stage.getHeight()/4f), fightingWorld);
+        fightingWorld.f_entities.add(fightingWorld.playerOne);
+        fightingWorld.f_entities.add(fightingWorld.playerTwo);
 
         party = new ArrayList<F_Entity>();
         party.add(fightingWorld.playerOne);
@@ -308,8 +315,8 @@ public class FightingSceneScreen extends GameplayScreen {
 
     private void handleInput() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            System.out.println("ESCAPE PRESSED");
             parentGame.getSoundManager().playEvent("blip");
+            parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.D)){
             PlayerOneSelectNextButton();

@@ -83,6 +83,7 @@ public class Game extends ApplicationAdapter {
 		assMan.load("gameplay/pixie_pixelated.png", Texture.class);
 		assMan.load("walls/wall_line_1.png", Texture.class);
 		assMan.load("gameplay/floor.png", Texture.class);
+		assMan.load("gameplay/gobo_1_big_000.png", Texture.class);
 
 
 		//Stuff
