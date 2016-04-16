@@ -30,7 +30,7 @@ public final class GameObjects {
         for (int x = 0; x < layer.getWidth(); x++) {
             for (int y = 0; y < layer.getHeight(); y++) {
                 if (layer.getCell(x, y) != null) {
-                    world.addGameObject(new Wall(new Vector2(x ,y).scl(Constants.TILE_SIZE) , new Vector2(1, 1), world));
+                    world.addGameObject(new Wall(new Vector2(x ,y).scl(Constants.TILE_SIZE) , new Vector2(1, 1).scl(unitScale), world));
                 }
             }
         }

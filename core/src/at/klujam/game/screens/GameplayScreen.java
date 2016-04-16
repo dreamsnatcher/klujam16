@@ -35,8 +35,12 @@ public class GameplayScreen extends ScreenAdapter {
         //cam.setToOrtho(false, Gdx.graphics.getWidth() / (float) Constants.TILE_SIZE, Gdx.graphics.getHeight() / (float) Constants.TILE_SIZE);
         cam.setToOrtho(false, Game.GAME_WIDTH, Game.GAME_HEIGHT);
 //        cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
+
+        // Create camera that projects the game onto the actual screen size.
+        cam = new OrthographicCamera();
+//        cam.setToOrtho(false, Gdx.graphics.getWidth() / (float) Constants.TILE_SIZE, Gdx.graphics.getHeight() / (float) Constants.TILE_SIZE);
+        cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
         cam.zoom += 2;
-        cam.update();
 
         camGui = new OrthographicCamera(Game.GAME_WIDTH, Game.GAME_HEIGHT);
         camGui.position.set(0, 0, 0);
@@ -49,10 +53,11 @@ public class GameplayScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//        resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         // camera:
         cameraFollow(delta);
         handleInput();
+        System.out.println("CAM position: " +cam.position.x + " " + cam.position.y + " " + cam.zoom);
         cam.update();
         batch.setProjectionMatrix(camGui.combined);
         gameBatch.setProjectionMatrix(cam.combined);
@@ -88,17 +93,16 @@ public class GameplayScreen extends ScreenAdapter {
 
     @Override
     public void resize(int width, int height) {
-        cam.viewportWidth = (Game.GAME_HEIGHT / (float) height) * width; //calculate aspect ratio
+//        cam.viewportWidth = (Game.GAME_HEIGHT / (float) height) * width; //calculate aspect ratio
+//        cam.update();
+        cam.viewportWidth = 30f;
+        cam.viewportHeight = 30f * height / width;
         cam.update();
     }
     public void cameraFollow(float deltaTime) {
-        OrthographicCamera camera = cam;
-        Vector2 dist = new Vector2(world.player.position).sub(camera.position.x - 1080 / 2, camera.position.y - 1920 / 2); //TODO Fixed pixels here! Check if this is connected to "CAMERA SHACKING"
-        camera.position.add(0, dist.y * deltaTime * 4, 0);
-//        cam.position.x = world.player.position.x;
-//        cam.position.y = world.player.position.y;
-        System.out.println("Player Position" + world.player.position);
-        System.out.println("Camera Position" + cam.position);
+        Vector2 dist = new Vector2(world.player.position).sub(cam.position.x, cam.position.y);
+        cam.position.add(dist.x * deltaTime * World.CAM_DAMP, dist.y * deltaTime * World.CAM_DAMP, 0);
+//        cam.position.set(world.player.position, 0);
     }
 
 }

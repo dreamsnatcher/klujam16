@@ -15,7 +15,6 @@ public class Wall extends GameObject {
 
     @Override
     public void render(float delta, SpriteBatch spriteBatch) {
-        System.out.println("Position: " + position.x + " " + position.y);
         spriteBatch.draw(texture, position.x - dimension.x / 2f, position.y - dimension.y / 2f);
     }
 }
