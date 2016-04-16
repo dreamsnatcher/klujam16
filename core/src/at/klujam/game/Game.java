@@ -3,6 +3,7 @@ package at.klujam.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -33,6 +34,7 @@ public class Game extends ApplicationAdapter {
 		assMan.load("menu/Ravie_42.fnt", BitmapFont.class);
 		assMan.load("menu/Ravie_72.fnt", BitmapFont.class);
 		assMan.load("fonts/celtic.fnt", BitmapFont.class);
+        assMan.load("fonts/celtic_small.fnt", BitmapFont.class);
 		assMan.load("menu/menu_background.jpg", Texture.class);
 		// for the credits
 		assMan.load("credits/gradient_top.png", Texture.class);
@@ -45,6 +47,14 @@ public class Game extends ApplicationAdapter {
 		assMan.load("sfx/laser.wav", Sound.class);
 		assMan.load("sfx/pickup.wav", Sound.class);
 		assMan.load("sfx/powerup.wav", Sound.class);
+
+        assMan.load("speech/Hokus-fight-start.mp3", Sound.class);
+        assMan.load("speech/Pokus-attack01.mp3", Sound.class);
+        assMan.load("speech/Pokus-fight-start.mp3", Sound.class);
+
+
+        assMan.load("music/song1.mp3", Music.class);
+        assMan.load("music/song2.mp3", Music.class);
 
 		//Entities
 		assMan.load("gameplay/spritesheet.png", Texture.class);
@@ -69,10 +79,27 @@ public class Game extends ApplicationAdapter {
 		assMan.load("gameplay/gobo_1_right_003.png", Texture.class);
 		assMan.load("gameplay/gobo_1_right_004.png", Texture.class);
 		assMan.load("gameplay/gobo_1_right_005.png", Texture.class);
-
 		assMan.load("gameplay/gobo_1_big_000.png", Texture.class);
 		assMan.load("gameplay/gobo_1_big_001.png", Texture.class);
 		assMan.load("gameplay/gobo_1_big_002.png", Texture.class);
+
+		assMan.load("gameplay/gobo_2_000.png", Texture.class);
+		assMan.load("gameplay/gobo_2_001.png", Texture.class);
+		assMan.load("gameplay/gobo_2_002.png", Texture.class);
+		assMan.load("gameplay/gobo_2_003.png", Texture.class);
+		assMan.load("gameplay/gobo_2_004.png", Texture.class);
+		assMan.load("gameplay/gobo_2_005.png", Texture.class);
+		assMan.load("gameplay/gobo_2_006.png", Texture.class);
+		assMan.load("gameplay/gobo_2_back_000.png", Texture.class);
+		assMan.load("gameplay/gobo_2_back_001.png", Texture.class);
+		assMan.load("gameplay/gobo_2_back_002.png", Texture.class);
+		assMan.load("gameplay/gobo_2_back_003.png", Texture.class);
+		assMan.load("gameplay/gobo_2_back_004.png", Texture.class);
+		assMan.load("gameplay/gobo_2_back_005.png", Texture.class);
+		assMan.load("gameplay/gobo_2_back_006.png", Texture.class);
+		assMan.load("gameplay/gobo_2_big_000.png", Texture.class);
+		assMan.load("gameplay/gobo_2_big_001.png", Texture.class);
+		assMan.load("gameplay/gobo_2_big_002.png", Texture.class);
 
 		assMan.load("buttons/button_wood_active.png", Texture.class);
 		assMan.load("buttons/button_wood_idle.png", Texture.class);
@@ -83,6 +110,7 @@ public class Game extends ApplicationAdapter {
 		assMan.load("gameplay/pixie_pixelated.png", Texture.class);
 		assMan.load("walls/wall_line_1.png", Texture.class);
 		assMan.load("gameplay/floor.png", Texture.class);
+		assMan.load("gameplay/gobo_1_big_000.png", Texture.class);
 
 
 		//Stuff

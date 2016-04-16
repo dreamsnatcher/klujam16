@@ -34,6 +34,7 @@ public class ScreenManager {
             } else if (state == ScreenState.Credits) {
                 currentScreen = new CreditsScreen(parentGame);
             } else if (state == ScreenState.Game) {
+                parentGame.getSoundManager().playMusic("song1");
                 currentScreen = new DungeonScreen(parentGame, "Dungeon-new");
                 //currentScreen = new GameplayScreen(parentGame);
             } else if (state == ScreenState.Fighting) {

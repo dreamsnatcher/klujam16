@@ -4,6 +4,8 @@ import at.klujam.game.Game;
 import at.klujam.game.Mechanics.Actors.Mask;
 import at.klujam.game.Mechanics.Entities.F_Enemy;
 import at.klujam.game.Mechanics.Entities.F_Entity;
+import at.klujam.game.Mechanics.Entities.F_Player_One;
+import at.klujam.game.Mechanics.Entities.F_Player_Two;
 import at.klujam.game.Mechanics.FightWorld;
 import at.klujam.game.Mechanics.Fighting.F_Ability;
 import at.klujam.game.ScreenManager;
@@ -92,8 +94,13 @@ public class FightingSceneScreen extends GameplayScreen {
         buttonStyleSelected.down = buttonSkins.getDrawable("button_DOWN");
         buttonStyleSelected.font = font;
 
-        lower_mask = new Mask(new Vector2(0,0),new Vector2(Game.GAME_WIDTH,Game.GAME_HEIGHT/3f),fightingWorld);
-        stage.addActor(lower_mask);
+        lower_mask = new Mask(new Vector2(0,0),new Vector2(stage.getWidth(),stage.getHeight()/4f),fightingWorld);
+
+        fightingWorld.playerOne = new F_Player_One(new Vector2((stage.getWidth()/15f), stage.getHeight()/4f), fightingWorld);
+        fightingWorld.playerTwo = new F_Player_Two(new Vector2((stage.getWidth()/6f)*3, stage.getHeight()/4f), fightingWorld);
+        fightingWorld.f_entities.add(fightingWorld.playerOne);
+        fightingWorld.f_entities.add(fightingWorld.playerTwo);
+        fightingWorld.f_entities.add(lower_mask);
 
         party = new ArrayList<F_Entity>();
         party.add(fightingWorld.playerOne);
@@ -247,9 +254,11 @@ public class FightingSceneScreen extends GameplayScreen {
         entities = new ArrayList<F_Entity>();
         entities.add(fightingWorld.playerOne);
         entities.add(fightingWorld.playerTwo);
-        entities.add(new F_Enemy(new Vector2(700,400),fightingWorld, F_Enemy.Bitch));
-        entities.add(new F_Enemy(new Vector2(800,400),fightingWorld,F_Enemy.PIXIE));
-        entities.add(new F_Enemy(new Vector2(900,400),fightingWorld,F_Enemy.UNICORN));
+        float heightOpponents = (stage.getHeight() / 1.9f);
+        entities.add(new F_Enemy(new Vector2(stage.getWidth()/10f*2, heightOpponents),fightingWorld, F_Enemy.Bitch));
+        entities.add(new F_Enemy(new Vector2(stage.getWidth()/10f*3, heightOpponents),fightingWorld,F_Enemy.PIXIE));
+        entities.add(new F_Enemy(new Vector2(stage.getWidth()/10f*4, heightOpponents),fightingWorld,F_Enemy.UNICORN));
+
         for (F_Entity f : entities) {
             fightingWorld.f_entities.add(f);
         }
@@ -309,8 +318,8 @@ public class FightingSceneScreen extends GameplayScreen {
 
     private void handleInput() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            System.out.println("ESCAPE PRESSED");
             parentGame.getSoundManager().playEvent("blip");
+            parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.D)){
             PlayerOneSelectNextButton();
