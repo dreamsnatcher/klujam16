@@ -20,6 +20,6 @@ public class F_Player_One extends F_Entity{
         this.abilities.add(new Heal("Wololo!",world,this));
         this.abilities.add(new HeavyAttack("Mega Bitchslap",world,this));
 
-        this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/goblin_1.png");
+        this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/gobo_1_big_000.png");
     }
 }
