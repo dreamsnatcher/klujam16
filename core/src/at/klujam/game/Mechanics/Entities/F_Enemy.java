@@ -24,17 +24,22 @@ public class F_Enemy extends F_Entity {
         this.abilities.add(new Attack("Insult",world,this));
         this.abilities.add(new Attack("Insult1",world,this));
         this.abilities.add(new Attack("Charm",world,this));
-        randomGenerator = new Random();
 
         switch (type){
             case Bitch:
                 this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/bitch_butterfly.png");
+                randomGenerator = new Random();
+                baseDamage = 4 + randomGenerator.nextInt(10);
                 break;
             case UNICORN:
                 this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/unicorn.png");
+                randomGenerator = new Random();
+                baseDamage = 7 + randomGenerator.nextInt(3);
                 break;
             case PIXIE:
                 this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/pixie_pixelated.png");
+                randomGenerator = new Random();
+                baseDamage = 3 + randomGenerator.nextInt(2);
                 break;
         }
     }

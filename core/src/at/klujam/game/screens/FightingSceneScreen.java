@@ -387,8 +387,8 @@ public class FightingSceneScreen extends GameplayScreen {
             InputEvent event = new InputEvent();
             event.setType(InputEvent.Type.touchUp);
             statePlayerTwo = SELECT_ENEMY;
-            currentEnemyPlayerTwo = 0;
-            currentButtonsPlayerTwo.get(button_selected_p2).fire(event);
+            //currentEnemyPlayerTwo = 0;
+            currentButtonsPlayerTwo.get(button_selected_p2%currentButtonsPlayerTwo.size).fire(event);
         }else if(statePlayerTwo == SELECT_ENEMY){
             statePlayerTwo = SELECT_ABILITY;
         }
@@ -399,8 +399,8 @@ public class FightingSceneScreen extends GameplayScreen {
             InputEvent event = new InputEvent();
             event.setType(InputEvent.Type.touchUp);
             statePlayerOne = SELECT_ENEMY;
-            currentEnemyPlayerOne = 0;
-            currentButtonsPlayerOne.get(button_selected_p1).fire(event);
+            //currentEnemyPlayerOne = 0;
+            currentButtonsPlayerOne.get(button_selected_p1%currentButtonsPlayerOne.size).fire(event);
         }else if(statePlayerOne == SELECT_ENEMY){
             statePlayerOne = SELECT_ABILITY;
         }
