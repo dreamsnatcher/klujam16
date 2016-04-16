@@ -20,15 +20,11 @@ public class Mask extends F_Entity{
         this.position = position;
         this.dimension = dimension;
         this.fightWorld = fightWorld;
-        texture = fightWorld.fightingSceneScreen.parentGame.getAssMan().get("gameplay/floor.png");
+        texture = fightWorld.fightingSceneScreen.parentGame.getAssMan().get("graphics/wallbg.png");
     }
 
     @Override
     public void render(float delta, SpriteBatch spriteBatch) {
-        for(int i = (int) position.x; i< dimension.x+position.x; i+=(dimension.x/(float)texture.getWidth())) {
-            for (int j = (int) position.y; j < dimension.y + position.y; j += (dimension.y / (float) texture.getHeight())) {
-                spriteBatch.draw(texture, i, j, (dimension.x / (float) texture.getWidth()), (dimension.y / (float) texture.getHeight()));
-            }
+                spriteBatch.draw(texture, position.x, position.y, dimension.x, dimension.y);
         }
-    }
 }

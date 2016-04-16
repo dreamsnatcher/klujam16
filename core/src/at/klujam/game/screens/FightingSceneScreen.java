@@ -71,6 +71,7 @@ public class FightingSceneScreen extends GameplayScreen {
     private int currentEnemyPlayerOne = -1;
     private int currentEnemyPlayerTwo = -1;
     private Mask lower_mask;
+    private Mask full_mask;
     private List<F_Entity> party;
 
 
@@ -96,12 +97,14 @@ public class FightingSceneScreen extends GameplayScreen {
         buttonStyleSelected.font = font;
         buttonStyleSelected.fontColor = Color.CYAN;
 
-        lower_mask = new Mask(new Vector2(0,0),new Vector2(stage.getWidth(),stage.getHeight()/4f),fightingWorld);
+        full_mask = new Mask(new Vector2(0,Game.GAME_HEIGHT/4f),new Vector2(Game.GAME_WIDTH,(Game.GAME_HEIGHT/4f)*2),fightingWorld);
+        lower_mask = new Mask(new Vector2(0,0),new Vector2(Game.GAME_WIDTH,Game.GAME_HEIGHT/4f),fightingWorld);
 
-        fightingWorld.playerOne = new F_Player_One(new Vector2((stage.getWidth()/15f), stage.getHeight()/4f), fightingWorld);
-        fightingWorld.playerTwo = new F_Player_Two(new Vector2((stage.getWidth()/10f)*4, stage.getHeight()/4f), fightingWorld);
+        fightingWorld.playerOne = new F_Player_One(new Vector2((Game.GAME_WIDTH/15f), Game.GAME_HEIGHT/4f), fightingWorld);
+        fightingWorld.playerTwo = new F_Player_Two(new Vector2((Game.GAME_WIDTH/10f)*4, Game.GAME_HEIGHT/4f), fightingWorld);
         fightingWorld.f_entities.add(fightingWorld.playerOne);
         fightingWorld.f_entities.add(fightingWorld.playerTwo);
+        fightingWorld.f_entities.add(full_mask);
         fightingWorld.f_entities.add(lower_mask);
 
         party = new ArrayList<F_Entity>();
@@ -262,10 +265,10 @@ public class FightingSceneScreen extends GameplayScreen {
         entities = new ArrayList<F_Entity>();
         entities.add(fightingWorld.playerOne);
         entities.add(fightingWorld.playerTwo);
-        float heightOpponents = (stage.getHeight() / 1.9f);
-        entities.add(new F_Enemy(new Vector2(stage.getWidth()/10f*2, heightOpponents),fightingWorld, F_Enemy.Bitch));
-        entities.add(new F_Enemy(new Vector2(stage.getWidth()/10f*3, heightOpponents),fightingWorld,F_Enemy.PIXIE));
-        entities.add(new F_Enemy(new Vector2(stage.getWidth()/10f*4, heightOpponents),fightingWorld,F_Enemy.UNICORN));
+        float heightOpponents = (Game.GAME_HEIGHT / 1.9f);
+        entities.add(new F_Enemy(new Vector2(Game.GAME_WIDTH/20f*2, heightOpponents),fightingWorld, F_Enemy.Bitch));
+        entities.add(new F_Enemy(new Vector2(Game.GAME_WIDTH/20f*5, heightOpponents),fightingWorld,F_Enemy.PIXIE));
+        entities.add(new F_Enemy(new Vector2(Game.GAME_WIDTH/20f*9, heightOpponents),fightingWorld,F_Enemy.UNICORN));
 
         for (F_Entity f : entities) {
             fightingWorld.f_entities.add(f);

@@ -129,7 +129,9 @@ public class Game extends ApplicationAdapter {
 
 		assMan.load("gameplay/gobo_1_big_000.png", Texture.class);
 		assMan.load("gameplay/gobo_1_big_001.png", Texture.class);
-		assMan.load("gameplay/gobo_1_big_002.png", Texture.class);
+
+
+		assMan.load("graphics/wallbg.png", Texture.class);
 
 		//assMan.load("fonts/font.fnt", BitmapFont.class);
 	}
