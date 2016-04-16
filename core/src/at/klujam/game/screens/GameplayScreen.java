@@ -2,6 +2,7 @@ package at.klujam.game.screens;
 
 import at.klujam.game.Game;
 import at.klujam.game.Mechanics.World;
+import at.klujam.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -35,8 +36,8 @@ public class GameplayScreen extends ScreenAdapter {
         sr = new ShapeRenderer();
 
         // Create camera that projects the game onto the actual screen size.
-        cam = new OrthographicCamera(Game.GAME_WIDTH, Game.GAME_HEIGHT);
-//        cam.setToOrtho(false, Gdx.graphics.getWidth() / (float) Constants.TILE_SIZE, Gdx.graphics.getHeight() / (float) Constants.TILE_SIZE);
+        cam = new OrthographicCamera();
+        cam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
         cam.zoom -= 0.5;
         cam.update();
@@ -51,22 +52,20 @@ public class GameplayScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0, 0, 0, 0);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 //        resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         // camera:
         cameraFollow(delta);
         handleInput();
         cam.update();
 
-        renderTiles();
-
         gameBatch.setProjectionMatrix(cam.combined);
         // render collision layer
         sr.setProjectionMatrix(cam.combined);
 
-        Gdx.gl.glClearColor(0, 0, 0, 0);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         world.update(delta);
+        renderTiles();
         world.render(delta, gameBatch);
 
         renderGUI(guiBatch);
@@ -95,7 +94,7 @@ public class GameplayScreen extends ScreenAdapter {
     }
 
     protected void renderTiles(){
-
+        System.out.println("GamePlayScreen.renderTiles called");
     }
 
     private void handleInput() {
@@ -115,9 +114,10 @@ public class GameplayScreen extends ScreenAdapter {
     public void resize(int width, int height) {
 //        cam.viewportWidth = (Game.GAME_HEIGHT / (float) height) * width; //calculate aspect ratio
 //        cam.update();
-        cam.viewportWidth = 30f;
-        cam.viewportHeight = 30f * height / width;
-        cam.update();
+//        cam.viewportWidth = 30f;
+//        cam.viewportHeight = 30f * height / width;
+//        cam.update();
+        cam.setToOrtho(false, width/ Constants.TILE_SIZE,height/Constants.TILE_SIZE);
     }
 
     public void cameraFollow(float deltaTime) {

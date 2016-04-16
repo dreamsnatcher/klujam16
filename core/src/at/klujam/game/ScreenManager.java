@@ -39,7 +39,7 @@ public class ScreenManager {
             } else if (state == ScreenState.Credits) {
                 currentScreen = new CreditsScreen(parentGame);
             } else if (state == ScreenState.Game) {
-                currentScreen = new DungeonScreen(parentGame, "tiledMap");
+                currentScreen = new DungeonScreen(parentGame, "Dungeon-new");
                 //currentScreen = new GameplayScreen(parentGame);
             } else if (state == ScreenState.Fighting) {
                 currentScreen = new FightingSceneScreen(parentGame);

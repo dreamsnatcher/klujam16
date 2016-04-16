@@ -3,6 +3,8 @@ package at.klujam.game.screens;
 import at.klujam.game.Game;
 import at.klujam.game.util.Constants;
 import at.klujam.game.util.GameObjects;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -13,20 +15,22 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
  */
 public class DungeonScreen extends GameplayScreen {
     float unitScale;
-    private OrthogonalTiledMapRenderer tMapRenderer;
-    private TiledMap tMap;
+    OrthogonalTiledMapRenderer tMapRenderer;
+    TiledMap tMap;
     private String level;
     private int LAYER_FLOOR;
 
     public DungeonScreen(Game game, String level) {
         this(game);
         this.level = level;
-        this.tMap = (new TmxMapLoader()).load("level/" + level + ".tmx");
-        this.tMapRenderer = new OrthogonalTiledMapRenderer(tMap, unitScale, gameBatch);
+
+        this.tMap = new TmxMapLoader().load("level/" + level + ".tmx");
+        this.tMapRenderer = new OrthogonalTiledMapRenderer(tMap);
+        this.tMapRenderer.setView(cam);
         // figure out which layer has which id, idiotic
         for (int i = 0; i < tMap.getLayers().getCount(); i++) {
             MapLayer layer = tMap.getLayers().get(i);
-            if (layer.getName().equals("walls")) {
+            if (layer.getName().equals("Kachelebene 1")) {
                 LAYER_FLOOR = i;
                 break;
             }
@@ -53,6 +57,6 @@ public class DungeonScreen extends GameplayScreen {
     protected void renderTiles() {
         // render tiles
         tMapRenderer.setView(cam);
-        tMapRenderer.render(new int[]{LAYER_FLOOR});
+        tMapRenderer.render(new int[] {LAYER_FLOOR});
     }
 }
