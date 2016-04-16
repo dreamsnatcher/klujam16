@@ -23,6 +23,10 @@ public class DungeonScreen extends GameplayScreen {
     public DungeonScreen(Game game, String level) {
         this(game);
         this.level = level;
+        this.tMap = (new TmxMapLoader()).load("level/" + level + ".tmx");
+        this.tMapRenderer = new OrthogonalTiledMapRenderer(this.tMap, unitScale, this.batch);
+
+        Collisions.create(world, tMap, unitScale);
     }
 
     public DungeonScreen(Game game) {
@@ -32,11 +36,6 @@ public class DungeonScreen extends GameplayScreen {
         b2Cam = new OrthographicCamera(Game.GAME_WIDTH * Game.SCALING_TO_B2_WORLD, Game.GAME_HEIGHT * Game.SCALING_TO_B2_WORLD);
         b2Cam.position.set(b2Cam.viewportWidth / 2f, b2Cam.viewportHeight / 2f, 0);
         b2Cam.update();
-        this.tMap = (new TmxMapLoader()).load("level/" + level + ".tmx");
-        this.tMapRenderer = new OrthogonalTiledMapRenderer(this.tMap, unitScale, this.batch);
-
-        Collisions.create(world, tMap, unitScale);
-
     }
 
     public void setLevel(String level) {
