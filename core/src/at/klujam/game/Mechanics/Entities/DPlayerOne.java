@@ -20,7 +20,7 @@ public class DPlayerOne extends SkeletonControlledObject {
         bounds = new Rectangle(position.x, position.y, scale.x * Constants.TILE_SIZE * 0.75f, scale.y * 0.8f* Constants.TILE_SIZE);
         type = Type.Player;
 
-        this.speed = 10f;
+        this.speed = 5f;
         this.idleAnimation = world.gameplayScreen.parentGame.getAnimator()
                 .loadAnimation("gameplay/gobo_1__00", 5, 0.3f);
         this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().
