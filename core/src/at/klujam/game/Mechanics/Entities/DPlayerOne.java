@@ -22,13 +22,13 @@ public class DPlayerOne extends SkeletonControlledObject {
 
         this.speed = 10f;
         this.idleAnimation = world.gameplayScreen.parentGame.getAnimator()
-                .loadAnimation("gameplay/gobo_1_", 3, 0.3f);
+                .loadAnimation("gameplay/gobo_1__00", 5, 0.3f);
         this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().
-                loadAnimation("gameplay/gobo_1_", 3, 0.3f);
+                loadAnimation("gameplay/gobo_1_back_00", 6, 0.3f);
         this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator()
-                .loadAnimation("gameplay/gobo_1_", 3, 0.3f);
+                .loadAnimation("gameplay/gobo_1__00", 5, 0.2f);
         this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator()
-                .loadAnimation("gameplay/gobo_1_", 3, 0.3f);
+                .loadAnimation("gameplay/gobo_1__00", 5, 0.3f);
     }
 
     @Override

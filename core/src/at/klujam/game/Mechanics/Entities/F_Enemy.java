@@ -2,9 +2,10 @@ package at.klujam.game.Mechanics.Entities;
 
 import at.klujam.game.Mechanics.FightWorld;
 import at.klujam.game.Mechanics.Fighting.Attack;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by lknoch on 16.04.16.
@@ -14,10 +15,8 @@ public class F_Enemy extends F_Entity {
     public static final int Bitch = 0;
     public static final int PIXIE = 1;
     public static final int UNICORN = 2;
-    boolean selectedByOne = false;
-    boolean selectedByTwo = false;
-    private Texture selector1Textur;
-    private Texture selector2Textur;
+    private Random randomGenerator;
+
 
     public F_Enemy(Vector2 position, FightWorld world, int type) {
         super(position, world);
@@ -25,8 +24,8 @@ public class F_Enemy extends F_Entity {
         this.abilities.add(new Attack("Insult",world,this));
         this.abilities.add(new Attack("Insult1",world,this));
         this.abilities.add(new Attack("Charm",world,this));
-        selector1Textur = world.fightingSceneScreen.parentGame.getAssetManager().get("gameplay/selected1.png");
-        selector2Textur = world.fightingSceneScreen.parentGame.getAssetManager().get("gameplay/selected2.png");
+        randomGenerator = new Random();
+
         switch (type){
             case Bitch:
                 this.texture = world.fightingSceneScreen.parentGame.getAssetManager().get("gameplay/bitch_butterfly.png");
@@ -40,24 +39,19 @@ public class F_Enemy extends F_Entity {
         }
     }
 
-    @Override
-    public void render(float delta, SpriteBatch spriteBatch) {
-        super.render(delta, spriteBatch);
-        if(selectedByTwo){
-            spriteBatch.draw(selector1Textur, position.x + texture.getWidth()/2 + 9, position.y + texture.getHeight());
 
+    public void attack(List<F_Entity> party) {
+        if (forcedEntity == null) {
+            forcedEntity = getRandom(party);
         }
-        if (selectedByOne){
-            spriteBatch.draw(selector2Textur, position.x + texture.getWidth()/2 - 9, position.y + texture.getHeight());
-        }
+
+        getRandom(abilities).useOn(forcedEntity);
+        forcedEntity = null;
 
     }
 
-    public void SelectPlayerOne(boolean b) {
-        selectedByOne = b;
-    }
-
-    public void SelectPlayerTwo(boolean b) {
-        selectedByTwo = b;
+    private <T> T getRandom(List<T> party) {
+        int index = randomGenerator.nextInt(party.size());
+        return  party.get(index);
     }
 }
