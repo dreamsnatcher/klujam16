@@ -12,7 +12,7 @@ import at.klujam.game.screens.MenuScreen;
  * Created by Mathias Lux, mathias@juggle.at, on 04.02.2016.
  */
 public class ScreenManager {
-    public enum ScreenState {Loading, Menu, Game, Credits, Fighting, Help, GameOver}
+    public enum ScreenState {Loading, Menu, Game, Credits, Fighting, Intro, Help, GameOver}
     private Screen currentScreen;
     private ScreenState currentState;
     private Game parentGame;
@@ -43,6 +43,8 @@ public class ScreenManager {
                 //currentScreen = new GameplayScreen(parentGame);
             } else if (state == ScreenState.Fighting) {
                 currentScreen = new FightingSceneScreen(parentGame);
+            }else if (state == ScreenState.Intro) {
+                currentScreen = new IntroScreen(parentGame);
             }
         }
     }
