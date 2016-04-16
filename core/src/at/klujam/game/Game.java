@@ -34,6 +34,7 @@ public class Game extends ApplicationAdapter {
 		assMan.load("menu/Ravie_42.fnt", BitmapFont.class);
 		assMan.load("menu/Ravie_72.fnt", BitmapFont.class);
 		assMan.load("fonts/celtic.fnt", BitmapFont.class);
+        assMan.load("fonts/celtic_small.fnt", BitmapFont.class);
 		assMan.load("menu/menu_background.jpg", Texture.class);
 		// for the credits
 		assMan.load("credits/gradient_top.png", Texture.class);
