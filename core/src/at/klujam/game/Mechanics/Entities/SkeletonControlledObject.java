@@ -1,12 +1,14 @@
 package at.klujam.game.Mechanics.Entities;
 
 import at.klujam.game.Mechanics.World;
+import at.klujam.game.ScreenManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -15,21 +17,26 @@ import com.badlogic.gdx.math.Vector3;
  * Created by Veit on 06.02.2016.
  */
 public class SkeletonControlledObject extends MoveableObject {
+    private static final int STEPS = 500;
+
     protected boolean moveUp, moveDown, moveLeft, moveRight;
-    //    private TextureRegion[] regions = new TextureRegion[12];
-    private Vector3 touchCoordinates = new Vector3(0, 0, 0);
-    private int heading; // 1 - UP, 2 - Right, 3 - Down, 4 - Left
     protected Animation idleAnimation;
     protected Animation movingUpAnimation;
     protected Animation movingDownAnimation;
     protected Animation movingSideAnimation;
+    //    private TextureRegion[] regions = new TextureRegion[12];
+    private Vector3 touchCoordinates = new Vector3(0, 0, 0);
+    private int heading; // 1 - UP, 2 - Right, 3 - Down, 4 - Left
     private TextureRegion frame;
     private World world;
+    private float movementCounter;
+    private int stepCounter, maxSteps;
 
     public SkeletonControlledObject(Vector2 position, Vector2 dimension, World world) {
         super(position, dimension);
         this.world = world;
 
+        this.maxSteps = STEPS;
         this.speed = 10f;
         this.idleAnimation = world.gameplayScreen.parentGame.getAnimator()
                 .loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
@@ -83,8 +90,24 @@ public class SkeletonControlledObject extends MoveableObject {
                 heading = 3;
             }
             movement = Movement.MOVING;
+            movementCounter += MathUtils.random(1f);
+            stepCounter += 1;
+            System.out.println("Movement: " + movementCounter);
+            checkRandomEncounter();
         } else {
             movement = Movement.IDLE;
+        }
+    }
+
+    private void checkRandomEncounter() {
+        if ((int) movementCounter == (int) MathUtils.random((float) maxSteps)) {
+            movementCounter = 0;
+            maxSteps = STEPS;
+            world.gameplayScreen.parentGame.getScreenManager().changeScreen(ScreenManager.ScreenState.Fighting);
+        } else if (stepCounter >= maxSteps) {
+            stepCounter = 0;
+            movementCounter = 0;
+            maxSteps -= 100;
         }
     }
 
