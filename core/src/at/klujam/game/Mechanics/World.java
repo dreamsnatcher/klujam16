@@ -1,7 +1,7 @@
 package at.klujam.game.Mechanics;
 
+import at.klujam.game.Mechanics.Entities.DPlayerOne;
 import at.klujam.game.Mechanics.Entities.GameObject;
-import at.klujam.game.Mechanics.Entities.SkeletonControlledObject;
 import at.klujam.game.screens.GameplayScreen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
@@ -13,9 +13,11 @@ import com.badlogic.gdx.utils.Array;
  */
 public class World {
 
+    public static final float CAM_DAMP = 4;
+
     public Array<GameObject> gameObjects;
     public GameplayScreen gameplayScreen;
-    SkeletonControlledObject player;
+    public DPlayerOne player;
     private SpriteBatch spriteBatch;
 
     public World(GameplayScreen gameplayScreen) {
@@ -25,6 +27,7 @@ public class World {
     }
 
     public void update(float delta) {
+        System.out.println("Gameobjects: " + gameObjects.size);
         for (GameObject go : gameObjects) {
             go.update(delta);
         }
@@ -44,5 +47,9 @@ public class World {
 
     public void touch(Vector3 touchCoords) {
         player.touch(touchCoords);
+    }
+
+    public void setPlayer(DPlayerOne player) {
+        this.player = player;
     }
 }

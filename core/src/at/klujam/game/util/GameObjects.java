@@ -19,7 +19,8 @@ public final class GameObjects {
         MapObjects objects = tMap.getLayers().get("objects").getObjects();
         MapProperties playerProps = objects.get("player").getProperties();
 //        MapProperties goalProps = objects.get("goal").getProperties();
-        DPlayerOne player = new DPlayerOne(new Vector2(playerProps.get("x", Float.class), playerProps.get("y", Float.class)).scl(unitScale), new Vector2(1, 1), world);
+        DPlayerOne player = new DPlayerOne(new Vector2(playerProps.get("x", Float.class), playerProps.get("y", Float.class)).scl(Constants.TILE_SIZE), new Vector2(1, 1), world);
+        world.setPlayer(player);
         world.addGameObject(player);
 //        Goal goal = new Goal(new Vector2(goalProps.get("x", Float.class) / TILE_SIZE, goalProps.get("y", Float.class)  / TILE_SIZE));
 //        entities.add(goal);
@@ -29,7 +30,7 @@ public final class GameObjects {
         for (int x = 0; x < layer.getWidth(); x++) {
             for (int y = 0; y < layer.getHeight(); y++) {
                 if (layer.getCell(x, y) != null) {
-                    world.addGameObject(new Wall(new Vector2(x, y).scl(unitScale), new Vector2(1, 1), world));
+                    world.addGameObject(new Wall(new Vector2(x ,y).scl(Constants.TILE_SIZE) , new Vector2(1, 1), world));
                 }
             }
         }
