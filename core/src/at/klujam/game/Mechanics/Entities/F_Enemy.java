@@ -5,6 +5,8 @@ import at.klujam.game.Mechanics.Fighting.Attack;
 import at.klujam.game.Mechanics.Fighting.F_Ability;
 import at.klujam.game.Mechanics.Fighting.Heal;
 import at.klujam.game.Mechanics.Fighting.HeavyAttack;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
@@ -50,8 +52,9 @@ public class F_Enemy extends F_Entity {
 
     public void attack(List<F_Entity> party) {
         F_Ability f_ability = getRandom(abilities);
-        if(f_ability instanceof Heal && forcedEntity != null){
+        if(f_ability instanceof Heal && forcedEntity == null){
             f_ability.useOn(this);
+            return;
         }
 
         if (forcedEntity == null) {
