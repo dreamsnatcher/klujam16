@@ -116,6 +116,10 @@ public class FightingSceneScreen extends GameplayScreen {
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                     ability.useOn(enemies.get(currentEnemyPlayerOne));
+                    setButtonGroupPlayerOne(new Array<TextButton>(), playerOneAbilitiesButtonGroup);
+                    statePlayerOne = EnemyTurn;
+                    currentEnemyPlayerTwo = -1;
+
                 }
             });
             int i = count % 2;
@@ -152,7 +156,7 @@ public class FightingSceneScreen extends GameplayScreen {
         }
 
         //////////////////////////////////////player 2
-        int xOffsetPlayerTwo = 800;
+        int xOffsetPlayerTwo = Game.GAME_WIDTH/2;
 
         playerTwoAbilities = new TextButton("Abilities", buttonStyle);
         playerTwoAbilities.addListener(new InputListener() {
@@ -182,9 +186,9 @@ public class FightingSceneScreen extends GameplayScreen {
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                     ability.useOn(enemies.get(currentEnemyPlayerTwo));
-                    setButtonGroupPlayerTwo(playerTwoBaseButtonGroup, new Array<TextButton>());
-
-
+                    statePlayerTwo = EnemyTurn;
+                    setButtonGroupPlayerTwo(new Array<TextButton>(), playerTwoAbilitiesButtonGroup);
+                    currentEnemyPlayerTwo =  -1;
                 }
             });
             int i = count % 2;
@@ -307,19 +311,25 @@ public class FightingSceneScreen extends GameplayScreen {
             PlayerTwoSelectPreviousButton();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+            parentGame.getSoundManager().playEvent("blip");
             PlayerOneEnter();
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+            parentGame.getSoundManager().playEvent("hit");
             PlayerTwoEnter();
         }
 
         if(currentEnemyPlayerOne>=0) {
             SelectForPlayerOne(enemies.get(currentEnemyPlayerOne));
+        }else{
+            SelectForPlayerOne(null);
         }
         if(currentEnemyPlayerTwo>=0) {
 
             SelectForPlayerTwo(enemies.get(currentEnemyPlayerTwo));
+        }else{
+            SelectForPlayerTwo(null);
         }
     }
 
@@ -327,25 +337,29 @@ public class FightingSceneScreen extends GameplayScreen {
         for (F_Enemy enemy:enemies         ) {
             enemy.SelectPlayerTwo(false);
         }
-        f_enemy.SelectPlayerTwo(true);
+        if(f_enemy!=null){
+            f_enemy.SelectPlayerTwo(true);
+        }
     }
 
     private void SelectForPlayerOne(F_Enemy f_enemy) {
         for (F_Enemy enemy:enemies         ) {
             enemy.SelectPlayerOne(false);
         }
-        f_enemy.SelectPlayerOne(true);
+        if(f_enemy!=null){
+            f_enemy.SelectPlayerOne(true);
+        }
     }
 
     private void PlayerTwoEnter() {
         if(statePlayerTwo == SELECT_ABILITY) {
             InputEvent event = new InputEvent();
             event.setType(InputEvent.Type.touchUp);
-            currentButtonsPlayerTwo.get(button_selected_p2).fire(event);
             statePlayerTwo = SELECT_ENEMY;
             currentEnemyPlayerTwo = 0;
+            currentButtonsPlayerTwo.get(button_selected_p2).fire(event);
         }else if(statePlayerTwo == SELECT_ENEMY){
-            statePlayerTwo = EnemyTurn;
+            statePlayerTwo = SELECT_ABILITY;
         }
     }
 
@@ -353,11 +367,11 @@ public class FightingSceneScreen extends GameplayScreen {
         if(statePlayerOne == SELECT_ABILITY) {
             InputEvent event = new InputEvent();
             event.setType(InputEvent.Type.touchUp);
-            currentButtonsPlayerOne.get(button_selected_p1).fire(event);
             statePlayerOne = SELECT_ENEMY;
             currentEnemyPlayerOne = 0;
+            currentButtonsPlayerOne.get(button_selected_p1).fire(event);
         }else if(statePlayerOne == SELECT_ENEMY){
-            statePlayerOne = EnemyTurn;
+            statePlayerOne = SELECT_ABILITY;
         }
     }
 
