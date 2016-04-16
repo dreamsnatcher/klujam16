@@ -17,7 +17,7 @@ public class DPlayerOne extends SkeletonControlledObject {
 
     public DPlayerOne(Vector2 position, Vector2 dimension, World world) {
         super(position, dimension, world);
-        bounds = new Rectangle(position.x, position.y, scale.x * Constants.TILE_SIZE, scale.y * Constants.TILE_SIZE);
+        bounds = new Rectangle(position.x, position.y, scale.x * Constants.TILE_SIZE, scale.y / 2.1f* Constants.TILE_SIZE);
         type = Type.Player;
 
         this.speed = 10f;
