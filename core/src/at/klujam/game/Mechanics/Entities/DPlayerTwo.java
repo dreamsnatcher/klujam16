@@ -25,7 +25,7 @@ public class DPlayerTwo extends DPlayerOne {
         this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator()
                 .loadAnimation("gameplay/gobo_2_00", 5, 0.2f);
         this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator()
-                .loadAnimation("gameplay/gobo_1_right_00", 5, 0.3f);
+                .loadAnimation("gameplay/gobo_2_right_00", 4, 0.3f);
     }
 
     @Override
