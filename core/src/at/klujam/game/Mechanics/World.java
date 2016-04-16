@@ -18,27 +18,24 @@ public class World {
     public Array<GameObject> gameObjects;
     public GameplayScreen gameplayScreen;
     public DPlayerOne player;
-    private SpriteBatch spriteBatch;
 
     public World(GameplayScreen gameplayScreen) {
-        spriteBatch = new SpriteBatch();
         gameObjects = new Array<GameObject>();
         this.gameplayScreen = gameplayScreen;
     }
 
     public void update(float delta) {
-        System.out.println("Gameobjects: " + gameObjects.size);
         for (GameObject go : gameObjects) {
             go.update(delta);
         }
     }
 
-    public void render(float delta) {
-        spriteBatch.begin();
+    public void render(float delta, SpriteBatch batch) {
+        batch.begin();
         for (GameObject go : gameObjects) {
-            go.render(delta, spriteBatch);
+            go.render(delta, batch);
         }
-        spriteBatch.end();
+        batch.end();
     }
 
     public void addGameObject(GameObject object) {

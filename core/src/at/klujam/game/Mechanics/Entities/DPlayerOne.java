@@ -20,7 +20,6 @@ public class DPlayerOne extends SkeletonControlledObject {
     @Override
     public void update(float delta) {
         super.update(delta);
-
     }
 
     @Override
