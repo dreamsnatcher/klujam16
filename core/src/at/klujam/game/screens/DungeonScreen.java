@@ -4,7 +4,7 @@ import at.klujam.game.Game;
 import at.klujam.game.util.Constants;
 import at.klujam.game.util.GameObjects;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -17,6 +17,7 @@ public class DungeonScreen extends GameplayScreen {
     float unitScale;
     OrthogonalTiledMapRenderer tMapRenderer;
     TiledMap tMap;
+    ShaderProgram vignetteShader;
     private String level;
     private int LAYER_FLOOR;
 
@@ -27,6 +28,14 @@ public class DungeonScreen extends GameplayScreen {
         this.tMap = new TmxMapLoader().load("level/" + level + ".tmx");
         this.tMapRenderer = new OrthogonalTiledMapRenderer(tMap);
         this.tMapRenderer.setView(cam);
+
+        ShaderProgram.pedantic = false;
+        vignetteShader = new ShaderProgram(Gdx.files.internal("graphics/vignette.vsh"), Gdx.files.internal("graphics/vignette.fsh"));
+        if (!vignetteShader.isCompiled())
+            System.out.println(vignetteShader.getLog());
+        tMapRenderer.getBatch().setShader(vignetteShader);
+//        gameBatch.setShader(vignetteShader);
+
         // figure out which layer has which id, idiotic
         for (int i = 0; i < tMap.getLayers().getCount(); i++) {
             MapLayer layer = tMap.getLayers().get(i);
@@ -49,14 +58,25 @@ public class DungeonScreen extends GameplayScreen {
 
     @Override
     public void render(float delta) {
+        vignetteShader.begin();
+        vignetteShader.setUniformf("u_resolution", Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        vignetteShader.setUniformf("outerRadius", 0.55f);
+        vignetteShader.setUniformf("innerRadius", 0.1f);
+        vignetteShader.setUniformf("intensity", 0.65f);
+        vignetteShader.end();
         super.render(delta);
 
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
     }
 
     @Override
     protected void renderTiles() {
         // render tiles
         tMapRenderer.setView(cam);
-        tMapRenderer.render(new int[] {LAYER_FLOOR});
+        tMapRenderer.render(new int[]{LAYER_FLOOR});
     }
 }
