@@ -52,6 +52,7 @@ public class Game extends ApplicationAdapter {
 		assMan.load("gameplay/movingAnimation_Down.png", Texture.class);
 		assMan.load("buttons/button_wood_active.png", Texture.class);
 		assMan.load("buttons/button_wood_idle.png", Texture.class);
+		assMan.load("walls/wall_line_1.png", Texture.class);
         //assMan.load("fonts/font.fnt", BitmapFont.class);
 	}
 
