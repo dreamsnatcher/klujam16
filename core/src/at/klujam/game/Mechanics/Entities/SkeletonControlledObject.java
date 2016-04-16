@@ -3,9 +3,11 @@ package at.klujam.game.Mechanics.Entities;
 import at.klujam.game.Mechanics.World;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -22,9 +24,11 @@ public class SkeletonControlledObject extends MoveableObject {
     private Animation movingDownAnimation;
     private Animation movingSideAnimation;
     private TextureRegion frame;
+    private World world;
 
     public SkeletonControlledObject(Vector2 position, Vector2 dimension, World world) {
         super(position, dimension);
+        this.world = world;
 
         this.speed = 10f;
         this.idleAnimation = world.gameplayScreen.parentGame.getAnimator()
@@ -54,6 +58,18 @@ public class SkeletonControlledObject extends MoveableObject {
     @Override
     void handleMovement(Float delta) {
         calcDirection();
+//        this.position.set(bounds.getPosition(new Vector2()).nor().scl(speed));
+        Vector2 newPosition = new Vector2(this.position).add(direction.nor().scl(speed));
+        bounds.setPosition(newPosition);
+        for (int i = 0; i < world.walls.length; i++) {
+            for (int j = 0; j < world.walls[0].length; j++) {
+                if (world.walls[i][j] != null && world.walls[i][j].overlaps(this.bounds)) {
+                    bounds.setPosition(this.position);
+                    return;
+                }
+            }
+        }
+
         this.position.add(direction.nor().scl(speed));
         if (!direction.nor().isZero()) {
             if (direction.x > 0) {
@@ -70,6 +86,81 @@ public class SkeletonControlledObject extends MoveableObject {
         } else {
             movement = Movement.IDLE;
         }
+    }
+
+    public void clipCollision(Rectangle bounds, Vector2 movement) {
+        Rectangle newbounds = new Rectangle(bounds.x + movement.x, bounds.y + movement.y, bounds.width, bounds.height);
+
+        int sx, sy, ex, ey, ux, uy;
+        if (movement.x > 0) {
+            sx = (int) Math.floor(bounds.x);
+            ex = (int) Math.ceil(newbounds.x + bounds.width) + 1;
+        } else {
+            sx = (int) Math.ceil(bounds.x + bounds.width);
+            ex = (int) Math.floor(newbounds.x) - 1;
+        }
+
+        if (movement.y > 0) {
+            sy = (int) Math.floor(bounds.y);
+            ey = (int) Math.ceil(newbounds.y + bounds.height) + 1;
+        } else {
+            sy = (int) Math.ceil(bounds.y + bounds.height);
+            ey = (int) Math.floor(newbounds.y) - 1;
+        }
+
+        Color c = new Color(0, 0, 1, 1);
+        boolean displayDebug = false;
+
+        sx = Math.max(Math.min(sx, world.walls.length - 1), 0);
+        sy = Math.max(Math.min(sy, world.walls[0].length - 1), 0);
+        ex = Math.max(Math.min(ex, world.walls.length), -1);
+        ey = Math.max(Math.min(ey, world.walls[0].length), -1);
+        ux = ex - sx > 0 ? 1 : -1;
+        uy = ey - sy > 0 ? 1 : -1;
+
+        for (int x = sx; x != ex; x += ux) {
+            for (int y = sy; y != ey; y += uy) {
+                Rectangle r = world.walls[x][y];
+                if (r != null) {
+                    if (r.overlaps(newbounds)) {
+                        float x1, x2, y1, y2;
+
+                        if (movement.x > 0) {
+                            x1 = bounds.x + bounds.width;
+                            x2 = r.x;
+                        } else {
+                            x1 = bounds.x;
+                            x2 = r.x + r.width;
+                        }
+
+                        if (movement.y > 0) {
+                            y1 = bounds.y + bounds.height;
+                            y2 = r.y;
+                        } else {
+                            y1 = bounds.y;
+                            y2 = r.y + r.height;
+                        }
+
+                        float d1 = (x2 - x1) / movement.x;
+                        float d2 = (y2 - y1) / movement.y;
+
+                        if (d1 >= 0 && d1 <= 1) {
+                            // collision in x direction
+                            movement.x = 0;
+                        }
+
+                        if (d2 >= 0 && d2 <= 1) {
+                            // collision in y direction
+                            movement.y = 0;
+                        }
+
+                        newbounds.x = bounds.x + movement.x;
+                        newbounds.y = bounds.y + movement.y;
+                    }
+                }
+            }
+        }
+        this.bounds = newbounds;
     }
 
 

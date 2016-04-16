@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -21,16 +22,17 @@ public final class GameObjects {
 //        MapProperties goalProps = objects.get("goal").getProperties();
         DPlayerOne player = new DPlayerOne(new Vector2(playerProps.get("x", Float.class), playerProps.get("y", Float.class)), new Vector2(1, 1), world);
         world.setPlayer(player);
-        world.addGameObject(player);
 //        Goal goal = new Goal(new Vector2(goalProps.get("x", Float.class) / TILE_SIZE, goalProps.get("y", Float.class)  / TILE_SIZE));
 //        entities.add(goal);
 
         // load collision map
         TiledMapTileLayer layer = (TiledMapTileLayer) tMap.getLayers().get("walls");
+        world.walls = new Rectangle[layer.getWidth()][layer.getHeight()];
         for (int x = 0; x < layer.getWidth(); x++) {
             for (int y = 0; y < layer.getHeight(); y++) {
                 if (layer.getCell(x, y) != null) {
-                    world.addGameObject(new Wall(new Vector2(x ,y).scl(Constants.TILE_SIZE) , new Vector2(1, 1).scl(unitScale), world));
+                    world.walls[x][y] = new Rectangle(x * Constants.TILE_SIZE, y * Constants.TILE_SIZE, Constants.TILE_SIZE, Constants.TILE_SIZE);
+//                    world.addGameObject(new Wall(new Vector2(x, y).scl(Constants.TILE_SIZE), new Vector2(1, 1).scl(unitScale), world));
                 }
             }
         }

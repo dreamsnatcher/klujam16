@@ -11,6 +11,7 @@ public class Wall extends GameObject {
         super(position, dimension);
         texture = world.gameplayScreen.parentGame.getAssetManager().get("walls/wall_line_1.png");
         bounds = new Rectangle(position.x, position.y, scale.x, scale.y);
+        type = Type.Wall;
     }
 
     @Override
