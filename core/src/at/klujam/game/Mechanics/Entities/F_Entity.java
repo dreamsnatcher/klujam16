@@ -29,6 +29,8 @@ public abstract class F_Entity{
     FightWorld world;
     Texture texture;
     Array<F_State> states;
+    public int armor;
+    private F_Entity forcedEntity;
 
 
     public F_Entity(Vector2 position, FightWorld world) {
@@ -71,7 +73,9 @@ public abstract class F_Entity{
     }
 
     public void inflict_damage(float damage){
-        this.hitpoints -= damage;
+        if(damage-armor>0) {
+            this.hitpoints -= (damage-armor);
+        }
         if(this.hitpoints<=0){
             this.addState(new F_Dead(0,this,world));
         }
@@ -81,11 +85,21 @@ public abstract class F_Entity{
         //TODO
     }
 
+
     public void SelectPlayerOne(boolean b) {
         selectedByOne = b;
     }
 
     public void SelectPlayerTwo(boolean b) {
         selectedByTwo = b;
+
+    //TODO @LUKAS KNOCH
+    public void forceTarget(F_Entity origin) {
+        forcedEntity = origin;
+    }
+
+
+    public void heal(float v){
+        this.hitpoints += v;
     }
 }

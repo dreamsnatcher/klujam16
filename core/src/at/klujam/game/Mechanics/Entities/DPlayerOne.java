@@ -1,9 +1,11 @@
 package at.klujam.game.Mechanics.Entities;
 
 import at.klujam.game.Mechanics.World;
+import at.klujam.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -15,6 +17,18 @@ public class DPlayerOne extends SkeletonControlledObject {
 
     public DPlayerOne(Vector2 position, Vector2 dimension, World world) {
         super(position, dimension, world);
+        bounds = new Rectangle(position.x, position.y, scale.x * Constants.TILE_SIZE, scale.y * Constants.TILE_SIZE);
+        type = Type.Player;
+
+        this.speed = 10f;
+        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator()
+                .loadAnimation("gameplay/gobo_1_", 3, 0.3f);
+        this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().
+                loadAnimation("gameplay/gobo_1_", 3, 0.3f);
+        this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator()
+                .loadAnimation("gameplay/gobo_1_", 3, 0.3f);
+        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator()
+                .loadAnimation("gameplay/gobo_1_", 3, 0.3f);
     }
 
     @Override

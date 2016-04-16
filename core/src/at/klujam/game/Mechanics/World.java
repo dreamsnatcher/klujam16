@@ -2,8 +2,12 @@ package at.klujam.game.Mechanics;
 
 import at.klujam.game.Mechanics.Entities.DPlayerOne;
 import at.klujam.game.Mechanics.Entities.GameObject;
+import at.klujam.game.Mechanics.Entities.SkeletonControlledObject;
 import at.klujam.game.screens.GameplayScreen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
@@ -15,16 +19,18 @@ public class World {
 
     public static final float CAM_DAMP = 4;
 
+    public Rectangle[][] walls;
     public Array<GameObject> gameObjects;
     public GameplayScreen gameplayScreen;
     public DPlayerOne player;
 
     public World(GameplayScreen gameplayScreen) {
-        gameObjects = new Array<GameObject>();
         this.gameplayScreen = gameplayScreen;
+        this.gameObjects = new Array<GameObject>();
     }
 
     public void update(float delta) {
+        player.update(delta);
         for (GameObject go : gameObjects) {
             go.update(delta);
         }
@@ -32,6 +38,7 @@ public class World {
 
     public void render(float delta, SpriteBatch batch) {
         batch.begin();
+        player.render(delta, batch);
         for (GameObject go : gameObjects) {
             go.render(delta, batch);
         }

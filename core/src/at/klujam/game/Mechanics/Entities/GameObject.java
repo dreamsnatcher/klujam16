@@ -13,16 +13,21 @@ import com.badlogic.gdx.utils.Array;
 public abstract class GameObject {
 
     public Vector2 position;
-    Rectangle bounds;
+    public Rectangle bounds;
     Texture texture;
     Array<State> states;
     Vector2 dimension, scale;
+    Type type;
 
     public GameObject(Vector2 position, Vector2 dimension) {
         this.position = position;
         this.dimension = dimension;
         this.scale = new Vector2(1, 1);
         states = new Array<State>();
+    }
+
+    public Type getType() {
+        return type;
     }
 
     public void removeState(State state) {
@@ -44,4 +49,10 @@ public abstract class GameObject {
     }
 
     public abstract void render(float delta, SpriteBatch spriteBatch);
+
+    public enum Type {
+        Wall,
+        Player,
+        Enemy
+    }
 }
