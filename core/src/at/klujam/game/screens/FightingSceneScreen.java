@@ -54,8 +54,8 @@ public class FightingSceneScreen extends GameplayScreen {
     int buttonHeigth = 64;
     int buttonWidth = 256;
 
-    int spaceBetweenButtonsH = (int)((Game.GAME_WIDTH - (4*buttonWidth))/6);
-    int spaceBetweenButtonsV = (int)(((Game.GAME_HEIGHT/3) - (4*buttonHeigth))/5);
+    int spaceBetweenButtonsH = (int)((Gdx.graphics.getWidth() - (4*buttonWidth))/6);
+    int spaceBetweenButtonsV = (int)(((Gdx.graphics.getHeight()/3) - (4*buttonHeigth))/5);
 
 
     Array<TextButton> playerOneAbilitiesButtonGroup = new Array<TextButton>();
@@ -71,12 +71,13 @@ public class FightingSceneScreen extends GameplayScreen {
     private int currentEnemyPlayerOne = -1;
     private int currentEnemyPlayerTwo = -1;
     private Mask lower_mask;
+    private Mask full_mask;
     private List<F_Entity> party;
 
 
     public FightingSceneScreen(Game game) {
         super(game);
-        stage = new Stage(new StretchViewport(Game.GAME_WIDTH, Game.GAME_HEIGHT));
+        stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         fightingWorld = new FightWorld(this);
         buttonSkins = new Skin();
         buttonSkins.add("button_UP", new Texture("buttons/button_wood_idle.png"));
@@ -96,12 +97,14 @@ public class FightingSceneScreen extends GameplayScreen {
         buttonStyleSelected.font = font;
         buttonStyleSelected.fontColor = Color.CYAN;
 
-        lower_mask = new Mask(new Vector2(0,0),new Vector2(stage.getWidth(),stage.getHeight()/4f),fightingWorld);
+        full_mask = new Mask(new Vector2(0,Gdx.graphics.getHeight()/4f),new Vector2(Gdx.graphics.getWidth(),(Gdx.graphics.getHeight())),fightingWorld,Mask.ROOM);
+        lower_mask = new Mask(new Vector2(0,0),new Vector2(Gdx.graphics.getWidth(),Gdx.graphics.getHeight()/3f),fightingWorld,Mask.CARPET);
 
-        fightingWorld.playerOne = new F_Player_One(new Vector2((stage.getWidth()/15f), stage.getHeight()/4f), fightingWorld);
-        fightingWorld.playerTwo = new F_Player_Two(new Vector2((stage.getWidth()/10f)*4, stage.getHeight()/4f), fightingWorld);
+        fightingWorld.playerOne = new F_Player_One(new Vector2(((Gdx.graphics.getWidth()/10f) * 2), Gdx.graphics.getHeight()/3f), fightingWorld);
+        fightingWorld.playerTwo = new F_Player_Two(new Vector2((Gdx.graphics.getWidth()/10f)* 7, Gdx.graphics.getHeight()/3f), fightingWorld);
         fightingWorld.f_entities.add(fightingWorld.playerOne);
         fightingWorld.f_entities.add(fightingWorld.playerTwo);
+        fightingWorld.f_entities.add(full_mask);
         fightingWorld.f_entities.add(lower_mask);
 
         party = new ArrayList<F_Entity>();
@@ -180,7 +183,7 @@ public class FightingSceneScreen extends GameplayScreen {
         }
 
         //////////////////////////////////////player 2
-        int xOffsetPlayerTwo = Game.GAME_WIDTH/2;
+        int xOffsetPlayerTwo = Gdx.graphics.getWidth()/2;
 
         playerTwoAbilities = new TextButton("Abilities", buttonStyle);
         playerTwoAbilities.addListener(new InputListener() {
@@ -262,10 +265,10 @@ public class FightingSceneScreen extends GameplayScreen {
         entities = new ArrayList<F_Entity>();
         entities.add(fightingWorld.playerOne);
         entities.add(fightingWorld.playerTwo);
-        float heightOpponents = (stage.getHeight() / 1.9f);
-        entities.add(new F_Enemy(new Vector2(stage.getWidth()/10f*2, heightOpponents),fightingWorld, F_Enemy.Bitch));
-        entities.add(new F_Enemy(new Vector2(stage.getWidth()/10f*3, heightOpponents),fightingWorld,F_Enemy.PIXIE));
-        entities.add(new F_Enemy(new Vector2(stage.getWidth()/10f*4, heightOpponents),fightingWorld,F_Enemy.UNICORN));
+        float heightOpponents = (Gdx.graphics.getHeight() / 3f*2);
+        entities.add(new F_Enemy(new Vector2(Gdx.graphics.getWidth()/10f*2, heightOpponents),fightingWorld, F_Enemy.Bitch));
+        entities.add(new F_Enemy(new Vector2(Gdx.graphics.getWidth()/10*5, heightOpponents),fightingWorld,F_Enemy.PIXIE));
+        entities.add(new F_Enemy(new Vector2(Gdx.graphics.getWidth()/10*8, heightOpponents),fightingWorld,F_Enemy.UNICORN));
 
         for (F_Entity f : entities) {
             fightingWorld.f_entities.add(f);
@@ -354,12 +357,12 @@ public class FightingSceneScreen extends GameplayScreen {
             parentGame.getScreenManager().changeScreen(ScreenManager.ScreenState.Game);
         }
 
-        if(currentEnemyPlayerOne>=0) {
+        if(currentEnemyPlayerOne >= 0) {
             SelectForPlayerOne(entities.get(currentEnemyPlayerOne));
         }else{
             SelectForPlayerOne(null);
         }
-        if(currentEnemyPlayerTwo>=0) {
+        if(currentEnemyPlayerTwo >= 0) {
 
             SelectForPlayerTwo(entities.get(currentEnemyPlayerTwo));
         }else{
