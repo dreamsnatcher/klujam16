@@ -15,6 +15,16 @@ public class DPlayerOne extends SkeletonControlledObject {
 
     public DPlayerOne(Vector2 position, Vector2 dimension, World world) {
         super(position, dimension, world);
+
+        this.speed = 10f;
+        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator()
+                .loadAnimation("gameplay/gobo_1_", 3, 0.3f);
+        this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().
+                loadAnimation("gameplay/gobo_1_", 3, 0.3f);
+        this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator()
+                .loadAnimation("gameplay/gobo_1_", 3, 0.3f);
+        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator()
+                .loadAnimation("gameplay/gobo_1_", 3, 0.3f);
     }
 
     @Override
