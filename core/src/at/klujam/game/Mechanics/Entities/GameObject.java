@@ -53,6 +53,6 @@ public abstract class GameObject {
     public enum Type {
         Wall,
         Player,
-        Enemy
+        Tooth
     }
 }

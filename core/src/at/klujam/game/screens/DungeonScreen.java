@@ -34,7 +34,7 @@ public class DungeonScreen extends GameplayScreen {
         if (!vignetteShader.isCompiled())
             System.out.println(vignetteShader.getLog());
         tMapRenderer.getBatch().setShader(vignetteShader);
-//        gameBatch.setShader(vignetteShader);
+        gameBatch.setShader(vignetteShader);
 
         // figure out which layer has which id, idiotic
         for (int i = 0; i < tMap.getLayers().getCount(); i++) {
