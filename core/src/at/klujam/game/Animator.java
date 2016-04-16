@@ -26,7 +26,7 @@ public class Animator {
 
         for (int i = 0; i < frames; i++) {
 
-            Texture tex = game.getAssMan().get(path + (i + 1) + ".png");
+            Texture tex = game.getAssMan().get(path + (i) + ".png");
             tex.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             regions[i] = new TextureRegion(tex);
         }
