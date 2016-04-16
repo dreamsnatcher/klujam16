@@ -63,6 +63,12 @@ public class Game extends ApplicationAdapter {
 		assMan.load("gameplay/gobo_1_back_004.png", Texture.class);
 		assMan.load("gameplay/gobo_1_back_005.png", Texture.class);
 		assMan.load("gameplay/gobo_1_back_006.png", Texture.class);
+		assMan.load("gameplay/gobo_1_right_000.png", Texture.class);
+		assMan.load("gameplay/gobo_1_right_001.png", Texture.class);
+		assMan.load("gameplay/gobo_1_right_002.png", Texture.class);
+		assMan.load("gameplay/gobo_1_right_003.png", Texture.class);
+		assMan.load("gameplay/gobo_1_right_004.png", Texture.class);
+		assMan.load("gameplay/gobo_1_right_005.png", Texture.class);
 
 		assMan.load("buttons/button_wood_active.png", Texture.class);
 		assMan.load("buttons/button_wood_idle.png", Texture.class);
@@ -87,7 +93,7 @@ public class Game extends ApplicationAdapter {
 		screenManager.getCurrentScreen().render(Gdx.graphics.getDeltaTime());
 	}
 
-	public AssetManager getAssetManager() {
+	public AssetManager getAssMan() {
 		return assMan;
 	}
 

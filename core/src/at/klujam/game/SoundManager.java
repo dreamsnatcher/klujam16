@@ -33,7 +33,7 @@ public class SoundManager {
      */
     public void playEvent(String event) {
         if (event2sound.get(event) != null) {
-            parentGame.getAssetManager().get(event2sound.get(event), Sound.class).play();
+            parentGame.getAssMan().get(event2sound.get(event), Sound.class).play();
         } else {
             System.err.println("Event unknown.");
         }

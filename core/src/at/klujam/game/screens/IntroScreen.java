@@ -49,11 +49,11 @@ public class IntroScreen extends ScreenAdapter {
     public IntroScreen(Game game) {
         this.parentGame = game;
 
-        backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
-        gradientTop = parentGame.getAssetManager().get("credits/gradient_top.png");
-        gradientBottom = parentGame.getAssetManager().get("credits/gradient_bottom.png");
+        backgroundImage = parentGame.getAssMan().get("menu/menu_background.jpg");
+        gradientTop = parentGame.getAssMan().get("credits/gradient_top.png");
+        gradientBottom = parentGame.getAssMan().get("credits/gradient_bottom.png");
 
-        creditsFont = parentGame.getAssetManager().get("fonts/celtic.fnt");
+        creditsFont = parentGame.getAssMan().get("fonts/celtic.fnt");
 
         // Create camera that projects the game onto the actual screen size.
         cam = new OrthographicCamera(Game.GAME_WIDTH, Game.GAME_HEIGHT);

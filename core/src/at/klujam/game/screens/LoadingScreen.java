@@ -42,7 +42,7 @@ public class LoadingScreen extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
-        if (parentGame.getAssetManager().update()) {
+        if (parentGame.getAssMan().update()) {
             parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
         }
         // camera:

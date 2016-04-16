@@ -4,7 +4,9 @@ import at.klujam.game.Mechanics.FightWorld;
 import at.klujam.game.Mechanics.Fighting.F_Ability;
 import at.klujam.game.Mechanics.States.F_Dead;
 import at.klujam.game.Mechanics.States.F_State;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -34,14 +36,19 @@ public abstract class F_Entity{
     Array<F_State> states;
     public int armor;
     protected F_Entity forcedEntity;
+    private BitmapFont numberFont;
+    private float showStateDuration = 0;
+    private Color stateColor;
+    private String stateString;
 
 
     public F_Entity(Vector2 position, FightWorld world) {
         this.position = position;
         this.world = world;
         states = new Array<F_State>();
-        selector1Textur = world.fightingSceneScreen.parentGame.getAssetManager().get("gameplay/selected1.png");
-        selector2Textur = world.fightingSceneScreen.parentGame.getAssetManager().get("gameplay/selected2.png");
+        selector1Textur = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/selected1.png");
+        selector2Textur = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/selected2.png");
+        numberFont = world.fightingSceneScreen.parentGame.getAssMan().get("fonts/celtic.fnt");
     }
 
     public void removeState(F_State state){
@@ -73,6 +80,33 @@ public abstract class F_Entity{
         if (selectedByOne){
             spriteBatch.draw(selector2Textur, position.x + texture.getWidth()/2 - 9, position.y + texture.getHeight());
         }
+        if(hitpoints < 10){
+            numberFont.setColor(Color.RED);
+        }else{
+            numberFont.setColor(Color.GREEN);
+        }
+
+        numberFont.draw(spriteBatch,Integer.toString(hitpoints),position.x - texture.getWidth()/2f,position.y- numberFont.getXHeight() +10);
+
+        numberFont.setColor(Color.BLUE);
+        numberFont.draw(spriteBatch, Integer.toString(armor),position.x + 10 + texture.getWidth()/2f,position.y - numberFont.getXHeight() +10);
+
+        if(showStateDuration>0){
+            if(showStateDuration<1){
+                stateColor.a = showStateDuration;
+            }
+            numberFont.setColor(stateColor);
+
+            numberFont.draw(spriteBatch,stateString,position.x, position.y + texture.getHeight() + 20);
+            showStateDuration -=delta;
+        }
+
+    }
+
+    public void SetStateText(Color color, String text, float duration ){
+        this.stateColor = new Color(color);
+        this.stateString = text;
+        this.showStateDuration = duration;
     }
 
     public void inflict_damage(float damage){
@@ -97,7 +131,7 @@ public abstract class F_Entity{
         selectedByTwo = b;
     }
 
-    //TODO @LUKAS KNOCH
+    //TODO @Veit: I didi it!
     public void forceTarget(F_Entity origin) {
         forcedEntity = origin;
     }

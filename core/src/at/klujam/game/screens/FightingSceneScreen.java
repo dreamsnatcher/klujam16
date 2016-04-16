@@ -77,7 +77,7 @@ public class FightingSceneScreen extends GameplayScreen {
         buttonSkins = new Skin();
         buttonSkins.add("button_UP", new Texture("buttons/button_wood_idle.png"));
         buttonSkins.add("button_DOWN", new Texture("buttons/button_wood_active.png"));
-        font = parentGame.getAssetManager().get("fonts/celtic.fnt");
+        font = parentGame.getAssMan().get("fonts/celtic.fnt");
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         buttonStyle = new TextButton.TextButtonStyle();
@@ -347,9 +347,11 @@ public class FightingSceneScreen extends GameplayScreen {
 
         if(statePlayerOne == ENEMY_TURN_STARTED && statePlayerTwo== ENEMY_TURN_STARTED){
             DoEnemyAttack();
-            statePlayerOne = SELECT_ABILITY;
             setButtonGroupPlayerOne(playerOneBaseButtonGroup, allButtonsPlayerOne);
             setButtonGroupPlayerTwo(playerTwoBaseButtonGroup, allButtonsPlayerTwo);
+            statePlayerOne = SELECT_ABILITY;
+            statePlayerTwo = SELECT_ABILITY;
+
 
         }
     }
@@ -385,8 +387,8 @@ public class FightingSceneScreen extends GameplayScreen {
             InputEvent event = new InputEvent();
             event.setType(InputEvent.Type.touchUp);
             statePlayerTwo = SELECT_ENEMY;
-            currentEnemyPlayerTwo = 0;
-            currentButtonsPlayerTwo.get(button_selected_p2).fire(event);
+            //currentEnemyPlayerTwo = 0;
+            currentButtonsPlayerTwo.get(button_selected_p2%currentButtonsPlayerTwo.size).fire(event);
         }else if(statePlayerTwo == SELECT_ENEMY){
             statePlayerTwo = SELECT_ABILITY;
         }
@@ -397,8 +399,8 @@ public class FightingSceneScreen extends GameplayScreen {
             InputEvent event = new InputEvent();
             event.setType(InputEvent.Type.touchUp);
             statePlayerOne = SELECT_ENEMY;
-            currentEnemyPlayerOne = 0;
-            currentButtonsPlayerOne.get(button_selected_p1).fire(event);
+            //currentEnemyPlayerOne = 0;
+            currentButtonsPlayerOne.get(button_selected_p1%currentButtonsPlayerOne.size).fire(event);
         }else if(statePlayerOne == SELECT_ENEMY){
             statePlayerOne = SELECT_ABILITY;
         }

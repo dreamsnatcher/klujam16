@@ -2,6 +2,9 @@ package at.klujam.game.Mechanics.Entities;
 
 import at.klujam.game.Mechanics.FightWorld;
 import at.klujam.game.Mechanics.Fighting.Attack;
+import at.klujam.game.Mechanics.Fighting.F_Ability;
+import at.klujam.game.Mechanics.Fighting.Heal;
+import at.klujam.game.Mechanics.Fighting.HeavyAttack;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
@@ -21,31 +24,41 @@ public class F_Enemy extends F_Entity {
     public F_Enemy(Vector2 position, FightWorld world, int type) {
         super(position, world);
         this.abilities.add(new Attack("Attack",world,this));
-        this.abilities.add(new Attack("Insult",world,this));
-        this.abilities.add(new Attack("Insult1",world,this));
-        this.abilities.add(new Attack("Charm",world,this));
-        randomGenerator = new Random();
+        this.abilities.add(new Attack("Attack",world,this));
+        this.abilities.add(new HeavyAttack("Attack",world,this));
+        this.abilities.add(new Heal("Insult",world,this));
 
         switch (type){
             case Bitch:
-                this.texture = world.fightingSceneScreen.parentGame.getAssetManager().get("gameplay/bitch_butterfly.png");
+                this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/bitch_butterfly.png");
+                randomGenerator = new Random();
+                baseDamage = 4 + randomGenerator.nextInt(10);
                 break;
             case UNICORN:
-                this.texture = world.fightingSceneScreen.parentGame.getAssetManager().get("gameplay/unicorn.png");
+                this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/unicorn.png");
+                randomGenerator = new Random();
+                baseDamage = 7 + randomGenerator.nextInt(3);
                 break;
             case PIXIE:
-                this.texture = world.fightingSceneScreen.parentGame.getAssetManager().get("gameplay/pixie_pixelated.png");
+                this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/pixie_pixelated.png");
+                randomGenerator = new Random();
+                baseDamage = 3 + randomGenerator.nextInt(2);
                 break;
         }
     }
 
 
     public void attack(List<F_Entity> party) {
+        F_Ability f_ability = getRandom(abilities);
+        if(f_ability instanceof Heal && forcedEntity != null){
+            f_ability.useOn(this);
+        }
+
         if (forcedEntity == null) {
             forcedEntity = getRandom(party);
         }
 
-        getRandom(abilities).useOn(forcedEntity);
+        f_ability.useOn(forcedEntity);
         forcedEntity = null;
 
     }

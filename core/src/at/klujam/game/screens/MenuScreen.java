@@ -33,8 +33,8 @@ public class MenuScreen extends ScreenAdapter {
     public MenuScreen(Game game) {
         this.parentGame = game;
 
-        backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
-        menuFont = parentGame.getAssetManager().get("menu/Ravie_72.fnt");
+        backgroundImage = parentGame.getAssMan().get("menu/menu_background.jpg");
+        menuFont = parentGame.getAssMan().get("menu/Ravie_72.fnt");
         menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         // Create camera that projects the game onto the actual screen size.
         cam = new OrthographicCamera(Game.GAME_WIDTH, Game.GAME_HEIGHT);
