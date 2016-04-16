@@ -35,6 +35,7 @@ public class Game extends ApplicationAdapter {
 		assMan.load("menu/Ravie_72.fnt", BitmapFont.class);
 		assMan.load("fonts/celtic.fnt", BitmapFont.class);
         assMan.load("fonts/celtic_small.fnt", BitmapFont.class);
+        assMan.load("fonts/celtic_even_smaller.fnt", BitmapFont.class);
 		assMan.load("menu/menu_background.jpg", Texture.class);
 		// for the credits
 		assMan.load("credits/gradient_top.png", Texture.class);
@@ -89,7 +90,6 @@ public class Game extends ApplicationAdapter {
 		assMan.load("gameplay/gobo_2_003.png", Texture.class);
 		assMan.load("gameplay/gobo_2_004.png", Texture.class);
 		assMan.load("gameplay/gobo_2_005.png", Texture.class);
-		assMan.load("gameplay/gobo_2_006.png", Texture.class);
 		assMan.load("gameplay/gobo_2_back_000.png", Texture.class);
 		assMan.load("gameplay/gobo_2_back_001.png", Texture.class);
 		assMan.load("gameplay/gobo_2_back_002.png", Texture.class);
