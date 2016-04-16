@@ -3,7 +3,6 @@ package at.klujam.game.Mechanics.Entities;
 import at.klujam.game.Mechanics.States.State;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -13,7 +12,7 @@ import com.badlogic.gdx.utils.Array;
  */
 public abstract class GameObject {
 
-    Vector2 position;
+    public Vector2 position;
     Rectangle bounds;
     Texture texture;
     Array<State> states;
