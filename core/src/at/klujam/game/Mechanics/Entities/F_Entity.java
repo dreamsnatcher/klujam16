@@ -92,6 +92,7 @@ public abstract class F_Entity{
 
     public void SelectPlayerTwo(boolean b) {
         selectedByTwo = b;
+    }
 
     //TODO @LUKAS KNOCH
     public void forceTarget(F_Entity origin) {
