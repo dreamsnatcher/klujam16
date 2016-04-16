@@ -54,6 +54,7 @@ public class SkeletonControlledObject extends MoveableObject {
     @Override
     void handleMovement(Float delta) {
         calcDirection();
+        this.position.add(direction.nor().scl(speed));
         if (!direction.nor().isZero()) {
             if (direction.x > 0) {
                 heading = 2;
