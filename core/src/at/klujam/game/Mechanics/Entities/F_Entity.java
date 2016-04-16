@@ -5,12 +5,12 @@ import at.klujam.game.Mechanics.Fighting.F_Ability;
 import at.klujam.game.Mechanics.States.F_Dead;
 import at.klujam.game.Mechanics.States.F_State;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +35,7 @@ public abstract class F_Entity{
     Array<F_State> states;
     public int armor;
     protected F_Entity forcedEntity;
-    private Font numberFont;
+    private BitmapFont numberFont;
 
 
     public F_Entity(Vector2 position, FightWorld world) {
