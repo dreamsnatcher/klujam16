@@ -19,10 +19,10 @@ public class SkeletonControlledObject extends MoveableObject {
     //    private TextureRegion[] regions = new TextureRegion[12];
     private Vector3 touchCoordinates = new Vector3(0, 0, 0);
     private int heading; // 1 - UP, 2 - Right, 3 - Down, 4 - Left
-    private Animation idleAnimation;
-    private Animation movingUpAnimation;
-    private Animation movingDownAnimation;
-    private Animation movingSideAnimation;
+    protected Animation idleAnimation;
+    protected Animation movingUpAnimation;
+    protected Animation movingDownAnimation;
+    protected Animation movingSideAnimation;
     private TextureRegion frame;
     private World world;
 

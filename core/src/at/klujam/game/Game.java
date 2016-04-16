@@ -49,6 +49,12 @@ public class Game extends ApplicationAdapter {
 		//Entities
 		assMan.load("gameplay/spritesheet.png", Texture.class);
 		assMan.load("gameplay/movingAnimation_Down.png", Texture.class);
+
+		assMan.load("gameplay/gobo_1_0.png", Texture.class);
+		assMan.load("gameplay/gobo_1_1.png", Texture.class);
+		assMan.load("gameplay/gobo_1_2.png", Texture.class);
+		assMan.load("gameplay/gobo_1_3.png", Texture.class);
+
 		assMan.load("buttons/button_wood_active.png", Texture.class);
 		assMan.load("buttons/button_wood_idle.png", Texture.class);
 		assMan.load("gameplay/goblin_1.png", Texture.class);
