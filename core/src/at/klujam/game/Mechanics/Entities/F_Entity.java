@@ -6,8 +6,8 @@ import at.klujam.game.Mechanics.States.F_Dead;
 import at.klujam.game.Mechanics.States.F_State;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -20,6 +20,8 @@ import java.util.List;
  */
 public abstract class F_Entity{
 
+    protected Animation animation;
+    private final GlyphLayout glyphLayout;
     public int hitpoints = 100;
     public float resistence = 0;
     public float baseDamage = 1;
@@ -40,15 +42,23 @@ public abstract class F_Entity{
     private float showStateDuration = 0;
     private Color stateColor;
     private String stateString;
+    private float animate =0;
+    private float nextAnimation = MathUtils.random(0,15);
 
 
     public F_Entity(Vector2 position, FightWorld world) {
         this.position = position;
         this.world = world;
         states = new Array<F_State>();
+
         selector1Textur = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/selected1.png");
         selector2Textur = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/selected2.png");
-        numberFont = world.fightingSceneScreen.parentGame.getAssMan().get("fonts/celtic.fnt");
+        numberFont = world.fightingSceneScreen.parentGame.getAssMan().get("fonts/celtic_small.fnt");
+        if(this instanceof F_Enemy) {
+            numberFont = world.fightingSceneScreen.parentGame.getAssMan().get("fonts/celtic_even_smaller.fnt");
+        }
+
+        glyphLayout = new GlyphLayout();
     }
 
     public void removeState(F_State state){
@@ -70,9 +80,24 @@ public abstract class F_Entity{
         }
     };
 
+    public void doAnimation(){
+            animate = 0;
+    }
     public void render(float delta, SpriteBatch spriteBatch) {
 
-        spriteBatch.draw(texture, position.x, position.y);
+        if(nextAnimation <= 0){
+            doAnimation();
+            nextAnimation = MathUtils.random(3f,20f);
+        }
+        nextAnimation-=delta;
+
+        if(animation!=null && animate <= animation.getAnimationDuration() ){
+            TextureRegion texture = animation.getKeyFrame(animate,true);
+            spriteBatch.draw(texture, position.x, position.y);
+            animate+=delta;
+        }else{
+            spriteBatch.draw(texture, position.x, position.y);
+        }
         if(selectedByTwo){
             spriteBatch.draw(selector1Textur, position.x + texture.getWidth()/2 + 9, position.y + texture.getHeight());
 
@@ -86,10 +111,32 @@ public abstract class F_Entity{
             numberFont.setColor(Color.GREEN);
         }
 
-        numberFont.draw(spriteBatch,Integer.toString(hitpoints),position.x - texture.getWidth()/2f,position.y- numberFont.getXHeight() +10);
+        float sumWidth = 0;
+        String hitPoints = "HP: "+hitpoints;
+        glyphLayout.setText(numberFont,hitPoints);
+        sumWidth+=10;
+        sumWidth += glyphLayout.width;
+
+        float apOffset = sumWidth;
+
+        String armorString= "AP: "+armor;
+        glyphLayout.setText(numberFont,armorString);
+        sumWidth += glyphLayout.width;
+        sumWidth+=10;
+        float atOffset = sumWidth;
+
+        String attack = "At: "+baseDamage;
+        glyphLayout.setText(numberFont,attack);
+        sumWidth += glyphLayout.width;
+
+        numberFont.draw(spriteBatch,hitPoints,position.x + (texture.getWidth()/2f) - sumWidth/2f ,position.y - numberFont.getXHeight() +10);
 
         numberFont.setColor(Color.BLUE);
-        numberFont.draw(spriteBatch, Integer.toString(armor),position.x + 10 + texture.getWidth()/2f,position.y - numberFont.getXHeight() +10);
+        numberFont.draw(spriteBatch, armorString,position.x + (texture.getWidth()/2f) -sumWidth/2f +apOffset,position.y - numberFont.getXHeight() +10);
+
+        numberFont.setColor(Color.RED);
+        numberFont.draw(spriteBatch, attack,position.x + (texture.getWidth()/2f) - sumWidth/2f + atOffset,position.y - numberFont.getXHeight() +10);
+
 
         if(showStateDuration>0){
             if(showStateDuration<1){
