@@ -20,7 +20,7 @@ public class DungeonScreen extends GameplayScreen {
         this(game);
         this.level = level;
         this.tMap = (new TmxMapLoader()).load("level/" + level + ".tmx");
-        this.tiledMapRenderer = new OrthogonalTiledMapRenderer(tMap, unitScale, batch);
+        this.tiledMapRenderer = new OrthogonalTiledMapRenderer(tMap, unitScale, guiBatch);
         GameObjects.create(world, tMap, unitScale);
     }
 

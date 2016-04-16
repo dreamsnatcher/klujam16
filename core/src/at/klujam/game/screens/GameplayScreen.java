@@ -18,7 +18,7 @@ import com.badlogic.gdx.math.Vector2;
 public class GameplayScreen extends ScreenAdapter {
 
     private BitmapFont font;
-    final SpriteBatch batch;
+    final SpriteBatch guiBatch;
     final SpriteBatch gameBatch;
     public Game parentGame;
     public OrthographicCamera cam, camGui;
@@ -27,27 +27,21 @@ public class GameplayScreen extends ScreenAdapter {
     public GameplayScreen(Game game) {
         this.parentGame = game;
         this.world = new World(this);
-        batch = new SpriteBatch();
+        guiBatch = new SpriteBatch();
         gameBatch = new SpriteBatch();
 
         // Create camera that projects the game onto the actual screen size.
         cam = new OrthographicCamera(Game.GAME_WIDTH, Game.GAME_HEIGHT);
-        //cam.setToOrtho(false, Gdx.graphics.getWidth() / (float) Constants.TILE_SIZE, Gdx.graphics.getHeight() / (float) Constants.TILE_SIZE);
-        cam.setToOrtho(false, Game.GAME_WIDTH, Game.GAME_HEIGHT);
-//        cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
-
-        // Create camera that projects the game onto the actual screen size.
-        cam = new OrthographicCamera();
 //        cam.setToOrtho(false, Gdx.graphics.getWidth() / (float) Constants.TILE_SIZE, Gdx.graphics.getHeight() / (float) Constants.TILE_SIZE);
         cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
-        cam.zoom += 2;
+        cam.zoom -= 0.5;
+        cam.update();
 
         camGui = new OrthographicCamera(Game.GAME_WIDTH, Game.GAME_HEIGHT);
         camGui.position.set(0, 0, 0);
         camGui.setToOrtho(false); //flip y-axis
         font = new BitmapFont(Gdx.files.internal("fonts/default.fnt"),
                 Gdx.files.internal("fonts/default.png"), false);
-        System.out.println("CP:" +cam.position.x +" "+ cam.position.y);
 
     }
 
@@ -59,7 +53,6 @@ public class GameplayScreen extends ScreenAdapter {
         handleInput();
         System.out.println("CAM position: " +cam.position.x + " " + cam.position.y + " " + cam.zoom);
         cam.update();
-        batch.setProjectionMatrix(camGui.combined);
         gameBatch.setProjectionMatrix(cam.combined);
 
         Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
@@ -67,7 +60,7 @@ public class GameplayScreen extends ScreenAdapter {
 
         world.update(delta);
         world.render(delta,gameBatch);
-        renderGUI(batch);
+        renderGUI(guiBatch);
     }
 
     public void renderGUI(SpriteBatch batch) {

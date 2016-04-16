@@ -148,7 +148,7 @@ public class FightingSceneScreen extends GameplayScreen {
         handleInput();
         // camera:
         cam.update();
-        batch.setProjectionMatrix(cam.combined);
+        guiBatch.setProjectionMatrix(cam.combined);
 
 
         Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
