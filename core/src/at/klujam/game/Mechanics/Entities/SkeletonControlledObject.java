@@ -106,7 +106,7 @@ public class SkeletonControlledObject extends MoveableObject {
         }
 
         if (Gdx.input.justTouched()) {
-            //touch(world.gameplayScreen.cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 1)));
+//            touch(world.gameplayScreen.cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 1)));
         }
     }
 

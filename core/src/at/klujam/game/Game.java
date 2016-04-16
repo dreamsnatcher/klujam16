@@ -21,10 +21,6 @@ public class Game extends ApplicationAdapter {
 	// set in DesktopLauncher to any resolution and it will be scaled automatically.
 	public static final int GAME_WIDTH = 1920;
 	public static final int GAME_HEIGHT = 1080;
-	public static final float SCALING_TO_B2_WORLD = 1/10f;
-	public static final float SCALING_TO_GAME_WORLD = 10f;
-
-
 
 	@Override
 	public void create() {

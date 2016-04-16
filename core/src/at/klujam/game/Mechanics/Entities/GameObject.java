@@ -19,7 +19,6 @@ public abstract class GameObject {
     Rectangle bounds;
     Texture texture;
     Array<State> states;
-    Body b2Body;
     Vector2 dimension;
 
     public GameObject(Vector2 position, Vector2 dimension) {
