@@ -48,6 +48,7 @@ public class Game extends ApplicationAdapter {
 		assMan.load("sfx/laser.wav", Sound.class);
 		assMan.load("sfx/pickup.wav", Sound.class);
 		assMan.load("sfx/powerup.wav", Sound.class);
+        assMan.load("sfx/rage.wav", Sound.class);
 
         assMan.load("speech/Hokus-fight-start.mp3", Sound.class);
         assMan.load("speech/Pokus-attack01.mp3", Sound.class);
