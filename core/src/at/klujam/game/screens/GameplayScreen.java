@@ -20,7 +20,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class GameplayScreen extends ScreenAdapter {
 
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = false;
     final SpriteBatch guiBatch;
     final SpriteBatch gameBatch;
     public Game parentGame;

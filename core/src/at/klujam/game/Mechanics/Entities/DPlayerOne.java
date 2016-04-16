@@ -27,8 +27,10 @@ public class DPlayerOne extends SkeletonControlledObject {
                 loadAnimation("gameplay/gobo_1_back_00", 6, 0.3f);
         this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator()
                 .loadAnimation("gameplay/gobo_1__00", 5, 0.2f);
-        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator()
+        this.movingRightAnimation = world.gameplayScreen.parentGame.getAnimator()
                 .loadAnimation("gameplay/gobo_1_right_00", 5, 0.3f);
+        this.movingLeftAnimation = world.gameplayScreen.parentGame.getAnimator()
+                .loadAnimation("gameplay/gobo_1_left_00", 4, 0.3f);
     }
 
     @Override
