@@ -10,6 +10,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Veit on 15.04.2016.
  */
@@ -18,7 +21,7 @@ public abstract class F_Entity{
     public int hitpoints = 100;
     public float resistence = 0;
     public float baseDamage = 1;
-    public Array<F_Ability> abilities = new Array<F_Ability>();
+    public List<F_Ability> abilities = new ArrayList<F_Ability>();
     boolean selectedByOne = false;
     boolean selectedByTwo = false;
     private Texture selector1Textur;
@@ -30,7 +33,7 @@ public abstract class F_Entity{
     Texture texture;
     Array<F_State> states;
     public int armor;
-    private F_Entity forcedEntity;
+    protected F_Entity forcedEntity;
 
 
     public F_Entity(Vector2 position, FightWorld world) {
