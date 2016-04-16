@@ -1,5 +1,8 @@
 package at.klujam.game.screens;
 
+import at.klujam.game.Game;
+import at.klujam.game.Mechanics.FightWorld;
+import at.klujam.game.Mechanics.Fighting.F_Ability;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
@@ -14,22 +17,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-import at.klujam.game.Game;
-import at.klujam.game.Mechanics.Entities.SkeletonControlledObject;
-import at.klujam.game.Mechanics.FightWorld;
-
 /**
  * Created by Veit on 15.04.2016.
  */
 public class FightingSceneScreen extends GameplayScreen {
 
     private final InputMultiplexer multiplexer;
-    TextButton playerOneAbilities;
-    TextButton playerOneAbility_1;
-    TextButton playerOneAbility_2;
-    TextButton playerOneAbility_3;
-    TextButton playerOneAbility_4;
-    TextButton playerOneAbility_5;
+    private final TextButton playerOneAbilities;
     TextButton playerOneBackButton;
     Skin buttonSkins;
     BitmapFont font;
@@ -45,7 +39,7 @@ public class FightingSceneScreen extends GameplayScreen {
 
     Array<TextButton> playerOneAbilitiesButtonGroup = new Array<TextButton>();
     Array<TextButton> playerOneBaseButtonGroup= new Array<TextButton>();
-    Array<TextButton> allButtons= new Array<TextButton>();
+    Array<TextButton> allButtonsPlayerOne = new Array<TextButton>();
 
 
     public FightingSceneScreen(Game game) {
@@ -76,98 +70,44 @@ public class FightingSceneScreen extends GameplayScreen {
                 setButtonGroup(playerOneAbilitiesButtonGroup);
             }
         });
-        allButtons.add(playerOneAbilities);
+        allButtonsPlayerOne.add(playerOneAbilities);
         playerOneBaseButtonGroup.add(playerOneAbilities);
         playerOneAbilities.setPosition(spaceBetweenButtonsH, 3 * spaceBetweenButtonsV + 2 * buttonHeigth);
 
-        System.out.println(" " + (spaceBetweenButtonsH) + "," +  (3 * spaceBetweenButtonsV + 2 * buttonHeigth));
+        int count = 0;
+        for (final F_Ability ability:fightingWorld.playerOne.abilities) {
+            TextButton textButton = new TextButton(ability.name, buttonStyle);
+            textButton.addListener(new InputListener() {
+                @Override
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                    return true;
+                }
 
-        playerOneAbility_1 = new TextButton("Ability 1", buttonStyle);
-        playerOneAbility_1.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button pressed"); //TODO
-            }
-        });
-        playerOneAbilitiesButtonGroup.add(playerOneAbility_1);
-        allButtons.add(playerOneAbility_1);
-        playerOneAbility_1.setPosition(spaceBetweenButtonsH, 3*spaceBetweenButtonsV+2*buttonHeigth);
-
-        playerOneAbility_2 = new TextButton("Ability 2", buttonStyle);
-        playerOneAbility_2.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button pressed"); //TODO
-            }
-        });
-        playerOneAbilitiesButtonGroup.add(playerOneAbility_2);
-        allButtons.add(playerOneAbility_2);
-        playerOneAbility_2.setPosition(2*spaceBetweenButtonsH+buttonWidth, 3*spaceBetweenButtonsV+2*buttonHeigth);
-
-        playerOneAbility_3 = new TextButton("Ability 3", buttonStyle);
-        playerOneAbility_3.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button pressed"); //TODO
-            }
-        });
-        playerOneAbilitiesButtonGroup.add(playerOneAbility_3);
-        allButtons.add(playerOneAbility_3);
-        playerOneAbility_3.setPosition(spaceBetweenButtonsH, 2*spaceBetweenButtonsV+1*buttonHeigth);
-
-        playerOneAbility_4 = new TextButton("Ability 4", buttonStyle);
-        playerOneAbility_4.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button pressed"); //TODO
-            }
-        });
-        playerOneAbilitiesButtonGroup.add(playerOneAbility_4);
-        allButtons.add(playerOneAbility_4);
-        playerOneAbility_4.setPosition(2*spaceBetweenButtonsH+buttonWidth, 2*spaceBetweenButtonsV+1*buttonHeigth);
-
-
-        playerOneAbility_5 = new TextButton("Ability 5", buttonStyle);
-        playerOneAbility_5.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button pressed"); //TODO
-            }
-        });
-        playerOneAbilitiesButtonGroup.add(playerOneAbility_5);
-        allButtons.add(playerOneAbility_5);
-        playerOneAbility_5.setPosition(spaceBetweenButtonsH, spaceBetweenButtonsV);
+                @Override
+                public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                    System.out.println("Button pressed"); //TODO
+                    ability.useOn(null);
+                }
+            });
+            int i = count % 2;
+            if(i==0) i= 1;
+            textButton.setPosition(i *spaceBetweenButtonsH + (count%2) * (buttonWidth+ spaceBetweenButtonsH), (((count/2)+2) * spaceBetweenButtonsV)+ ((count/2)+1) *buttonHeigth);
+            System.out.println(ability.name);
+            System.out.println(textButton.getX());
+            System.out.println(textButton.getY());
+            stage.addActor(textButton);
+            playerOneAbilitiesButtonGroup.add(textButton);
+            allButtonsPlayerOne.add(textButton);
+            count++;
+        }
 
 
         playerOneBackButton = new TextButton("Back", buttonStyle);
         playerOneBackButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
+                setButtonGroup(playerOneBaseButtonGroup);
                 return true;
             }
 
@@ -177,13 +117,13 @@ public class FightingSceneScreen extends GameplayScreen {
             }
         });
         playerOneAbilitiesButtonGroup.add(playerOneBackButton);
-        allButtons.add(playerOneBackButton);
+        allButtonsPlayerOne.add(playerOneBackButton);
         playerOneBackButton.setPosition(2*spaceBetweenButtonsH + buttonWidth, spaceBetweenButtonsV);
 
 
         setButtonGroup(playerOneBaseButtonGroup);
 
-        for (TextButton button: allButtons){
+        for (TextButton button: allButtonsPlayerOne){
             stage.addActor(button);
         }
         multiplexer = new InputMultiplexer();
@@ -192,7 +132,7 @@ public class FightingSceneScreen extends GameplayScreen {
     }
 
     private void setButtonGroup(Array<TextButton> buttonGroup) {
-        for (TextButton button: allButtons){
+        for (TextButton button: allButtonsPlayerOne){
             button.setVisible(false);
             button.setDisabled(false);
         }
