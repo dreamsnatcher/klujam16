@@ -3,24 +3,19 @@ package at.klujam.game;
 import at.klujam.game.screens.*;
 import com.badlogic.gdx.Screen;
 
-import at.klujam.game.screens.CreditsScreen;
-import at.klujam.game.screens.GameplayScreen;
-import at.klujam.game.screens.LoadingScreen;
-import at.klujam.game.screens.MenuScreen;
-
 /**
  * Created by Mathias Lux, mathias@juggle.at, on 04.02.2016.
  */
 public class ScreenManager {
-    public enum ScreenState {Loading, Menu, Game, Credits, Fighting, Intro, Help, GameOver}
-    private Screen currentScreen;
-    private ScreenState currentState;
+    private Screen currentScreen, lastScreen;
+    private ScreenState currentState, lastState;
     private Game parentGame;
 
     public ScreenManager(Game game) {
         this.parentGame = game;
         currentScreen = new LoadingScreen(game);
         currentState = ScreenState.Loading;
+        lastState = ScreenState.None;
     }
 
     public Screen getCurrentScreen() {
@@ -43,9 +38,22 @@ public class ScreenManager {
                 //currentScreen = new GameplayScreen(parentGame);
             } else if (state == ScreenState.Fighting) {
                 currentScreen = new FightingSceneScreen(parentGame);
-            }else if (state == ScreenState.Intro) {
+            } else if (state == ScreenState.Intro) {
                 currentScreen = new IntroScreen(parentGame);
             }
+        }
+    }
+
+    public void changeScreen(ScreenState newState) {
+        if (lastState != ScreenState.None && lastState == newState) {
+            currentScreen = lastScreen;
+            currentState = newState;
+            lastState = ScreenState.None;
+            lastScreen.dispose();
+        } else {
+            lastState = currentState;
+            lastScreen = currentScreen;
+            setCurrentState(newState);
         }
     }
 
@@ -56,4 +64,6 @@ public class ScreenManager {
     public void setParentGame(Game parentGame) {
         this.parentGame = parentGame;
     }
+
+    public enum ScreenState {None, Loading, Menu, Game, Credits, Fighting, Intro, Help, GameOver}
 }

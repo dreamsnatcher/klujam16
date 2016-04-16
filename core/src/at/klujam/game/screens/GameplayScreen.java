@@ -2,6 +2,7 @@ package at.klujam.game.screens;
 
 import at.klujam.game.Game;
 import at.klujam.game.Mechanics.World;
+import at.klujam.game.ScreenManager;
 import at.klujam.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -107,6 +108,9 @@ public class GameplayScreen extends ScreenAdapter {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             cam.zoom -= 0.02;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)){
+            parentGame.getScreenManager().changeScreen(ScreenManager.ScreenState.Fighting);
         }
     }
 

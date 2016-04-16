@@ -1,2 +1,2 @@
 # klujam16
-Our Zelda Adaption on Klujam 2016
+Top-Down RPG which goal it is to fight the evil tooth fairy

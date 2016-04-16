@@ -6,6 +6,7 @@ import at.klujam.game.Mechanics.Entities.F_Enemy;
 import at.klujam.game.Mechanics.Entities.F_Entity;
 import at.klujam.game.Mechanics.FightWorld;
 import at.klujam.game.Mechanics.Fighting.F_Ability;
+import at.klujam.game.ScreenManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
@@ -331,6 +332,9 @@ public class FightingSceneScreen extends GameplayScreen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
             parentGame.getSoundManager().playEvent("hit");
             PlayerTwoEnter();
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT)){
+            parentGame.getScreenManager().changeScreen(ScreenManager.ScreenState.Game);
         }
 
         if(currentEnemyPlayerOne>=0) {
