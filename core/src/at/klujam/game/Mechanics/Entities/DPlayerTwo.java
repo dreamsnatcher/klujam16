@@ -24,7 +24,9 @@ public class DPlayerTwo extends DPlayerOne {
                 loadAnimation("gameplay/gobo_2_back_00", 6, 0.3f);
         this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator()
                 .loadAnimation("gameplay/gobo_2_00", 5, 0.2f);
-        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator()
+        this.movingLeftAnimation = world.gameplayScreen.parentGame.getAnimator()
+                .loadAnimation("gameplay/gobo_2_left_00", 4, 0.3f);
+        this.movingRightAnimation = world.gameplayScreen.parentGame.getAnimator()
                 .loadAnimation("gameplay/gobo_2_right_00", 4, 0.3f);
     }
 

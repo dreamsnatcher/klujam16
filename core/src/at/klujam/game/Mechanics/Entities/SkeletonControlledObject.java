@@ -22,7 +22,8 @@ public class SkeletonControlledObject extends MoveableObject {
     protected Animation idleAnimation;
     protected Animation movingUpAnimation;
     protected Animation movingDownAnimation;
-    protected Animation movingSideAnimation;
+    protected Animation movingRightAnimation;
+    protected Animation movingLeftAnimation;
     private TextureRegion frame;
     private World world;
 
@@ -37,7 +38,9 @@ public class SkeletonControlledObject extends MoveableObject {
                 loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
         this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator()
                 .loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
-        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator()
+        this.movingRightAnimation = world.gameplayScreen.parentGame.getAnimator()
+                .loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
+        this.movingLeftAnimation = world.gameplayScreen.parentGame.getAnimator()
                 .loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
 //        this.texture = world.gameplayScreen.parentGame.getAssMan().get("gameplay/spritesheet.png");
 //        for (int i = 0; i<3; i++){
@@ -215,13 +218,13 @@ public class SkeletonControlledObject extends MoveableObject {
                 frame = movingUpAnimation.getKeyFrame(movingTime, true);
                 break;
             case 2:
-                frame = movingSideAnimation.getKeyFrame(movingTime, true);
+                frame = movingRightAnimation.getKeyFrame(movingTime, true);
                 break;
             case 3:
                 frame = movingDownAnimation.getKeyFrame(movingTime, true);
                 break;
             case 4:
-                frame = movingSideAnimation.getKeyFrame(movingTime, true);
+                frame = movingLeftAnimation.getKeyFrame(movingTime, true);
                 break;
             default:
                 frame = idleAnimation.getKeyFrame(movingTime, true);
