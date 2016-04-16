@@ -19,6 +19,7 @@ public class GameplayScreen extends ScreenAdapter {
 
     private BitmapFont font;
     final SpriteBatch batch;
+    final SpriteBatch gameBatch;
     public Game parentGame;
     public OrthographicCamera cam, camGui;
     World world;
@@ -27,10 +28,12 @@ public class GameplayScreen extends ScreenAdapter {
         this.parentGame = game;
         this.world = new World(this);
         batch = new SpriteBatch();
+        gameBatch = new SpriteBatch();
 
         // Create camera that projects the game onto the actual screen size.
         cam = new OrthographicCamera(Game.GAME_WIDTH, Game.GAME_HEIGHT);
-        cam.setToOrtho(false, Gdx.graphics.getWidth() / (float) Constants.TILE_SIZE, Gdx.graphics.getHeight() / (float) Constants.TILE_SIZE);
+        //cam.setToOrtho(false, Gdx.graphics.getWidth() / (float) Constants.TILE_SIZE, Gdx.graphics.getHeight() / (float) Constants.TILE_SIZE);
+        cam.setToOrtho(false, Game.GAME_WIDTH, Game.GAME_HEIGHT);
 //        cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
         cam.zoom += 2;
         cam.update();
@@ -40,6 +43,7 @@ public class GameplayScreen extends ScreenAdapter {
         camGui.setToOrtho(false); //flip y-axis
         font = new BitmapFont(Gdx.files.internal("fonts/default.fnt"),
                 Gdx.files.internal("fonts/default.png"), false);
+        System.out.println("CP:" +cam.position.x +" "+ cam.position.y);
 
     }
 
@@ -50,13 +54,14 @@ public class GameplayScreen extends ScreenAdapter {
         cameraFollow(delta);
         handleInput();
         cam.update();
-        batch.setProjectionMatrix(cam.combined);
+        batch.setProjectionMatrix(camGui.combined);
+        gameBatch.setProjectionMatrix(cam.combined);
 
         Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         world.update(delta);
-        world.render(delta);
+        world.render(delta,gameBatch);
         renderGUI(batch);
     }
 
@@ -87,8 +92,13 @@ public class GameplayScreen extends ScreenAdapter {
         cam.update();
     }
     public void cameraFollow(float deltaTime) {
-        Vector2 dist = new Vector2(world.player.position).sub(cam.position.x, cam.position.y);
-        cam.position.add(dist.x * deltaTime * World.CAM_DAMP, dist.y * deltaTime * World.CAM_DAMP, 0);
+        OrthographicCamera camera = cam;
+        Vector2 dist = new Vector2(world.player.position).sub(camera.position.x - 1080 / 2, camera.position.y - 1920 / 2); //TODO Fixed pixels here! Check if this is connected to "CAMERA SHACKING"
+        camera.position.add(0, dist.y * deltaTime * 4, 0);
+//        cam.position.x = world.player.position.x;
+//        cam.position.y = world.player.position.y;
+        System.out.println("Player Position" + world.player.position);
+        System.out.println("Camera Position" + cam.position);
     }
 
 }
