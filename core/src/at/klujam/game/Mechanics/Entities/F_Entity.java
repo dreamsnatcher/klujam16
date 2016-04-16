@@ -4,13 +4,14 @@ import at.klujam.game.Mechanics.FightWorld;
 import at.klujam.game.Mechanics.Fighting.F_Ability;
 import at.klujam.game.Mechanics.States.F_Dead;
 import at.klujam.game.Mechanics.States.F_State;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public abstract class F_Entity{
     Array<F_State> states;
     public int armor;
     protected F_Entity forcedEntity;
-    private Font numberFont;
+    private BitmapFont numberFont;
 
 
     public F_Entity(Vector2 position, FightWorld world) {
@@ -76,6 +77,13 @@ public abstract class F_Entity{
         if (selectedByOne){
             spriteBatch.draw(selector2Textur, position.x + texture.getWidth()/2 - 9, position.y + texture.getHeight());
         }
+        if(hitpoints < 10){
+            numberFont.setColor(Color.RED);
+        }else{
+            numberFont.setColor(Color.GREEN);
+
+        }
+        numberFont.draw(spriteBatch,Integer.toString(hitpoints),position.x,position.y- numberFont.getXHeight() +10);
     }
 
     public void inflict_damage(float damage){
