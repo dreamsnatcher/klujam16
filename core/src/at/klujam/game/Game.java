@@ -50,10 +50,19 @@ public class Game extends ApplicationAdapter {
 		assMan.load("gameplay/spritesheet.png", Texture.class);
 		assMan.load("gameplay/movingAnimation_Down.png", Texture.class);
 
-		assMan.load("gameplay/gobo_1_0.png", Texture.class);
-		assMan.load("gameplay/gobo_1_1.png", Texture.class);
-		assMan.load("gameplay/gobo_1_2.png", Texture.class);
-		assMan.load("gameplay/gobo_1_3.png", Texture.class);
+		assMan.load("gameplay/gobo_1__000.png", Texture.class);
+		assMan.load("gameplay/gobo_1__001.png", Texture.class);
+		assMan.load("gameplay/gobo_1__002.png", Texture.class);
+		assMan.load("gameplay/gobo_1__003.png", Texture.class);
+		assMan.load("gameplay/gobo_1__004.png", Texture.class);
+		assMan.load("gameplay/gobo_1__005.png", Texture.class);
+		assMan.load("gameplay/gobo_1_back_000.png", Texture.class);
+		assMan.load("gameplay/gobo_1_back_001.png", Texture.class);
+		assMan.load("gameplay/gobo_1_back_002.png", Texture.class);
+		assMan.load("gameplay/gobo_1_back_003.png", Texture.class);
+		assMan.load("gameplay/gobo_1_back_004.png", Texture.class);
+		assMan.load("gameplay/gobo_1_back_005.png", Texture.class);
+		assMan.load("gameplay/gobo_1_back_006.png", Texture.class);
 
 		assMan.load("buttons/button_wood_active.png", Texture.class);
 		assMan.load("buttons/button_wood_idle.png", Texture.class);
