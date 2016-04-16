@@ -3,6 +3,7 @@ package at.klujam.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -46,6 +47,14 @@ public class Game extends ApplicationAdapter {
 		assMan.load("sfx/pickup.wav", Sound.class);
 		assMan.load("sfx/powerup.wav", Sound.class);
 
+        assMan.load("speech/Hokus-fight-start.mp3", Sound.class);
+        assMan.load("speech/Pokus-attack01.mp3", Sound.class);
+        assMan.load("speech/Pokus-fight-start.mp3", Sound.class);
+
+
+        assMan.load("music/song1.mp3", Music.class);
+        assMan.load("music/song2.mp3", Music.class);
+
 		//Entities
 		assMan.load("gameplay/spritesheet.png", Texture.class);
 		assMan.load("gameplay/movingAnimation_Down.png", Texture.class);
@@ -87,6 +96,7 @@ public class Game extends ApplicationAdapter {
 		assMan.load("gameplay/pixie_pixelated.png", Texture.class);
 		assMan.load("walls/wall_line_1.png", Texture.class);
 		assMan.load("gameplay/floor.png", Texture.class);
+		assMan.load("gameplay/gobo_1_big_000.png", Texture.class);
 
 
 		//Stuff

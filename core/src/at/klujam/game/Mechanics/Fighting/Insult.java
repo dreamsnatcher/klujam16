@@ -15,7 +15,7 @@ public class Insult extends F_Ability {
 
     public void useOn(F_Entity target){
         target.forceTarget(origin);
-        target.SetStateText(Color.RED, "Argh!" , 2);
+        target.SetStateText(Color.RED, "You swine!" , 2);
         origin.armor++;
         origin.SetStateText(Color.BLUE,"+1",3f);
     }
