@@ -29,6 +29,7 @@ public class FightingSceneScreen extends GameplayScreen {
 
     private static final int SELECT_ABILITY = 0;
     private static final int SELECT_ENEMY = 1;
+    private static final int EnemyTurn= 2;
     private final InputMultiplexer multiplexer;
     private final TextButton playerOneAbilities;
     private final TextButton playerTwoAbilities;
@@ -72,7 +73,7 @@ public class FightingSceneScreen extends GameplayScreen {
         buttonSkins = new Skin();
         buttonSkins.add("button_UP", new Texture("buttons/button_wood_idle.png"));
         buttonSkins.add("button_DOWN", new Texture("buttons/button_wood_active.png"));
-        font = parentGame.getAssetManager().get("menu/Ravie_42.fnt");
+        font = parentGame.getAssetManager().get("fonts/celtic.fnt");
         font.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         buttonStyle = new TextButton.TextButtonStyle();
@@ -114,7 +115,7 @@ public class FightingSceneScreen extends GameplayScreen {
 
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                    ability.useOn(null);
+                    ability.useOn(enemies.get(currentEnemyPlayerOne));
                 }
             });
             int i = count % 2;
@@ -180,15 +181,15 @@ public class FightingSceneScreen extends GameplayScreen {
 
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                    ability.useOn(null);
+                    ability.useOn(enemies.get(currentEnemyPlayerTwo));
+                    setButtonGroupPlayerTwo(playerTwoBaseButtonGroup, new Array<TextButton>());
+
+
                 }
             });
             int i = count % 2;
             if(i==0) i= 1;
             textButton.setPosition(xOffsetPlayerTwo + (i *spaceBetweenButtonsH + (count%2) * (buttonWidth+ spaceBetweenButtonsH)), (((count/2)+2) * spaceBetweenButtonsV)+ ((count/2)+1) *buttonHeigth);
-            System.out.println(ability.name);
-            System.out.println(textButton.getX());
-            System.out.println(textButton.getY());
             stage.addActor(textButton);
             playerTwoAbilitiesButtonGroup.add(textButton);
             allButtonsPlayerTwo.add(textButton);
@@ -343,8 +344,8 @@ public class FightingSceneScreen extends GameplayScreen {
             currentButtonsPlayerTwo.get(button_selected_p2).fire(event);
             statePlayerTwo = SELECT_ENEMY;
             currentEnemyPlayerTwo = 0;
-        }else{
-            statePlayerTwo = SELECT_ABILITY;
+        }else if(statePlayerTwo == SELECT_ENEMY){
+            statePlayerTwo = EnemyTurn;
         }
     }
 
@@ -355,10 +356,8 @@ public class FightingSceneScreen extends GameplayScreen {
             currentButtonsPlayerOne.get(button_selected_p1).fire(event);
             statePlayerOne = SELECT_ENEMY;
             currentEnemyPlayerOne = 0;
-
-        }else{
-            statePlayerOne = SELECT_ABILITY;
-
+        }else if(statePlayerOne == SELECT_ENEMY){
+            statePlayerOne = EnemyTurn;
         }
     }
 
@@ -370,7 +369,7 @@ public class FightingSceneScreen extends GameplayScreen {
                 button_selected_p2 = currentButtonsPlayerTwo.size - 1;
             }
             currentButtonsPlayerTwo.get(button_selected_p2 % currentButtonsPlayerTwo.size).setStyle(buttonStyleSelected);
-        }else{
+        }else if(statePlayerTwo == SELECT_ENEMY){
             currentEnemyPlayerTwo = currentEnemyPlayerTwo-- <= 0 ?enemies.size()-1:currentEnemyPlayerTwo--;
         }
     }
@@ -381,7 +380,7 @@ public class FightingSceneScreen extends GameplayScreen {
             button_selected_p2++;
             button_selected_p2 = button_selected_p2 % currentButtonsPlayerTwo.size;
             currentButtonsPlayerTwo.get(button_selected_p2 % currentButtonsPlayerTwo.size).setStyle(buttonStyleSelected);
-        }else{
+        }else if(statePlayerTwo == SELECT_ENEMY){
             currentEnemyPlayerTwo = (currentEnemyPlayerTwo+1) % enemies.size();
         }
     }
@@ -395,7 +394,7 @@ public class FightingSceneScreen extends GameplayScreen {
                 button_selected_p1 = currentButtonsPlayerOne.size - 1;
             }
             currentButtonsPlayerOne.get(button_selected_p1 % currentButtonsPlayerOne.size).setStyle(buttonStyleSelected);
-        }else{
+        }else if(statePlayerOne == SELECT_ENEMY){
             currentEnemyPlayerOne = currentEnemyPlayerOne--<=0?enemies.size()-1:currentEnemyPlayerOne--;
         }
     }
@@ -406,7 +405,7 @@ public class FightingSceneScreen extends GameplayScreen {
             button_selected_p1++;
             currentButtonsPlayerOne.get(button_selected_p1 % currentButtonsPlayerOne.size).setStyle(buttonStyleSelected);
             button_selected_p1 = button_selected_p1 % currentButtonsPlayerOne.size;
-        }else{
+        }else if(statePlayerOne == SELECT_ENEMY){
             currentEnemyPlayerOne = (currentEnemyPlayerOne+1) % enemies.size();
         }
     }

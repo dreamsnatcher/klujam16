@@ -44,11 +44,11 @@ public class F_Enemy extends F_Entity {
     public void render(float delta, SpriteBatch spriteBatch) {
         super.render(delta, spriteBatch);
         if(selectedByTwo){
-            spriteBatch.draw(selector1Textur, position.x + 18, position.y);
+            spriteBatch.draw(selector1Textur, position.x + texture.getWidth()/2 + 9, position.y + texture.getHeight());
 
         }
         if (selectedByOne){
-            spriteBatch.draw(selector2Textur, position.x, position.y);
+            spriteBatch.draw(selector2Textur, position.x + texture.getWidth()/2 - 9, position.y + texture.getHeight());
         }
 
     }
