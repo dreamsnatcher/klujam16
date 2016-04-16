@@ -60,6 +60,9 @@ public class DungeonScreen extends GameplayScreen {
     public void render(float delta) {
         vignetteShader.begin();
         vignetteShader.setUniformf("u_resolution", Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        vignetteShader.setUniformf("outerRadius", 0.55f);
+        vignetteShader.setUniformf("innerRadius", 0.1f);
+        vignetteShader.setUniformf("intensity", 0.65f);
         vignetteShader.end();
         super.render(delta);
 
