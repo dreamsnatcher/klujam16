@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
  * Created by Veit on 07.02.2016.
  */
 public abstract class MoveableObject extends GameObject {
-    Vector2 direction;
+    public Vector2 direction;
     Float speed;
     Movement movement;
     Float movingTime;

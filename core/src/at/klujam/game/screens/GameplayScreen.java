@@ -2,7 +2,6 @@ package at.klujam.game.screens;
 
 import at.klujam.game.Game;
 import at.klujam.game.Mechanics.World;
-import at.klujam.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
@@ -10,6 +9,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -17,18 +18,21 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class GameplayScreen extends ScreenAdapter {
 
-    private BitmapFont font;
+    private static final boolean DEBUG = true;
     final SpriteBatch guiBatch;
     final SpriteBatch gameBatch;
     public Game parentGame;
     public OrthographicCamera cam, camGui;
+    ShapeRenderer sr;
     World world;
+    private BitmapFont font;
 
     public GameplayScreen(Game game) {
         this.parentGame = game;
         this.world = new World(this);
         guiBatch = new SpriteBatch();
         gameBatch = new SpriteBatch();
+        sr = new ShapeRenderer();
 
         // Create camera that projects the game onto the actual screen size.
         cam = new OrthographicCamera(Game.GAME_WIDTH, Game.GAME_HEIGHT);
@@ -51,16 +55,35 @@ public class GameplayScreen extends ScreenAdapter {
         // camera:
         cameraFollow(delta);
         handleInput();
-        System.out.println("CAM position: " +cam.position.x + " " + cam.position.y + " " + cam.zoom);
         cam.update();
-        gameBatch.setProjectionMatrix(cam.combined);
 
-        Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
+        renderTiles();
+
+        gameBatch.setProjectionMatrix(cam.combined);
+        // render collision layer
+        sr.setProjectionMatrix(cam.combined);
+
+        Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         world.update(delta);
-        world.render(delta,gameBatch);
+        world.render(delta, gameBatch);
+
         renderGUI(guiBatch);
+        // draw entity bounds
+        if (DEBUG) {
+            sr.begin(ShapeRenderer.ShapeType.Line);
+            sr.setColor(0, 1, 0, 1);
+            sr.rect(world.player.bounds.x, world.player.bounds.y, world.player.bounds.width, world.player.bounds.height);
+            for (int i = 0; i < world.walls.length; i++) {
+                for (int j = 0; j < world.walls[0].length; j++) {
+                    Rectangle bounds = world.walls[i][j];
+                    if (bounds == null) continue;
+                    sr.rect(bounds.x, bounds.y, bounds.width, bounds.height);
+                }
+            }
+            sr.end();
+        }
     }
 
     public void renderGUI(SpriteBatch batch) {
@@ -69,6 +92,10 @@ public class GameplayScreen extends ScreenAdapter {
         font.draw(batch, "Something", 10, Gdx.graphics.getHeight() - 10);
         font.draw(batch, "something else", 130, Gdx.graphics.getHeight() - 10);
         batch.end();
+    }
+
+    protected void renderTiles(){
+
     }
 
     private void handleInput() {
@@ -92,10 +119,10 @@ public class GameplayScreen extends ScreenAdapter {
         cam.viewportHeight = 30f * height / width;
         cam.update();
     }
+
     public void cameraFollow(float deltaTime) {
         Vector2 dist = new Vector2(world.player.position).sub(cam.position.x, cam.position.y);
         cam.position.add(dist.x * deltaTime * World.CAM_DAMP, dist.y * deltaTime * World.CAM_DAMP, 0);
 //        cam.position.set(world.player.position, 0);
     }
-
 }
