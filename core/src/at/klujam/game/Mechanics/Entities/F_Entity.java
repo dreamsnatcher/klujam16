@@ -7,6 +7,7 @@ import at.klujam.game.Mechanics.States.F_State;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 public abstract class F_Entity{
 
+    private final GlyphLayout glyphLayout;
     public int hitpoints = 100;
     public float resistence = 0;
     public float baseDamage = 1;
@@ -48,7 +50,12 @@ public abstract class F_Entity{
         states = new Array<F_State>();
         selector1Textur = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/selected1.png");
         selector2Textur = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/selected2.png");
-        numberFont = world.fightingSceneScreen.parentGame.getAssMan().get("fonts/celtic.fnt");
+        numberFont = world.fightingSceneScreen.parentGame.getAssMan().get("fonts/celtic_small.fnt");
+        if(this instanceof F_Enemy) {
+            numberFont = world.fightingSceneScreen.parentGame.getAssMan().get("fonts/celtic_even_small.fnt");
+        }
+
+        glyphLayout = new GlyphLayout();
     }
 
     public void removeState(F_State state){
@@ -86,10 +93,32 @@ public abstract class F_Entity{
             numberFont.setColor(Color.GREEN);
         }
 
-        numberFont.draw(spriteBatch,Integer.toString(hitpoints),position.x - texture.getWidth()/2f,position.y- numberFont.getXHeight() +10);
+        float sumWidth = 0;
+        String hitPoints = "HP: "+hitpoints;
+        glyphLayout.setText(numberFont,hitPoints);
+        sumWidth+=10;
+        sumWidth += glyphLayout.width;
+
+        float apOffset = sumWidth;
+
+        String armorString= "AP: "+armor;
+        glyphLayout.setText(numberFont,armorString);
+        sumWidth += glyphLayout.width;
+        sumWidth+=10;
+        float atOffset = sumWidth;
+
+        String attack = "At: "+baseDamage;
+        glyphLayout.setText(numberFont,attack);
+        sumWidth += glyphLayout.width;
+
+        numberFont.draw(spriteBatch,hitPoints,position.x + (texture.getWidth()/2f) - sumWidth/2f ,position.y - numberFont.getXHeight() +10);
 
         numberFont.setColor(Color.BLUE);
-        numberFont.draw(spriteBatch, Integer.toString(armor),position.x + 10 + texture.getWidth()/2f,position.y - numberFont.getXHeight() +10);
+        numberFont.draw(spriteBatch, armorString,position.x + (texture.getWidth()/2f) -sumWidth/2f +apOffset,position.y - numberFont.getXHeight() +10);
+
+        numberFont.setColor(Color.RED);
+        numberFont.draw(spriteBatch, armorString,position.x + (texture.getWidth()/2f) - sumWidth/2f + atOffset,position.y - numberFont.getXHeight() +10);
+
 
         if(showStateDuration>0){
             if(showStateDuration<1){

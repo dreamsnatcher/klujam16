@@ -12,6 +12,7 @@ import at.klujam.game.ScreenManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -93,11 +94,12 @@ public class FightingSceneScreen extends GameplayScreen {
         buttonStyleSelected.up = buttonSkins.getDrawable("button_DOWN");
         buttonStyleSelected.down = buttonSkins.getDrawable("button_DOWN");
         buttonStyleSelected.font = font;
+        buttonStyleSelected.fontColor = Color.CYAN;
 
         lower_mask = new Mask(new Vector2(0,0),new Vector2(stage.getWidth(),stage.getHeight()/4f),fightingWorld);
 
         fightingWorld.playerOne = new F_Player_One(new Vector2((stage.getWidth()/15f), stage.getHeight()/4f), fightingWorld);
-        fightingWorld.playerTwo = new F_Player_Two(new Vector2((stage.getWidth()/6f)*3, stage.getHeight()/4f), fightingWorld);
+        fightingWorld.playerTwo = new F_Player_Two(new Vector2((stage.getWidth()/10f)*4, stage.getHeight()/4f), fightingWorld);
         fightingWorld.f_entities.add(fightingWorld.playerOne);
         fightingWorld.f_entities.add(fightingWorld.playerTwo);
         fightingWorld.f_entities.add(lower_mask);
@@ -134,6 +136,9 @@ public class FightingSceneScreen extends GameplayScreen {
 
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                    if(currentEnemyPlayerOne<0 || currentEnemyPlayerOne>= playerOneAbilitiesButtonGroup.size){
+                        currentEnemyPlayerOne = 0;
+                    }
                     ability.useOn(entities.get(currentEnemyPlayerOne));
                     setButtonGroupPlayerOne(new Array<TextButton>(), playerOneAbilitiesButtonGroup);
                     statePlayerOne = ENEMY_TURN_STARTED;
@@ -204,6 +209,9 @@ public class FightingSceneScreen extends GameplayScreen {
 
                 @Override
                 public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                    if(currentEnemyPlayerTwo<0 || currentEnemyPlayerTwo>= playerTwoAbilitiesButtonGroup.size){
+                        currentEnemyPlayerTwo = 0;
+                    }
                     ability.useOn(entities.get(currentEnemyPlayerTwo));
                     statePlayerTwo = ENEMY_TURN_STARTED;
                     setButtonGroupPlayerTwo(new Array<TextButton>(), playerTwoAbilitiesButtonGroup);
