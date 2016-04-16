@@ -102,6 +102,12 @@ public class Game extends ApplicationAdapter {
 		assMan.load("gameplay/gobo_2_right_002.png", Texture.class);
 		assMan.load("gameplay/gobo_2_right_003.png", Texture.class);
 		assMan.load("gameplay/gobo_2_right_004.png", Texture.class);
+		assMan.load("gameplay/gobo_2_left_000.png", Texture.class);
+		assMan.load("gameplay/gobo_2_left_001.png", Texture.class);
+		assMan.load("gameplay/gobo_2_left_002.png", Texture.class);
+		assMan.load("gameplay/gobo_2_left_003.png", Texture.class);
+		assMan.load("gameplay/gobo_2_left_004.png", Texture.class);
+		assMan.load("gameplay/gobo_2_left_005.png", Texture.class);
 		assMan.load("gameplay/gobo_2_big_000.png", Texture.class);
 		assMan.load("gameplay/gobo_2_big_001.png", Texture.class);
 		assMan.load("gameplay/gobo_2_big_002.png", Texture.class);
