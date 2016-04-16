@@ -17,7 +17,7 @@ public class DPlayerOne extends SkeletonControlledObject {
 
     public DPlayerOne(Vector2 position, Vector2 dimension, World world) {
         super(position, dimension, world);
-        bounds = new Rectangle(position.x, position.y, scale.x * Constants.TILE_SIZE, scale.y / 2.1f* Constants.TILE_SIZE);
+        bounds = new Rectangle(position.x, position.y, scale.x * Constants.TILE_SIZE * 0.75f, scale.y * 0.8f* Constants.TILE_SIZE);
         type = Type.Player;
 
         this.speed = 10f;
@@ -28,7 +28,7 @@ public class DPlayerOne extends SkeletonControlledObject {
         this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator()
                 .loadAnimation("gameplay/gobo_1__00", 5, 0.2f);
         this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator()
-                .loadAnimation("gameplay/gobo_1__00", 5, 0.3f);
+                .loadAnimation("gameplay/gobo_1_right_00", 5, 0.3f);
     }
 
     @Override
