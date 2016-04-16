@@ -350,6 +350,9 @@ public class FightingSceneScreen extends GameplayScreen {
             parentGame.getSoundManager().playEvent("hit");
             PlayerTwoEnter();
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT)){
+            parentGame.getScreenManager().changeScreen(ScreenManager.ScreenState.Game);
+        }
 
         if(currentEnemyPlayerOne>=0) {
             SelectForPlayerOne(entities.get(currentEnemyPlayerOne));

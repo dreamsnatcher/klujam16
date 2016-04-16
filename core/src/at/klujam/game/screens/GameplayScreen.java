@@ -2,6 +2,7 @@ package at.klujam.game.screens;
 
 import at.klujam.game.Game;
 import at.klujam.game.Mechanics.World;
+import at.klujam.game.ScreenManager;
 import at.klujam.game.util.Constants;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -74,6 +75,7 @@ public class GameplayScreen extends ScreenAdapter {
             sr.begin(ShapeRenderer.ShapeType.Line);
             sr.setColor(0, 1, 0, 1);
             sr.rect(world.player.bounds.x, world.player.bounds.y, world.player.bounds.width, world.player.bounds.height);
+            sr.rect(world.playerTwo.bounds.x, world.playerTwo.bounds.y, world.playerTwo.bounds.width, world.playerTwo.bounds.height);
             for (int i = 0; i < world.walls.length; i++) {
                 for (int j = 0; j < world.walls[0].length; j++) {
                     Rectangle bounds = world.walls[i][j];
@@ -107,6 +109,9 @@ public class GameplayScreen extends ScreenAdapter {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             cam.zoom -= 0.02;
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)){
+            parentGame.getScreenManager().changeScreen(ScreenManager.ScreenState.Fighting);
         }
     }
 
