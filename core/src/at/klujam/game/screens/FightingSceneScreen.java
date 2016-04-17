@@ -113,6 +113,7 @@ public class FightingSceneScreen extends GameplayScreen {
         fightingWorld.f_entities.add(full_mask);
         fightingWorld.f_entities.add(lower_mask);
 
+
         party = new ArrayList<F_Entity>();
         party.add(fightingWorld.playerOne);
         party.add(fightingWorld.playerTwo);

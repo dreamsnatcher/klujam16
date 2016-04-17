@@ -28,8 +28,8 @@ public class LoadingScreen extends ScreenAdapter {
     public LoadingScreen(Game game) {
         this.parentGame = game;
         // this is the only asset not loaded by the AssetManager.
-        loadingSheet = new Texture(Gdx.files.internal("loading/preloader_180x40.png"));
-        loadingFrames = TextureRegion.split(loadingSheet, 180, 40)[0];
+        loadingSheet = new Texture(Gdx.files.internal("loading/preloader_strip.png"));
+        loadingFrames = TextureRegion.split(loadingSheet, 2051/7, loadingSheet.getHeight())[0];
 
         // Create camera taht projects the game onto the actual screen size.
         cam = new OrthographicCamera(Game.GAME_WIDTH, Game.GAME_HEIGHT);
