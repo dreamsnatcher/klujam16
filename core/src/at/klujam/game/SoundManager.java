@@ -40,6 +40,11 @@ public class SoundManager {
         event2speech.put("pokus_attack_3", "speech/Pokus-attack03.mp3");
         event2speech.put("pokus_attack_4", "speech/Pokus-attack04.mp3");
         event2speech.put("pokus_attack_5", "speech/Pokus-attack05.mp3");
+        event2speech.put("buttercup_attack_1", "speech/Buttercup-attack01.mp3");
+        event2speech.put("buttercup_attack_2", "speech/Buttercup-attack02.mp3");
+        event2speech.put("buttercup_attack_3", "speech/Buttercup-attack03.mp3");
+        event2speech.put("buttercup_attack_4", "speech/Buttercup-attack04.mp3");
+        event2speech.put("buttercup_attack_5", "speech/Buttercup-attack05.mp3");
         event2speech.put("hokus_fight_start", "speech/Hokus-fight-start.mp3");
         event2speech.put("pokus_fight_start", "speech/Pokus-fight-start.mp3");
         event2speech.put("hokus_armor", "speech/Hokus-armor.mp3");
