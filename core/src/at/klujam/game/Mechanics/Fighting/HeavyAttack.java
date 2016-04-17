@@ -9,15 +9,15 @@ import com.badlogic.gdx.graphics.Color;
  */
 public class HeavyAttack extends F_Ability {
 
-    public HeavyAttack(String name, FightWorld fworld, F_Entity origin) {
-        super(name, fworld, origin);
+    public HeavyAttack(String name, FightWorld fworld, F_Entity origin, int mod) {
+        super(name, fworld, origin, mod);
     }
 
     public void useOn(F_Entity target){
         String text = "Miss";
 
-        if(Math.random()>0.6) {
-            int damage = (int) (origin.baseDamage * 3.5);
+        if(Math.random()>0.55) {
+            int damage = (int) (origin.baseDamage * 2.5 + mod);
             target.inflict_damage(damage);
             text = "-"+damage;
         }

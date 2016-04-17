@@ -23,11 +23,40 @@ public class CreditsScreen extends ScreenAdapter {
     Texture backgroundImage, gradientTop, gradientBottom;
     BitmapFont creditsFont;
 
-    String[] credits = ("GameSkelet0n by Mathias Lux\n" +
-            "All assets are public d0main\n" +
-            "Cl0ne and adapt t0 y0ur will\n" +
-            "\n" +
-            "H0pe it helps ;)").split("\\n");
+    String[] credits = ("Game Design:\n"+
+            "Veit Frick\n"+
+            "Lukas Knoch\n"+
+            "Lorenz Schmoliner\n"+
+            "Chrsitian Zellot\n"+
+            "Armin Lippitz\n"+
+            " \n"+
+            "Programming:\n"+
+            "Veit Frick\n"+
+            "Lukas Knoch\n"+
+            "Lorenz Schmoliner\n"+
+   "\n"+
+            "Graphic Design:\n"+
+            "Chrsitian Zellot\n"+
+            "\n"+
+            "Sound Engineering:\n"+
+            "Mathias Lux\n"+
+            "Armin Lippitz\n"+
+            "Philipp Zellot\n"+
+            "\n"+
+            "Story & Level Design:\n"+
+            "Armin Lippitz\n"+
+            "\n"+
+            "Voice Actors:\n"+
+            "Mathias Kostwein- Narrator & Unibrow the Unethical Unicorn\n"+
+            "Armin Lippitz - Hokus the Holy\n"+
+            "Mathias Lux - Pokus the Poetic\n"+
+            "Alexandra Wissiak - Tootsie the Toasted Tooth Fairy\n"+
+            "Kristina Wogatai - Buttercup the Bitchy Butterfly").split("\\n");
+
+
+
+
+
     private float moveY;
 
 

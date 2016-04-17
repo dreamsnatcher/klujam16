@@ -28,8 +28,8 @@ public class GameplayScreen extends ScreenAdapter {
     final SpriteBatch gameBatch;
     public Game parentGame;
     public OrthographicCamera cam, camGui;
+    public World world;
     ShapeRenderer sr;
-    World world;
     private BitmapFont font;
 
     public GameplayScreen(Game game) {
@@ -120,9 +120,6 @@ public class GameplayScreen extends ScreenAdapter {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             cam.zoom -= 0.02;
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)) {
-            parentGame.getScreenManager().changeScreen(ScreenManager.ScreenState.Fighting);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.F)) {
             world.goal.setState(Goal.STATE_ACTIVE);
