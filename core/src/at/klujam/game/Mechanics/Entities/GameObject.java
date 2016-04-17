@@ -68,6 +68,7 @@ public abstract class GameObject {
         Player,
         Tooth1,
         Tooth2,
-        Goal
+        Goal,
+        Boss
     }
 }
