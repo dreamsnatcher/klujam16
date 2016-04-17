@@ -40,21 +40,23 @@ public class F_Enemy extends F_Entity {
                 break;
             case UNICORN:
                 this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/unibrow_big_000.png");
-                animation = world.fightingSceneScreen.parentGame.getAnimator().loadAnimation("gameplay/unibrow_big_00",4,0.3f);
+                animation = world.fightingSceneScreen.parentGame.getAnimator().loadAnimation("gameplay/unibrow_big_00", 4, 0.3f);
                 randomGenerator = new Random();
                 baseDamage = 7 + randomGenerator.nextInt(3);
                 break;
             case PIXIE:
                 this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/pixie_pixelated_big_000.png");
-                dyingAnimation = world.fightingSceneScreen.parentGame.getAnimator().loadAnimation("gameplay/pixie_pixelated_big_dying_00",6,0.3f);
-                animation = world.fightingSceneScreen.parentGame.getAnimator().loadAnimation("gameplay/pixie_pixelated_big_00",3,0.3f);
+                dyingAnimation = world.fightingSceneScreen.parentGame.getAnimator().loadAnimation("gameplay/pixie_pixelated_big_dying_00", 6, 0.3f);
+                animation = world.fightingSceneScreen.parentGame.getAnimator().loadAnimation("gameplay/pixie_pixelated_big_00", 3, 0.3f);
                 randomGenerator = new Random();
                 baseDamage = 3 + randomGenerator.nextInt(2);
                 break;
             case BOSS:
                 this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/tooth_fairy_000.png");
+                animation = world.fightingSceneScreen.parentGame.getAnimator().loadAnimation("gameplay/tooth_fairy_00", 6, 0.3f);
                 randomGenerator = new Random();
                 baseDamage = 10 + randomGenerator.nextInt(5);
+                hitpoints = 130;
                 break;
         }
     }

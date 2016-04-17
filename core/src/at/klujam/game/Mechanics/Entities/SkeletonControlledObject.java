@@ -1,7 +1,6 @@
 package at.klujam.game.Mechanics.Entities;
 
 import at.klujam.game.Mechanics.World;
-import at.klujam.game.ScreenManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -12,6 +11,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -100,8 +100,24 @@ public class SkeletonControlledObject extends MoveableObject {
             stepCounter += 1;
             checkRandomEncounter();
             checkToothHit();
+            checkBossFight();
+            checkGameFinish();
         } else {
             movement = Movement.IDLE;
+        }
+    }
+
+    private void checkBossFight() {
+        if (!world.boss.isDead() && world.whiteTeethCount == world.maxWhite && world.yellowTeethCount == world.maxYellow) {
+            float dst = position.dst(world.boss.position);
+            System.out.println("Distance: " + dst);
+            if (dst < 180) {
+                Array<Integer> boss = new Array<Integer>();
+                boss.add(F_Enemy.NONE);
+                boss.add(F_Enemy.NONE);
+                boss.add(F_Enemy.BOSS);
+                world.gameplayScreen.parentGame.getScreenManager().encounter(boss);
+            }
         }
     }
 
@@ -122,8 +138,8 @@ public class SkeletonControlledObject extends MoveableObject {
         if ((int) movementCounter == (int) MathUtils.random((float) maxSteps)) {
             movementCounter = 0;
             maxSteps = STEPS;
-            List<Integer> enemies = createRandomeEncounterMobGroup();
-            world.gameplayScreen.parentGame.getScreenManager().encounter(ScreenManager.ScreenState.Fighting, enemies);
+            Array<Integer> enemies = createRandomeEncounterMobGroup();
+            world.gameplayScreen.parentGame.getScreenManager().encounter(enemies);
         } else if (stepCounter >= maxSteps) {
             stepCounter = 0;
             movementCounter = 0;
@@ -131,10 +147,16 @@ public class SkeletonControlledObject extends MoveableObject {
         }
     }
 
-    private List<Integer> createRandomeEncounterMobGroup() {
-        ArrayList<Integer> mobs = new ArrayList<Integer>();
+    private void checkGameFinish() {
+        if (world.goal.bounds.overlaps(this.bounds)) {
+            world.finishGame();
+        }
+    }
+
+    private Array<Integer> createRandomeEncounterMobGroup() {
+        Array<Integer> mobs = new Array<Integer>();
         int numMobs = MathUtils.random(1, 3);
-        for(int i = 0;i< numMobs; i++){
+        for (int i = 0; i < numMobs; i++) {
             mobs.add(getRandomMob());
         }
         return mobs;
@@ -145,7 +167,7 @@ public class SkeletonControlledObject extends MoveableObject {
         allMobs.add(F_Enemy.Bitch);
         allMobs.add(F_Enemy.UNICORN);
         allMobs.add(F_Enemy.PIXIE);
-        return allMobs.get(MathUtils.random(0,2));
+        return allMobs.get(MathUtils.random(0, 2));
     }
 
     public void clipCollision(Rectangle bounds, Vector2 movement) {
