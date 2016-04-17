@@ -50,6 +50,7 @@ public class F_Enemy extends F_Entity {
                 randomGenerator = new Random();
                 baseDamage = 3 + randomGenerator.nextInt(2);
                 break;
+
         }
     }
 
