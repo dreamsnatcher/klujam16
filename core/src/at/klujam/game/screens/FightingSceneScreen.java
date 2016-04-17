@@ -237,7 +237,7 @@ public class FightingSceneScreen extends GameplayScreen {
     }
 
     private void applyAbilityPlayerOne(F_Ability ability) {
-        if(currentEnemyPlayerOne<0 || currentEnemyPlayerOne>= playerOneAbilitiesButtonGroup.size){
+        if(currentEnemyPlayerOne<0 || currentEnemyPlayerOne>= entities.size()){
             currentEnemyPlayerOne = 0;
         }
         ability.useOn(entities.get(currentEnemyPlayerOne));
@@ -250,7 +250,7 @@ public class FightingSceneScreen extends GameplayScreen {
      * @param ability
      */
     private void applyAbilityPlayerTwo(F_Ability ability) {
-        if(currentEnemyPlayerTwo < 0 || currentEnemyPlayerTwo>= playerTwoAbilitiesButtonGroup.size){
+        if(currentEnemyPlayerTwo < 0 || currentEnemyPlayerTwo>= entities.size()){
             currentEnemyPlayerTwo = 0;
             fightingWorld.playerTwo.SetStateText(Color.RED, "Attack Failed!", 4f);
         }
@@ -345,11 +345,12 @@ public class FightingSceneScreen extends GameplayScreen {
             parentGame.getScreenManager().changeScreen(ScreenManager.ScreenState.Game);
         }
 
-        if(currentEnemyPlayerOne >= 0) {
+        if(statePlayerOne == SELECT_ENEMY && currentEnemyPlayerOne >= 0) {
             SelectForPlayerOne(entities.get(currentEnemyPlayerOne));
         }else{
             SelectForPlayerOne(null);
         }
+
         if(statePlayerTwo == SELECT_ENEMY && currentEnemyPlayerTwo >= 0) {
 
             SelectForPlayerTwo(entities.get(currentEnemyPlayerTwo));
@@ -361,14 +362,28 @@ public class FightingSceneScreen extends GameplayScreen {
             DoEnemyAttack();
             setButtonGroupPlayerOne(playerOneAbilitiesButtonGroup, allButtonsPlayerOne);
             setButtonGroupPlayerTwo(playerTwoAbilitiesButtonGroup, allButtonsPlayerTwo);
-            statePlayerOne = SELECT_ENEMY;
-            statePlayerTwo = SELECT_ENEMY;
+            if(!fightingWorld.playerOne.isDead())
+                statePlayerOne = SELECT_ENEMY;
+            if(!fightingWorld.playerTwo.isDead())
+                statePlayerTwo = SELECT_ENEMY;
         }
         int enemyCount = 0;
         for (F_Entity ent:entities ) {
             if(ent instanceof F_Enemy){
                 enemyCount++;
             }
+        }
+        if(enemyCount == 0){
+            parentGame.getScreenManager().changeScreen(ScreenManager.ScreenState.Game);
+        }
+
+        //If player is dead and has buttons, remove buttons.
+        if(currentButtonsPlayerOne.size >0 && fightingWorld.playerOne.isDead()){
+            setButtonGroupPlayerOne(new Array<TextButton>(),currentButtonsPlayerOne);
+        }
+
+        if(currentButtonsPlayerTwo.size >0 && fightingWorld.playerTwo.isDead()){
+            setButtonGroupPlayerTwo(new Array<TextButton>(),currentButtonsPlayerTwo);
         }
     }
 
