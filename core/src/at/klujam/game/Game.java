@@ -139,6 +139,19 @@ public class Game extends ApplicationAdapter {
 		assMan.load("gameplay/floor.png", Texture.class);
 		assMan.load("gameplay/gobo_1_big_000.png", Texture.class);
 
+		assMan.load("gameplay/pixie_pixelated_big_000.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_001.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_002.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_003.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_004.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_dying_000.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_dying_001.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_dying_002.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_dying_003.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_dying_004.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_dying_005.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_dying_006.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_dying_007.png", Texture.class);
 
 		//Stuff
 		assMan.load("gameplay/selected1.png", Texture.class);
