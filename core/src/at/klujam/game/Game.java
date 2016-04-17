@@ -176,6 +176,7 @@ public class Game extends ApplicationAdapter {
 		assMan.load("gameplay/tooth_fairy_005.png", Texture.class);
 
 
+		assMan.load("gameplay/portal_inactive.png", Texture.class);
 		assMan.load("gameplay/portal_000.png", Texture.class);
 		assMan.load("gameplay/portal_001.png", Texture.class);
 		assMan.load("gameplay/portal_002.png", Texture.class);
