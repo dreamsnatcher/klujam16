@@ -21,11 +21,13 @@ public final class GameObjects {
 //        MapProperties goalProps = objects.get("goal").getProperties();
         DPlayerOne player = new DPlayerOne(new Vector2(props.get("x", Float.class), props.get("y", Float.class)), new Vector2(1, 1), world);
         world.setPlayer(player);
-        DPlayerTwo playerTwo = new DPlayerTwo(new Vector2(player.position).add(0, -50), new Vector2(1, 1), world);
+        DPlayerTwo playerTwo = new DPlayerTwo(new Vector2(player.position).add(0, -50f), new Vector2(1, 1), world);
         world.setPlayerTwo(playerTwo);
         props = objects.get("goal").getProperties();
         Goal goal = new Goal(new Vector2(props.get("x", Float.class), props.get("y", Float.class)), new Vector2(1, 1), world);
         world.setGoal(goal);
+        Boss boss = new Boss(new Vector2(goal.position.x, goal.position.y - 100f), new Vector2(1, 1), world);
+        world.setBoss(boss);
 
         // load collision map
         TiledMapTileLayer layer = (TiledMapTileLayer) tMap.getLayers().get("walls");
