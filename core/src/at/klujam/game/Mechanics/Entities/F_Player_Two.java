@@ -14,7 +14,7 @@ public class F_Player_Two extends F_Entity{
 
     public F_Player_Two(Vector2 position, FightWorld world) {
         super(position, world);
-        baseDamage=12;
+        baseDamage=100;
         this.abilities.add(new Attack("Attack",world,this));
         this.abilities.add(new Insult("Insult",world,this));
         this.abilities.add(new Heal("Heal",world,this));
