@@ -49,9 +49,11 @@ public final class GameObjects {
             if (type.equals("tooth1")) {
                 Tooth1 tooth1 = new Tooth1(new Vector2(object.get("x", Float.class), object.get("y", Float.class)), new Vector2(1, 1), world);
                 world.addGameObject(tooth1);
+                world.maxWhite += 1;
             } else if (type.equals("tooth2")) {
                 Tooth2 tooth2 = new Tooth2(new Vector2(object.get("x", Float.class), object.get("y", Float.class)), new Vector2(1, 1), world);
                 world.addGameObject(tooth2);
+                world.maxYellow += 1;
             }
         }
     }

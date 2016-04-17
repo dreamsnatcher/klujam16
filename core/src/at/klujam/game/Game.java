@@ -52,11 +52,26 @@ public class Game extends ApplicationAdapter {
 
         assMan.load("speech/Hokus-fight-start.mp3", Sound.class);
         assMan.load("speech/Pokus-attack01.mp3", Sound.class);
+        assMan.load("speech/Pokus-attack02.mp3", Sound.class);
+        assMan.load("speech/Pokus-attack03.mp3", Sound.class);
+        assMan.load("speech/Pokus-attack04.mp3", Sound.class);
+        assMan.load("speech/Pokus-attack05.mp3", Sound.class);
+        assMan.load("speech/Hokus-attack01.mp3", Sound.class);
+        assMan.load("speech/Hokus-attack02.mp3", Sound.class);
+        assMan.load("speech/Hokus-attack03.mp3", Sound.class);
+        assMan.load("speech/Hokus-attack05.mp3", Sound.class);
         assMan.load("speech/Pokus-fight-start.mp3", Sound.class);
+        assMan.load("speech/Hokus-armor.mp3", Sound.class);
 
+        assMan.load("speech/Buttercup-attack01.mp3", Sound.class);
+        assMan.load("speech/Buttercup-attack02.mp3", Sound.class);
+        assMan.load("speech/Buttercup-attack03.mp3", Sound.class);
+        assMan.load("speech/Buttercup-attack04.mp3", Sound.class);
+        assMan.load("speech/Buttercup-attack05.mp3", Sound.class);
 
         assMan.load("music/song1.mp3", Music.class);
         assMan.load("music/song2.mp3", Music.class);
+        assMan.load("music/fight_music.mp3", Music.class);
 
 		//Entities
 		assMan.load("gameplay/spritesheet.png", Texture.class);
