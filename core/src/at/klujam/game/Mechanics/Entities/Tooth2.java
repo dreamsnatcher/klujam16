@@ -14,8 +14,8 @@ public class Tooth2 extends SkeletonControlledObject {
     public Tooth2(Vector2 position, Vector2 dimension, World world) {
         super(position, dimension, world);
 
-        bounds = new Rectangle(position.x, position.y, scale.x * Constants.TILE_SIZE, scale.y * Constants.TILE_SIZE);
-        type = Type.Tooth;
+        bounds = new Rectangle(position.x, position.y, scale.x * 0.5f * Constants.TILE_SIZE, scale.y * 0.7f * Constants.TILE_SIZE);
+        type = Type.Tooth2;
 
         this.speed = 0f;
         this.idleAnimation = world.gameplayScreen.parentGame.getAnimator()

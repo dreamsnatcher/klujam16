@@ -1,5 +1,6 @@
 package at.klujam.game.Mechanics.Entities;
 
+import at.klujam.game.Mechanics.States.State;
 import at.klujam.game.Mechanics.World;
 import at.klujam.game.ScreenManager;
 import com.badlogic.gdx.Gdx;
@@ -12,6 +13,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+
+import java.util.Iterator;
 
 /**
  * Created by Veit on 06.02.2016.
@@ -29,9 +32,10 @@ public class SkeletonControlledObject extends MoveableObject {
     private Vector3 touchCoordinates = new Vector3(0, 0, 0);
     private int heading; // 1 - UP, 2 - Right, 3 - Down, 4 - Left
     private TextureRegion frame;
-    private World world;
+    World world;
     private float movementCounter;
     private int stepCounter, maxSteps;
+    public Type collectedType;
 
     public SkeletonControlledObject(Vector2 position, Vector2 dimension, World world) {
         super(position, dimension);
@@ -95,10 +99,23 @@ public class SkeletonControlledObject extends MoveableObject {
             movement = Movement.MOVING;
             movementCounter += MathUtils.random(1f);
             stepCounter += 1;
-            System.out.println("Movement: " + movementCounter);
             checkRandomEncounter();
+            checkToothHit();
         } else {
             movement = Movement.IDLE;
+        }
+    }
+
+    protected void checkToothHit() {
+        Iterator<GameObject> iterator = world.gameObjects.iterator();
+        GameObject next;
+        while (iterator.hasNext()){
+            next = iterator.next();
+            if (this.collectedType == next.getType() && next.bounds.overlaps(this.bounds)){
+                iterator.remove();
+                world.addTooth(next.getType());
+                return;
+            }
         }
     }
 
