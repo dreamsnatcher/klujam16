@@ -26,7 +26,7 @@ public class ArmorUp extends F_Ability {
         }
         else if(origin instanceof F_Player_Two){
 
-            fworld.fightingSceneScreen.parentGame.getSoundManager().playSpeech("hokus_attack");
+            fworld.fightingSceneScreen.parentGame.getSoundManager().playSpeech("hokus_armor");
         }
 
 

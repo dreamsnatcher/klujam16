@@ -32,7 +32,7 @@ public abstract class F_Entity{
     private Texture selector1Textur;
     private Texture selector2Textur;
 
-    Vector2 position;
+    public Vector2 position;
     Rectangle bounds;
     FightWorld world;
     Texture texture;
@@ -113,7 +113,12 @@ public abstract class F_Entity{
         }
 
         float sumWidth = 0;
-        String hitPoints = "HP: "+hitpoints;
+        String hitPoints = "";
+        if(hitpoints<=0){
+            hitPoints = "Dead";
+        }else {
+            hitPoints = "HP: " + hitpoints;
+        }
         glyphLayout.setText(numberFont,hitPoints);
         sumWidth+=10;
         sumWidth += glyphLayout.width;
@@ -170,6 +175,16 @@ public abstract class F_Entity{
         //TODO
     }
 
+    public boolean isDead(){
+      boolean dead = false;
+        for (F_State state: states  ) {
+            if(state instanceof  F_Dead){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public void SelectPlayerOne(boolean b) {
         selectedByOne = b;
@@ -179,7 +194,7 @@ public abstract class F_Entity{
         selectedByTwo = b;
     }
 
-    //TODO @Veit: I didi it!
+    //TODO @Veit: I did it!
     public void forceTarget(F_Entity origin) {
         forcedEntity = origin;
     }
