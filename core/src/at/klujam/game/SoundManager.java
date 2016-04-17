@@ -48,12 +48,19 @@ public class SoundManager {
         event2speech.put("buttercup_attack_5", "speech/Buttercup-attack05.mp3");
         event2speech.put("tootsie_attack_1", "speech/Tootsie-attack01.mp3");
         event2speech.put("tootsie_attack_2", "speech/Tootsie-attack02.mp3");
-        event2speech.put("tootsie_attack_3", "speech/Tootsie-attack03.mp3");
+        event2speech.put("tootsie_attack_3", "speech/Tootsie-attack04.mp3");
         event2speech.put("unibrow_attack_1", "speech/Unibrow-attack01.mp3");
         event2speech.put("unibrow_attack_2", "speech/Unibrow-attack02.mp3");
         event2speech.put("unibrow_attack_3", "speech/Unibrow-attack03.mp3");
         event2speech.put("unibrow_attack_4", "speech/Unibrow-attack04.mp3");
         event2speech.put("unibrow_attack_5", "speech/Unibrow-attack05.mp3");
+
+        event2speech.put("buttercup_heal_1", "speech/Buttercup-heal.mp3");
+        event2speech.put("unibrow_heal_1", "speech/Unibrow-heal.mp3");
+        event2speech.put("tootsie_heal_1", "speech/Tootsie-heal.mp3");
+        event2speech.put("pokus_heal_1", "speech/Pokus-Heal01.mp3");
+        event2speech.put("pokus_heal_2", "speech/Pokus-Heal02.mp3");
+        event2speech.put("hokus_heal_1", "speech/Hokus-Heal01.mp3");
 
         event2speech.put("hokus_fight_start", "speech/Hokus-fight-start.mp3");
         event2speech.put("pokus_fight_start", "speech/Pokus-fight-start.mp3");
