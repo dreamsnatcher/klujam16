@@ -3,6 +3,7 @@ package at.klujam.game.Mechanics;
 import at.klujam.game.Mechanics.Entities.DPlayerOne;
 import at.klujam.game.Mechanics.Entities.DPlayerTwo;
 import at.klujam.game.Mechanics.Entities.GameObject;
+import at.klujam.game.Mechanics.Entities.Goal;
 import at.klujam.game.screens.GameplayScreen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -25,6 +26,7 @@ public class World {
     public int maxWhite, maxYellow;
     public int whiteTeethCount;
     public int yellowTeethCount;
+    public Goal goal;
 
     public World(GameplayScreen gameplayScreen) {
         this.gameplayScreen = gameplayScreen;
@@ -37,6 +39,7 @@ public class World {
         for (GameObject go : gameObjects) {
             go.update(delta);
         }
+        goal.update(delta);
     }
 
     public void render(float delta, SpriteBatch batch) {
@@ -46,6 +49,7 @@ public class World {
         for (GameObject go : gameObjects) {
             go.render(delta, batch);
         }
+        goal.render(delta, batch);
         batch.end();
     }
 
@@ -78,5 +82,9 @@ public class World {
         synchronized (this) {
             return whiteTeethCount;
         }
+    }
+
+    public void setGoal(Goal goal) {
+        this.goal = goal;
     }
 }
