@@ -21,6 +21,7 @@ public class Attack extends F_Ability {
 
         target.inflict_damage(origin.baseDamage);
         target.SetStateText(Color.RED, "-" + origin.baseDamage, 3);
+
         if(origin instanceof F_Player_One){
             switch(MathUtils.random(1,5)){
                 case 1: fworld.fightingSceneScreen.parentGame.getSoundManager().playSpeech("pokus_attack_1"); break;
