@@ -63,7 +63,7 @@ public class ScreenManager {
             currentScreen = lastScreen;
             currentState = newState;
             lastState = ScreenState.None;
-            lastScreen.dispose();
+            lastScreen = null;
         } else {
             lastState = currentState;
             lastScreen = currentScreen;

@@ -88,7 +88,7 @@ public class MenuScreen extends ScreenAdapter {
             } else if (menuStrings[currentMenuItem].equals(CREDIT_STRING)) {
                 parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
             } else if ((menuStrings[currentMenuItem].equals(START_STRING))){
-                parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Game);
+                parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Intro);
             }
         }
         // touch
