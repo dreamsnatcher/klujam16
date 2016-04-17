@@ -240,7 +240,7 @@ public class FightingSceneScreen extends GameplayScreen {
         if(currentEnemyPlayerOne<0 || currentEnemyPlayerOne>= entities.size()){
             currentEnemyPlayerOne = 0;
         }
-        ability.useOn(entities.get(currentEnemyPlayerOne));
+        ability.useOn(getEmenyPlayerOne());
         setButtonGroupPlayerOne(new Array<TextButton>(), playerOneAbilitiesButtonGroup);
         statePlayerOne = ENEMY_TURN_STARTED;
     }
@@ -254,9 +254,13 @@ public class FightingSceneScreen extends GameplayScreen {
             currentEnemyPlayerTwo = 0;
             fightingWorld.playerTwo.SetStateText(Color.RED, "Attack Failed!", 4f);
         }
-        ability.useOn(entities.get(currentEnemyPlayerTwo));
+        ability.useOn(getTargetPlayerTwo());
         statePlayerTwo = ENEMY_TURN_STARTED;
         setButtonGroupPlayerTwo(new Array<TextButton>(), playerTwoAbilitiesButtonGroup);
+    }
+
+    private F_Entity getTargetPlayerTwo() {
+        return entities.get(currentEnemyPlayerTwo);
     }
 
     private void setButtonGroupPlayerOne(Array<TextButton> buttonGroup, Array<TextButton> textButtons) {
@@ -346,14 +350,14 @@ public class FightingSceneScreen extends GameplayScreen {
         }
 
         if(statePlayerOne == SELECT_ENEMY && currentEnemyPlayerOne >= 0) {
-            SelectForPlayerOne(entities.get(currentEnemyPlayerOne));
+            SelectForPlayerOne(getEmenyPlayerOne());
         }else{
             SelectForPlayerOne(null);
         }
 
         if(statePlayerTwo == SELECT_ENEMY && currentEnemyPlayerTwo >= 0) {
 
-            SelectForPlayerTwo(entities.get(currentEnemyPlayerTwo));
+            SelectForPlayerTwo(getTargetPlayerTwo());
         }else{
             SelectForPlayerTwo(null);
         }
@@ -369,7 +373,7 @@ public class FightingSceneScreen extends GameplayScreen {
         }
         int enemyCount = 0;
         for (F_Entity ent:entities ) {
-            if(ent instanceof F_Enemy){
+            if(ent instanceof F_Enemy && !ent.isDead()){
                 enemyCount++;
             }
         }
@@ -385,6 +389,10 @@ public class FightingSceneScreen extends GameplayScreen {
         if(currentButtonsPlayerTwo.size >0 && fightingWorld.playerTwo.isDead()){
             setButtonGroupPlayerTwo(new Array<TextButton>(),currentButtonsPlayerTwo);
         }
+    }
+
+    private F_Entity getEmenyPlayerOne() {
+        return entities.get(currentEnemyPlayerOne);
     }
 
     private void DoEnemyAttack() {
@@ -445,7 +453,7 @@ public class FightingSceneScreen extends GameplayScreen {
             currentButtonsPlayerTwo.get(button_selected_p2 % currentButtonsPlayerTwo.size).setStyle(buttonStyleSelected);
         }else if(statePlayerTwo == SELECT_ENEMY){
             currentEnemyPlayerTwo = currentEnemyPlayerTwo-- <= 0 ? entities.size()-1:currentEnemyPlayerTwo--;
-            if(entities.get(currentEnemyPlayerTwo).isDead()){
+            if(getTargetPlayerTwo().isDead()){
                 PlayerTwoSelectPreviousButton();
             }
         }
@@ -459,7 +467,7 @@ public class FightingSceneScreen extends GameplayScreen {
             currentButtonsPlayerTwo.get(button_selected_p2 % currentButtonsPlayerTwo.size).setStyle(buttonStyleSelected);
         }else if(statePlayerTwo == SELECT_ENEMY){
             currentEnemyPlayerTwo = (currentEnemyPlayerTwo+1) % entities.size();
-            if(entities.get(currentEnemyPlayerTwo).isDead()){
+            if(getTargetPlayerTwo().isDead()){
                 PlayerTwoSelectNextButton();
             }
         }
@@ -476,7 +484,7 @@ public class FightingSceneScreen extends GameplayScreen {
             currentButtonsPlayerOne.get(button_selected_p1 % currentButtonsPlayerOne.size).setStyle(buttonStyleSelected);
         }else if(statePlayerOne == SELECT_ENEMY){
             currentEnemyPlayerOne = currentEnemyPlayerOne--<=0? entities.size()-1:currentEnemyPlayerOne--;
-            if(entities.get(currentEnemyPlayerOne).isDead()){
+            if(getEmenyPlayerOne().isDead()){
                 PlayerOneSelectPreviousButton();
             }
         }
@@ -490,7 +498,7 @@ public class FightingSceneScreen extends GameplayScreen {
             button_selected_p1 = button_selected_p1 % currentButtonsPlayerOne.size;
         }else if(statePlayerOne == SELECT_ENEMY){
             currentEnemyPlayerOne = (currentEnemyPlayerOne+1) % entities.size();
-            if(entities.get(currentEnemyPlayerOne).isDead()){
+            if(getEmenyPlayerOne().isDead()){
                 PlayerOneSelectNextButton();
             }
         }
