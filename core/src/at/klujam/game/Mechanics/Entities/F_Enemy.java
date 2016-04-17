@@ -20,6 +20,7 @@ public class F_Enemy extends F_Entity {
     public static final int Bitch = 0;
     public static final int PIXIE = 1;
     public static final int UNICORN = 2;
+    public int type;
     private Random randomGenerator;
 
 
@@ -29,7 +30,7 @@ public class F_Enemy extends F_Entity {
         this.abilities.add(new Attack("Attack",world,this));
         this.abilities.add(new HeavyAttack("Attack",world,this));
         this.abilities.add(new Heal("Insult",world,this));
-
+        this.type = type;
         switch (type){
             case Bitch:
                 this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/bitch_butterfly.png");

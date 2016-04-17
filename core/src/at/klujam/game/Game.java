@@ -69,6 +69,18 @@ public class Game extends ApplicationAdapter {
         assMan.load("speech/Buttercup-attack04.mp3", Sound.class);
         assMan.load("speech/Buttercup-attack05.mp3", Sound.class);
 
+//        assMan.load("speech/Tootsie-attack01.mp3", Sound.class);
+//        assMan.load("speech/Tootsie-attack02.mp3", Sound.class);
+//        assMan.load("speech/Tootsie-attack04.mp3", Sound.class);
+
+//        assMan.load("speech/Unibrow-attack01.mp3", Sound.class);
+//        assMan.load("speech/Unibrow-attack02.mp3", Sound.class);
+//        assMan.load("speech/Unibrow-attack03.mp3", Sound.class);
+//        assMan.load("speech/Unibrow-attack04.mp3", Sound.class);
+//        assMan.load("speech/Unibrow-attack05.mp3", Sound.class);
+
+
+
         assMan.load("music/song1.mp3", Music.class);
         assMan.load("music/song2.mp3", Music.class);
         assMan.load("music/fight_music.mp3", Music.class);

@@ -1,5 +1,6 @@
 package at.klujam.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 
@@ -45,6 +46,15 @@ public class SoundManager {
         event2speech.put("buttercup_attack_3", "speech/Buttercup-attack03.mp3");
         event2speech.put("buttercup_attack_4", "speech/Buttercup-attack04.mp3");
         event2speech.put("buttercup_attack_5", "speech/Buttercup-attack05.mp3");
+        event2speech.put("tootsie_attack_1", "speech/Tootsie-attack01.mp3");
+        event2speech.put("tootsie_attack_2", "speech/Tootsie-attack02.mp3");
+        event2speech.put("tootsie_attack_3", "speech/Tootsie-attack03.mp3");
+        event2speech.put("unibrow_attack_1", "speech/Unibrow-attack01.mp3");
+        event2speech.put("unibrow_attack_2", "speech/Unibrow-attack02.mp3");
+        event2speech.put("unibrow_attack_3", "speech/Unibrow-attack03.mp3");
+        event2speech.put("unibrow_attack_4", "speech/Unibrow-attack04.mp3");
+        event2speech.put("unibrow_attack_5", "speech/Unibrow-attack05.mp3");
+
         event2speech.put("hokus_fight_start", "speech/Hokus-fight-start.mp3");
         event2speech.put("pokus_fight_start", "speech/Pokus-fight-start.mp3");
         event2speech.put("hokus_armor", "speech/Hokus-armor.mp3");
@@ -74,7 +84,8 @@ public class SoundManager {
 
     public void playSpeech(String speech) {
         if (event2speech.get(speech) != null) {
-            parentGame.getAssMan().get(event2speech.get(speech), Sound.class).play();
+            Sound sound = Gdx.audio.newSound(Gdx.files.internal(event2speech.get(speech)));
+            sound.play();
         } else {
             System.out.println(speech);
             System.err.println("Speech unknown.");
