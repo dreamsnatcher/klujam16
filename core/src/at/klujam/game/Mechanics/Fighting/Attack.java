@@ -42,6 +42,7 @@ public class Attack extends F_Ability {
         else if(origin instanceof F_Enemy){
             System.out.println("Enemy speech " + ((F_Enemy)origin).type);
             if(((F_Enemy)origin).type == 0){
+                System.out.println("Buttercup attack should be played");
                 switch (MathUtils.random(1, 5)) {
                     case 1:
                         fworld.fightingSceneScreen.parentGame.getSoundManager().playSpeech("buttercup_attack_1");
@@ -61,6 +62,7 @@ public class Attack extends F_Ability {
                 }
             }
             if(((F_Enemy)origin).type == 1) {
+                System.out.println("Tootise attack should be played");
                 switch (MathUtils.random(1, 3)) {
                     case 1:
                         fworld.fightingSceneScreen.parentGame.getSoundManager().playSpeech("tootsie_attack_1");
@@ -73,6 +75,7 @@ public class Attack extends F_Ability {
                         break;
                 }
                 if (((F_Enemy) origin).type == 2) {
+                    System.out.println("Uniebrow attack should be played");
                     switch (MathUtils.random(1, 5)) {
                         case 1:
                             fworld.fightingSceneScreen.parentGame.getSoundManager().playSpeech("unibrow_attack_1");

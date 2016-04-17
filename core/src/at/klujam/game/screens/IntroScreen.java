@@ -48,7 +48,7 @@ public class IntroScreen extends ScreenAdapter {
 
     public IntroScreen(Game game) {
         this.parentGame = game;
-
+        game.getSoundManager().playIntro();
         backgroundImage = parentGame.getAssMan().get("menu/menu_background.jpg");
         gradientTop = parentGame.getAssMan().get("credits/gradient_top.png");
         gradientBottom = parentGame.getAssMan().get("credits/gradient_bottom.png");
