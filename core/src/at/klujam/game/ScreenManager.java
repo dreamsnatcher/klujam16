@@ -3,7 +3,6 @@ package at.klujam.game;
 import at.klujam.game.screens.*;
 import com.badlogic.gdx.Screen;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -82,7 +81,7 @@ public class ScreenManager {
 
     public void encounter(ScreenState fighting, List<Integer> enemies) {
         this.entities = enemies;
-        setCurrentState(ScreenState.Fighting);
+        changeScreen(ScreenState.Fighting);
 
     }
 

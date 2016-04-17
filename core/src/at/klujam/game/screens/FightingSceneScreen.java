@@ -81,7 +81,7 @@ public class FightingSceneScreen extends GameplayScreen {
     private float waittimer = 0;
     private Array<F_Enemy> enemies;
     public static Vector2 pos0 = new Vector2((Gdx.graphics.getWidth()/10f) *1,(Gdx.graphics.getHeight()/10f)*6f);
-    public static Vector2 pos1 = new Vector2((Gdx.graphics.getWidth()/10f) *9,(Gdx.graphics.getHeight()/10f)*6f);
+    public static Vector2 pos1 = new Vector2((Gdx.graphics.getWidth()/10f) *8,(Gdx.graphics.getHeight()/10f)*6f);
     public static Vector2 posFloor = new Vector2((Gdx.graphics.getWidth()/2f)-128,(Gdx.graphics.getHeight()/10f)*5f);
 
 
@@ -422,7 +422,7 @@ public class FightingSceneScreen extends GameplayScreen {
                 waittimer+=delta;
             }
             else if(waittimer>WAITENEMYTIME){
-                if(currentEnemy+1 <= enemies.size){
+                if(currentEnemy+1 < enemies.size){
                     currentEnemy++;
                     waittimer=0;
                 }

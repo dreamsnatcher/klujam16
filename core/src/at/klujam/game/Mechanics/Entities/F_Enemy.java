@@ -38,14 +38,15 @@ public class F_Enemy extends F_Entity {
                 baseDamage = 4 + randomGenerator.nextInt(10);
                 break;
             case UNICORN:
-                this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/unicorn.png");
+                this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/unibrow_big_000.png");
+                animation = world.fightingSceneScreen.parentGame.getAnimator().loadAnimation("gameplay/unibrow_big_00",4,0.3f);
                 randomGenerator = new Random();
                 baseDamage = 7 + randomGenerator.nextInt(3);
                 break;
             case PIXIE:
                 this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/pixie_pixelated_big_000.png");
-                super.dyingAnimation = world.fightingSceneScreen.parentGame.getAnimator().loadAnimation("gameplay/pixie_pixelated_big_dying_00",6,0.3f);
-                super.animation = world.fightingSceneScreen.parentGame.getAnimator().loadAnimation("gameplay/pixie_pixelated_big_00",3,0.3f);
+                dyingAnimation = world.fightingSceneScreen.parentGame.getAnimator().loadAnimation("gameplay/pixie_pixelated_big_dying_00",6,0.3f);
+                animation = world.fightingSceneScreen.parentGame.getAnimator().loadAnimation("gameplay/pixie_pixelated_big_00",3,0.3f);
                 randomGenerator = new Random();
                 baseDamage = 3 + randomGenerator.nextInt(2);
                 break;
