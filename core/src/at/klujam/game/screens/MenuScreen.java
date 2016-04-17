@@ -18,6 +18,11 @@ import at.klujam.game.ScreenManager;
  * Created by Mathias Lux, mathias@juggle.at,  on 04.02.2016.
  */
 public class MenuScreen extends ScreenAdapter {
+
+    private static final String EXIT_STRING = "Filthy Peasant!";
+    private static final String START_STRING = "Enter Dungeon";
+    private static final String CREDIT_STRING = "Hall of Creators";
+
     private final SpriteBatch batch;
     private final OrthographicCamera cam;
     private Game parentGame;
@@ -25,7 +30,7 @@ public class MenuScreen extends ScreenAdapter {
     Texture backgroundImage;
     BitmapFont menuFont;
 
-    String[] menuStrings = {"Enter Dungeon", "Hall of Creators", "Filthy Peasant!"};
+    String[] menuStrings = {START_STRING, CREDIT_STRING, EXIT_STRING};
     int currentMenuItem = 0;
 
     float offsetLeft = Game.GAME_WIDTH / 8, offsetTop = Game.GAME_WIDTH / 8, offsetY = Game.GAME_HEIGHT / 8;
@@ -77,11 +82,13 @@ public class MenuScreen extends ScreenAdapter {
             currentMenuItem = (currentMenuItem - 1) % menuStrings.length;
             parentGame.getSoundManager().playEvent("rage");
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            if (menuStrings[currentMenuItem].equals("Exit")) {
+            if (menuStrings[currentMenuItem].equals(EXIT_STRING)) {
                 Gdx.app.exit();
                 parentGame.getSoundManager().playEvent("explode");
-            } else if (menuStrings[currentMenuItem].equals("Credits")) {
+            } else if (menuStrings[currentMenuItem].equals(CREDIT_STRING)) {
                 parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
+            } else if ((menuStrings[currentMenuItem].equals(START_STRING))){
+                parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Game);
             }
         }
         // touch
@@ -93,11 +100,11 @@ public class MenuScreen extends ScreenAdapter {
                     float pos = Game.GAME_HEIGHT - offsetTop - i * offsetY;
                     if (touchWorldCoords.y < pos && touchWorldCoords.y > pos-menuFont.getLineHeight()) {
                         // it's there
-                        if (menuStrings[i].equals("Filthy Peasant!")) {
+                        if (menuStrings[i].equals(EXIT_STRING)) {
                             Gdx.app.exit();
-                        } else if (menuStrings[i].equals("Enter Dungeon")) {
+                        } else if (menuStrings[i].equals(START_STRING)) {
                             parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Intro);
-                        } else if (menuStrings[i].equals("Hall of Creators")) {
+                        } else if (menuStrings[i].equals(CREDIT_STRING)) {
                             parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
                         }
                     }
