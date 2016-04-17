@@ -70,12 +70,14 @@ public class F_Enemy extends F_Entity {
                 break;
             case BOSS:
                 this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/tooth_fairy_000.png");
+                animation = world.fightingSceneScreen.parentGame.getAnimator().loadAnimation("gameplay/tooth_fairy_00", 6, 0.3f);
                 randomGenerator = new Random();
                 baseDamage = 10 + randomGenerator.nextInt(5);
                 this.abilities.add(new Attack("Attack", world, this,4));
                 this.abilities.add(new Attack("Attack", world, this,4));
                 this.abilities.add(new HeavyAttack("Attack", world, this,1));
                 this.abilities.add(new Heal("Insult", world, this,1));
+                hitpoints = 130;
                 break;
         }
     }

@@ -36,29 +36,29 @@ public class FightingSceneScreen extends GameplayScreen {
     private static final int SELECT_ABILITY = 0;
     private static final int SELECT_ENEMY = 1;
     private static final int ENEMY_TURN_STARTED = 2;
+    public static Vector2 pos0 = new Vector2((Gdx.graphics.getWidth() / 10f) * 1, (Gdx.graphics.getHeight() / 10f) * 6f);
+    public static Vector2 pos1 = new Vector2((Gdx.graphics.getWidth() / 10f) * 8, (Gdx.graphics.getHeight() / 10f) * 6f);
+    public static Vector2 posFloor = new Vector2((Gdx.graphics.getWidth() / 2f) - 128, (Gdx.graphics.getHeight() / 10f) * 5f);
     private final InputMultiplexer multiplexer;
     //private final TextButton playerOneAbilities;
     //private final TextButton playerTwoAbilities;
-    private final ArrayList<F_Entity> entities;
+    private final Array<F_Entity> entities;
     private final TextButton.TextButtonStyle buttonStyleSelected;
     private final TextButton.TextButtonStyle buttonStyle;
     private final Vector2[] pos = {pos0, pos1, posFloor};
+    private final float WAITENEMYTIME = 3f;
+    public FightWorld fightingWorld;
     TextButton playerOneBackButton;
     int statePlayerOne = SELECT_ENEMY;
     int statePlayerTwo = SELECT_ENEMY;
     TextButton playerTwoBackButton;
     Skin buttonSkins;
     BitmapFont font;
-    public FightWorld fightingWorld;
     Stage stage;
-
     int buttonHeigth = 64;
     int buttonWidth = 256;
-
-    int spaceBetweenButtonsH = (int)((Gdx.graphics.getWidth() - (4*buttonWidth))/6);
-    int spaceBetweenButtonsV = (int)(((Gdx.graphics.getHeight()/3) - (4*buttonHeigth))/5);
-
-
+    int spaceBetweenButtonsH = (int) ((Gdx.graphics.getWidth() - (4 * buttonWidth)) / 6);
+    int spaceBetweenButtonsV = (int) (((Gdx.graphics.getHeight() / 3) - (4 * buttonHeigth)) / 5);
     Array<TextButton> playerOneAbilitiesButtonGroup = new Array<TextButton>();
     Array<TextButton> playerTwoAbilitiesButtonGroup = new Array<TextButton>();
     //Array<TextButton> playerOneBaseButtonGroup= new Array<TextButton>();
@@ -77,15 +77,11 @@ public class FightingSceneScreen extends GameplayScreen {
     private boolean fightFinished;
     private int currentEnemy;
     private boolean currentEnemyFinished;
-    private final float WAITENEMYTIME = 3f;
     private float waittimer = 0;
     private Array<F_Enemy> enemies;
-    public static Vector2 pos0 = new Vector2((Gdx.graphics.getWidth()/10f) *1,(Gdx.graphics.getHeight()/10f)*6f);
-    public static Vector2 pos1 = new Vector2((Gdx.graphics.getWidth()/10f) *8,(Gdx.graphics.getHeight()/10f)*6f);
-    public static Vector2 posFloor = new Vector2((Gdx.graphics.getWidth()/2f)-128,(Gdx.graphics.getHeight()/10f)*5f);
 
 
-    public FightingSceneScreen(Game game, List<Integer> addedEnemies) {
+    public FightingSceneScreen(Game game, Array<Integer> addedEnemies) {
         super(game);
         stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         fightingWorld = new FightWorld(this);
@@ -107,11 +103,11 @@ public class FightingSceneScreen extends GameplayScreen {
         buttonStyleSelected.font = font;
         buttonStyleSelected.fontColor = Color.CYAN;
 
-        full_mask = new Mask(new Vector2(0,Gdx.graphics.getHeight()/4f),new Vector2(Gdx.graphics.getWidth(),(Gdx.graphics.getHeight())),fightingWorld,Mask.ROOM);
-        lower_mask = new Mask(new Vector2(0,0),new Vector2(Gdx.graphics.getWidth(),Gdx.graphics.getHeight()/3f),fightingWorld,Mask.CARPET);
+        full_mask = new Mask(new Vector2(0, Gdx.graphics.getHeight() / 4f), new Vector2(Gdx.graphics.getWidth(), (Gdx.graphics.getHeight())), fightingWorld, Mask.ROOM);
+        lower_mask = new Mask(new Vector2(0, 0), new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight() / 3f), fightingWorld, Mask.CARPET);
 
-        fightingWorld.playerOne = new F_Player_One(new Vector2(((Gdx.graphics.getWidth()/10f) * 2), Gdx.graphics.getHeight()/3f), fightingWorld);
-        fightingWorld.playerTwo = new F_Player_Two(new Vector2((Gdx.graphics.getWidth()/10f)* 7, Gdx.graphics.getHeight()/3f), fightingWorld);
+        fightingWorld.playerOne = new F_Player_One(new Vector2(((Gdx.graphics.getWidth() / 10f) * 2), Gdx.graphics.getHeight() / 3f), fightingWorld);
+        fightingWorld.playerTwo = new F_Player_Two(new Vector2((Gdx.graphics.getWidth() / 10f) * 7, Gdx.graphics.getHeight() / 3f), fightingWorld);
         fightingWorld.f_entities.add(fightingWorld.playerOne);
         fightingWorld.f_entities.add(fightingWorld.playerTwo);
         fightingWorld.f_entities.add(full_mask);
@@ -123,7 +119,7 @@ public class FightingSceneScreen extends GameplayScreen {
 
 
         int count = 0;
-        for (final F_Ability ability:fightingWorld.playerOne.abilities) {
+        for (final F_Ability ability : fightingWorld.playerOne.abilities) {
             TextButton textButton = new TextButton(ability.name, buttonStyle);
             textButton.addListener(new InputListener() {
                 @Override
@@ -137,8 +133,8 @@ public class FightingSceneScreen extends GameplayScreen {
                 }
             });
             int i = count % 2;
-            if(i==0) i= 1;
-            textButton.setPosition(i * spaceBetweenButtonsH + (count%2) * (buttonWidth+ spaceBetweenButtonsH), (((count/2)+2) * spaceBetweenButtonsV)+ ((count/2)+1) *buttonHeigth);
+            if (i == 0) i = 1;
+            textButton.setPosition(i * spaceBetweenButtonsH + (count % 2) * (buttonWidth + spaceBetweenButtonsH), (((count / 2) + 2) * spaceBetweenButtonsV) + ((count / 2) + 1) * buttonHeigth);
             stage.addActor(textButton);
             playerOneAbilitiesButtonGroup.add(textButton);
             allButtonsPlayerOne.add(textButton);
@@ -165,16 +161,16 @@ public class FightingSceneScreen extends GameplayScreen {
 
         setButtonGroupPlayerOne(playerOneAbilitiesButtonGroup, allButtonsPlayerOne);
 
-        for (TextButton button: allButtonsPlayerOne){
+        for (TextButton button : allButtonsPlayerOne) {
             stage.addActor(button);
         }
 
         //////////////////////////////////////player 2
-        int xOffsetPlayerTwo = Gdx.graphics.getWidth()/2;
+        int xOffsetPlayerTwo = Gdx.graphics.getWidth() / 2;
 
 
         count = 0;
-        for (final F_Ability ability:fightingWorld.playerTwo.abilities) {
+        for (final F_Ability ability : fightingWorld.playerTwo.abilities) {
             TextButton textButton = new TextButton(ability.name, buttonStyle);
             textButton.addListener(new InputListener() {
                 @Override
@@ -188,8 +184,8 @@ public class FightingSceneScreen extends GameplayScreen {
                 }
             });
             int i = count % 2;
-            if(i==0) i= 1;
-            textButton.setPosition(xOffsetPlayerTwo + (i *spaceBetweenButtonsH + (count%2) * (buttonWidth+ spaceBetweenButtonsH)), (((count/2)+2) * spaceBetweenButtonsV)+ ((count/2)+1) *buttonHeigth);
+            if (i == 0) i = 1;
+            textButton.setPosition(xOffsetPlayerTwo + (i * spaceBetweenButtonsH + (count % 2) * (buttonWidth + spaceBetweenButtonsH)), (((count / 2) + 2) * spaceBetweenButtonsV) + ((count / 2) + 1) * buttonHeigth);
             stage.addActor(textButton);
             playerTwoAbilitiesButtonGroup.add(textButton);
             allButtonsPlayerTwo.add(textButton);
@@ -220,7 +216,7 @@ public class FightingSceneScreen extends GameplayScreen {
 
         setButtonGroupPlayerTwo(playerTwoAbilitiesButtonGroup, allButtonsPlayerTwo);
 
-        for (TextButton button: allButtonsPlayerTwo){
+        for (TextButton button : allButtonsPlayerTwo) {
             stage.addActor(button);
         }
         /////
@@ -228,11 +224,11 @@ public class FightingSceneScreen extends GameplayScreen {
 
         /////////////////////////////////////////////////////////////////////////entities
 
-        entities = new ArrayList<F_Entity>();
+        entities = new Array<F_Entity>();
         entities.add(fightingWorld.playerOne);
         entities.add(fightingWorld.playerTwo);
-        float heightOpponents = ((Gdx.graphics.getHeight() / 10f)*8);
-        for (int i = 0; i < addedEnemies.size(); i++) {
+        float heightOpponents = ((Gdx.graphics.getHeight() / 10f) * 8);
+        for (int i = 0; i < addedEnemies.size; i++) {
             Integer enemy = addedEnemies.get(i);
             if (enemy != F_Enemy.NONE) {
                 entities.add(new F_Enemy(pos[i], this.fightingWorld, enemy));
@@ -251,7 +247,7 @@ public class FightingSceneScreen extends GameplayScreen {
 
 
     private void applyAbilityPlayerOne(F_Ability ability) {
-        if(currentEnemyPlayerOne<0 || currentEnemyPlayerOne>= entities.size()){
+        if (currentEnemyPlayerOne < 0 || currentEnemyPlayerOne >= entities.size) {
             currentEnemyPlayerOne = 0;
         }
         ability.useOn(getEmenyPlayerOne());
@@ -261,10 +257,11 @@ public class FightingSceneScreen extends GameplayScreen {
 
     /**
      * Applies an abimilty to the currently selected enemy
+     *
      * @param ability
      */
     private void applyAbilityPlayerTwo(F_Ability ability) {
-        if(currentEnemyPlayerTwo < 0 || currentEnemyPlayerTwo>= entities.size()){
+        if (currentEnemyPlayerTwo < 0 || currentEnemyPlayerTwo >= entities.size) {
             currentEnemyPlayerTwo = 0;
             fightingWorld.playerTwo.SetStateText(Color.RED, "Attack Failed!", 4f);
         }
@@ -279,12 +276,12 @@ public class FightingSceneScreen extends GameplayScreen {
 
     private void setButtonGroupPlayerOne(Array<TextButton> buttonGroup, Array<TextButton> textButtons) {
         currentButtonsPlayerOne = buttonGroup;
-        for (TextButton button: textButtons){
+        for (TextButton button : textButtons) {
             button.setVisible(false);
             button.setDisabled(false);
         }
 
-        for (TextButton button: buttonGroup){
+        for (TextButton button : buttonGroup) {
             button.setVisible(true);
             button.setDisabled(true);
         }
@@ -292,15 +289,14 @@ public class FightingSceneScreen extends GameplayScreen {
     }
 
 
-
     private void setButtonGroupPlayerTwo(Array<TextButton> newButtons, Array<TextButton> oldButtons) {
         currentButtonsPlayerTwo = newButtons;
-        for (TextButton button: oldButtons){
+        for (TextButton button : oldButtons) {
             button.setVisible(false);
             button.setDisabled(false);
         }
 
-        for (TextButton button: newButtons){
+        for (TextButton button : newButtons) {
             button.setVisible(true);
             button.setDisabled(true);
         }
@@ -319,12 +315,12 @@ public class FightingSceneScreen extends GameplayScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         fightingWorld.update(delta);
         fightingWorld.render(delta);
-        for(F_Entity e: entities){
-            if(e.isDead()){
-                if(e instanceof F_Enemy){
-                    e.position.y += 500*delta;
+        for (F_Entity e : entities) {
+            if (e.isDead()) {
+                if (e instanceof F_Enemy) {
+                    e.position.y += 500 * delta;
                 } else {
-                    e.position.y -= 500*delta;
+                    e.position.y -= 500 * delta;
                 }
             }
         }
@@ -338,63 +334,63 @@ public class FightingSceneScreen extends GameplayScreen {
             parentGame.getSoundManager().playEvent("blip");
             parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.D)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
             PlayerOneSelectNextButton();
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.A)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.A)) {
             PlayerOneSelectPreviousButton();
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
             PlayerTwoSelectNextButton();
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
             PlayerTwoSelectPreviousButton();
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             parentGame.getSoundManager().playEvent("blip");
             PlayerOneEnter();
         }
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             parentGame.getSoundManager().playEvent("hit");
             PlayerTwoEnter();
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT)){
+        if (Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT)) {
             parentGame.getScreenManager().changeScreen(ScreenManager.ScreenState.Game);
         }
 
-        if(statePlayerOne == SELECT_ENEMY && currentEnemyPlayerOne >= 0) {
+        if (statePlayerOne == SELECT_ENEMY && currentEnemyPlayerOne >= 0) {
             SelectForPlayerOne(getEmenyPlayerOne());
-        }else{
+        } else {
             SelectForPlayerOne(null);
         }
 
-        if(statePlayerTwo == SELECT_ENEMY && currentEnemyPlayerTwo >= 0) {
+        if (statePlayerTwo == SELECT_ENEMY && currentEnemyPlayerTwo >= 0) {
 
             SelectForPlayerTwo(getTargetPlayerTwo());
-        }else{
+        } else {
             SelectForPlayerTwo(null);
         }
 
 
-        if(statePlayerOne == ENEMY_TURN_STARTED && statePlayerTwo== ENEMY_TURN_STARTED){
+        if (statePlayerOne == ENEMY_TURN_STARTED && statePlayerTwo == ENEMY_TURN_STARTED) {
             enemies = new Array<F_Enemy>();
-            for (F_Entity ent:entities ) {
-                if(ent instanceof F_Enemy ){
-                    enemies.add((F_Enemy)ent);
+            for (F_Entity ent : entities) {
+                if (ent instanceof F_Enemy) {
+                    enemies.add((F_Enemy) ent);
                 }
             }
             DoEnemyAttack(delta);
 
         }
         int enemyCount = 0;
-        for (F_Entity ent:entities ) {
-            if(ent instanceof F_Enemy  && !ent.isDead()) {
+        for (F_Entity ent : entities) {
+            if (ent instanceof F_Enemy && !ent.isDead()) {
                 enemyCount++;
             }
 
         }
-        if(enemyCount == 0){
+        if (enemyCount == 0) {
             parentGame.getScreenManager().changeScreen(ScreenManager.ScreenState.Game);
         }
 
@@ -406,9 +402,6 @@ public class FightingSceneScreen extends GameplayScreen {
     }
 
 
-
-
-
     private F_Entity getEmenyPlayerOne() {
         return entities.get(currentEnemyPlayerOne);
 
@@ -416,55 +409,52 @@ public class FightingSceneScreen extends GameplayScreen {
     }
 
     private void DoEnemyAttack(float delta) {
-            if(waittimer<=0){
-                if(!enemies.get(currentEnemy).isDead()) {
-                    enemies.get(currentEnemy).attack(party);
-                    waittimer += 1; //rein gehen
-                }else {
-                    waittimer+=5; //Überspringen
-                }
+        if (waittimer <= 0) {
+            if (!enemies.get(currentEnemy).isDead()) {
+                enemies.get(currentEnemy).attack(party);
+                waittimer += 1; //rein gehen
+            } else {
+                waittimer += 5; //Überspringen
             }
-            else if (waittimer>0 && waittimer<=WAITENEMYTIME){
-                waittimer+=delta;
+        } else if (waittimer > 0 && waittimer <= WAITENEMYTIME) {
+            waittimer += delta;
+        } else if (waittimer > WAITENEMYTIME) {
+            if (currentEnemy + 1 < enemies.size) {
+                currentEnemy++;
+                waittimer = 0;
+            } else {
+                setButtonGroupPlayerOne(playerOneAbilitiesButtonGroup, allButtonsPlayerOne);
+                setButtonGroupPlayerTwo(playerTwoAbilitiesButtonGroup, allButtonsPlayerTwo);
+                if (!fightingWorld.playerOne.isDead())
+                    statePlayerOne = SELECT_ENEMY;
+                if (!fightingWorld.playerTwo.isDead())
+                    statePlayerTwo = SELECT_ENEMY;
+                waittimer = 0;
+                currentEnemy = 0;
             }
-            else if(waittimer>WAITENEMYTIME){
-                if(currentEnemy+1 < enemies.size){
-                    currentEnemy++;
-                    waittimer=0;
-                }
-                else{
-                    setButtonGroupPlayerOne(playerOneAbilitiesButtonGroup, allButtonsPlayerOne);
-                    setButtonGroupPlayerTwo(playerTwoAbilitiesButtonGroup, allButtonsPlayerTwo);
-                    if(!fightingWorld.playerOne.isDead())
-                        statePlayerOne = SELECT_ENEMY;
-                    if(!fightingWorld.playerTwo.isDead())
-                        statePlayerTwo = SELECT_ENEMY;
-                    waittimer = 0;
-                    currentEnemy = 0;
-                }
-            }
+        }
     }
 
     private void SelectForPlayerTwo(F_Entity f_enemy) {
-        for (F_Entity enemy: entities) {
+        for (F_Entity enemy : entities) {
             enemy.SelectPlayerTwo(false);
         }
-        if(f_enemy!=null){
+        if (f_enemy != null) {
             f_enemy.SelectPlayerTwo(true);
         }
     }
 
     private void SelectForPlayerOne(F_Entity f_enemy) {
-        for (F_Entity enemy: entities) {
+        for (F_Entity enemy : entities) {
             enemy.SelectPlayerOne(false);
         }
-        if(f_enemy!=null){
+        if (f_enemy != null) {
             f_enemy.SelectPlayerOne(true);
         }
     }
 
     private void PlayerTwoEnter() {
-        if(!fightingWorld.playerTwo.isDead()) {
+        if (!fightingWorld.playerTwo.isDead()) {
             if (statePlayerTwo == SELECT_ABILITY) {
                 F_Ability ability = fightingWorld.playerTwo.abilities.get(button_selected_p2);
                 applyAbilityPlayerTwo(ability);
@@ -475,7 +465,7 @@ public class FightingSceneScreen extends GameplayScreen {
     }
 
     private void PlayerOneEnter() {
-        if(!fightingWorld.playerOne.isDead()) {
+        if (!fightingWorld.playerOne.isDead()) {
             if (statePlayerOne == SELECT_ABILITY) {
                 F_Ability ability = fightingWorld.playerOne.abilities.get(button_selected_p1);
                 applyAbilityPlayerOne(ability); //TODO get selected ability
@@ -486,30 +476,30 @@ public class FightingSceneScreen extends GameplayScreen {
     }
 
     private void PlayerTwoSelectPreviousButton() {
-        if(statePlayerTwo == SELECT_ABILITY) {
+        if (statePlayerTwo == SELECT_ABILITY) {
             currentButtonsPlayerTwo.get(button_selected_p2 % currentButtonsPlayerTwo.size).setStyle(buttonStyle);
             button_selected_p2--;
             if (button_selected_p2 < 0) {
                 button_selected_p2 = currentButtonsPlayerTwo.size - 1;
             }
             currentButtonsPlayerTwo.get(button_selected_p2 % currentButtonsPlayerTwo.size).setStyle(buttonStyleSelected);
-        }else if(statePlayerTwo == SELECT_ENEMY){
-            currentEnemyPlayerTwo = currentEnemyPlayerTwo-- <= 0 ? entities.size()-1:currentEnemyPlayerTwo--;
-            if(getTargetPlayerTwo().isDead()){
+        } else if (statePlayerTwo == SELECT_ENEMY) {
+            currentEnemyPlayerTwo = currentEnemyPlayerTwo-- <= 0 ? entities.size - 1 : currentEnemyPlayerTwo--;
+            if (getTargetPlayerTwo().isDead()) {
                 PlayerTwoSelectPreviousButton();
             }
         }
     }
 
     private void PlayerTwoSelectNextButton() {
-        if(statePlayerTwo == SELECT_ABILITY) {
+        if (statePlayerTwo == SELECT_ABILITY) {
             currentButtonsPlayerTwo.get(button_selected_p2 % currentButtonsPlayerTwo.size).setStyle(buttonStyle);
             button_selected_p2++;
             button_selected_p2 = button_selected_p2 % currentButtonsPlayerTwo.size;
             currentButtonsPlayerTwo.get(button_selected_p2 % currentButtonsPlayerTwo.size).setStyle(buttonStyleSelected);
-        }else if(statePlayerTwo == SELECT_ENEMY){
-            currentEnemyPlayerTwo = (currentEnemyPlayerTwo+1) % entities.size();
-            if(getTargetPlayerTwo().isDead()){
+        } else if (statePlayerTwo == SELECT_ENEMY) {
+            currentEnemyPlayerTwo = (currentEnemyPlayerTwo + 1) % entities.size;
+            if (getTargetPlayerTwo().isDead()) {
                 PlayerTwoSelectNextButton();
             }
         }
@@ -517,30 +507,30 @@ public class FightingSceneScreen extends GameplayScreen {
 
 
     private void PlayerOneSelectPreviousButton() {
-        if(statePlayerOne == SELECT_ABILITY) {
+        if (statePlayerOne == SELECT_ABILITY) {
             currentButtonsPlayerOne.get(button_selected_p1 % currentButtonsPlayerOne.size).setStyle(buttonStyle);
             button_selected_p1--;
             if (button_selected_p1 < 0) {
                 button_selected_p1 = currentButtonsPlayerOne.size - 1;
             }
             currentButtonsPlayerOne.get(button_selected_p1 % currentButtonsPlayerOne.size).setStyle(buttonStyleSelected);
-        }else if(statePlayerOne == SELECT_ENEMY){
-            currentEnemyPlayerOne = currentEnemyPlayerOne--<=0? entities.size()-1:currentEnemyPlayerOne--;
-            if(getEmenyPlayerOne().isDead()){
+        } else if (statePlayerOne == SELECT_ENEMY) {
+            currentEnemyPlayerOne = currentEnemyPlayerOne-- <= 0 ? entities.size - 1 : currentEnemyPlayerOne--;
+            if (getEmenyPlayerOne().isDead()) {
                 PlayerOneSelectPreviousButton();
             }
         }
     }
 
     private void PlayerOneSelectNextButton() {
-        if(statePlayerOne == SELECT_ABILITY) {
+        if (statePlayerOne == SELECT_ABILITY) {
             currentButtonsPlayerOne.get(button_selected_p1 % currentButtonsPlayerOne.size).setStyle(buttonStyle);
             button_selected_p1++;
             currentButtonsPlayerOne.get(button_selected_p1 % currentButtonsPlayerOne.size).setStyle(buttonStyleSelected);
             button_selected_p1 = button_selected_p1 % currentButtonsPlayerOne.size;
-        }else if(statePlayerOne == SELECT_ENEMY){
-            currentEnemyPlayerOne = (currentEnemyPlayerOne+1) % entities.size();
-            if(getEmenyPlayerOne().isDead()){
+        } else if (statePlayerOne == SELECT_ENEMY) {
+            currentEnemyPlayerOne = (currentEnemyPlayerOne + 1) % entities.size;
+            if (getEmenyPlayerOne().isDead()) {
                 PlayerOneSelectNextButton();
             }
         }
