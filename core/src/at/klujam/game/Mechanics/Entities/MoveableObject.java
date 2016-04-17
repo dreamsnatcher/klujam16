@@ -9,18 +9,16 @@ public abstract class MoveableObject extends GameObject {
     public Vector2 direction;
     Float speed;
     Movement movement;
-    Float movingTime;
 
     public MoveableObject(Vector2 position, Vector2 dimension) {
         super(position, dimension);
         movement = Movement.IDLE;
-        movingTime = 0f;
     }
 
     @Override
     public void update(float delta) {
         super.update(delta);
-        movingTime += delta;
+        stateTime += delta;
     }
 
     void handleMovement(Float delta) {
@@ -35,7 +33,7 @@ public abstract class MoveableObject extends GameObject {
     public void changeMovementTo(Movement movement) {
         if (this.movement != movement) {
             this.movement = movement;
-            movingTime = 0f;
+            stateTime = 0f;
         }
     }
 

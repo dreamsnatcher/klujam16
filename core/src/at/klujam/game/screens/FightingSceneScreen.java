@@ -410,8 +410,6 @@ public class FightingSceneScreen extends GameplayScreen {
     }
 
     private void DoEnemyAttack(float delta) {
-        System.out.println("Waittimer: " + waittimer);
-        System.out.println("Enemies: " + enemies.size);
             if(waittimer<=0){
                 if(!enemies.get(currentEnemy).isDead()) {
                     enemies.get(currentEnemy).attack(party);
@@ -424,7 +422,7 @@ public class FightingSceneScreen extends GameplayScreen {
                 waittimer+=delta;
             }
             else if(waittimer>WAITENEMYTIME){
-                if(currentEnemy+1 < enemies.size){
+                if(currentEnemy+1 <= enemies.size){
                     currentEnemy++;
                     waittimer=0;
                 }
