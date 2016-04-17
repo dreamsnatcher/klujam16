@@ -1,6 +1,5 @@
 package at.klujam.game.Mechanics.Entities;
 
-import at.klujam.game.Mechanics.States.State;
 import at.klujam.game.Mechanics.World;
 import at.klujam.game.ScreenManager;
 import com.badlogic.gdx.Gdx;
@@ -21,21 +20,19 @@ import java.util.Iterator;
  */
 public class SkeletonControlledObject extends MoveableObject {
     private static final int STEPS = 500;
-
+    public Type collectedType;
     protected boolean moveUp, moveDown, moveLeft, moveRight;
-    protected Animation idleAnimation;
     protected Animation movingUpAnimation;
     protected Animation movingDownAnimation;
     protected Animation movingRightAnimation;
     protected Animation movingLeftAnimation;
+    World world;
     //    private TextureRegion[] regions = new TextureRegion[12];
     private Vector3 touchCoordinates = new Vector3(0, 0, 0);
     private int heading; // 1 - UP, 2 - Right, 3 - Down, 4 - Left
     private TextureRegion frame;
-    World world;
     private float movementCounter;
     private int stepCounter, maxSteps;
-    public Type collectedType;
 
     public SkeletonControlledObject(Vector2 position, Vector2 dimension, World world) {
         super(position, dimension);
@@ -109,9 +106,9 @@ public class SkeletonControlledObject extends MoveableObject {
     protected void checkToothHit() {
         Iterator<GameObject> iterator = world.gameObjects.iterator();
         GameObject next;
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             next = iterator.next();
-            if (this.collectedType == next.getType() && next.bounds.overlaps(this.bounds)){
+            if (this.collectedType == next.getType() && next.bounds.overlaps(this.bounds)) {
                 iterator.remove();
                 world.addTooth(next.getType());
                 return;
@@ -255,19 +252,19 @@ public class SkeletonControlledObject extends MoveableObject {
     public void render(float delta, SpriteBatch spriteBatch) {
         switch (heading) {
             case 1:
-                frame = movingUpAnimation.getKeyFrame(movingTime, true);
+                frame = movingUpAnimation.getKeyFrame(stateTime, true);
                 break;
             case 2:
-                frame = movingRightAnimation.getKeyFrame(movingTime, true);
+                frame = movingRightAnimation.getKeyFrame(stateTime, true);
                 break;
             case 3:
-                frame = movingDownAnimation.getKeyFrame(movingTime, true);
+                frame = movingDownAnimation.getKeyFrame(stateTime, true);
                 break;
             case 4:
-                frame = movingLeftAnimation.getKeyFrame(movingTime, true);
+                frame = movingLeftAnimation.getKeyFrame(stateTime, true);
                 break;
             default:
-                frame = idleAnimation.getKeyFrame(movingTime, true);
+                frame = idleAnimation.getKeyFrame(stateTime, true);
         }
         spriteBatch.draw(frame, position.x - dimension.x / 2f, position.y - dimension.y / 2f);
     }
