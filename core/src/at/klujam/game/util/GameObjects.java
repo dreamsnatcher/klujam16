@@ -1,9 +1,6 @@
 package at.klujam.game.util;
 
-import at.klujam.game.Mechanics.Entities.DPlayerOne;
-import at.klujam.game.Mechanics.Entities.DPlayerTwo;
-import at.klujam.game.Mechanics.Entities.Tooth1;
-import at.klujam.game.Mechanics.Entities.Tooth2;
+import at.klujam.game.Mechanics.Entities.*;
 import at.klujam.game.Mechanics.World;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.MapProperties;
@@ -20,14 +17,15 @@ public final class GameObjects {
     public static void create(World world, TiledMap tMap, float unitScale) {
         // load objects from map
         MapObjects objects = tMap.getLayers().get("objects").getObjects();
-        MapProperties playerProps = objects.get("player").getProperties();
+        MapProperties props = objects.get("player").getProperties();
 //        MapProperties goalProps = objects.get("goal").getProperties();
-        DPlayerOne player = new DPlayerOne(new Vector2(playerProps.get("x", Float.class), playerProps.get("y", Float.class)), new Vector2(1, 1), world);
+        DPlayerOne player = new DPlayerOne(new Vector2(props.get("x", Float.class), props.get("y", Float.class)), new Vector2(1, 1), world);
         world.setPlayer(player);
         DPlayerTwo playerTwo = new DPlayerTwo(new Vector2(player.position).add(0, -50), new Vector2(1, 1), world);
         world.setPlayerTwo(playerTwo);
-//        Goal goal = new Goal(new Vector2(goalProps.get("x", Float.class) / TILE_SIZE, goalProps.get("y", Float.class)  / TILE_SIZE));
-//        entities.add(goal);
+        props = objects.get("goal").getProperties();
+        Goal goal = new Goal(new Vector2(props.get("x", Float.class), props.get("y", Float.class)), new Vector2(1, 1), world);
+        world.setGoal(goal);
 
         // load collision map
         TiledMapTileLayer layer = (TiledMapTileLayer) tMap.getLayers().get("walls");
