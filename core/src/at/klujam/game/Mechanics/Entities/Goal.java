@@ -17,7 +17,7 @@ public class Goal extends GameObject {
     public static final int STATE_ACTIVE = 1;
 
     World world;
-    private int state;
+    public int state;
 
     public Goal(Vector2 position, Vector2 dimension, World world) {
         super(position, dimension);

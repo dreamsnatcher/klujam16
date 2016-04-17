@@ -2,6 +2,7 @@ package at.klujam.game;
 
 import at.klujam.game.screens.*;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.utils.Array;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class ScreenManager {
     private Screen currentScreen, lastScreen;
     private ScreenState currentState, lastState;
     private Game parentGame;
-    private List<Integer> entities;
+    private Array<Integer> entities;
 
     public ScreenManager(Game game) {
         this.parentGame = game;
@@ -81,10 +82,14 @@ public class ScreenManager {
         this.parentGame = parentGame;
     }
 
-    public void encounter(ScreenState fighting, List<Integer> enemies) {
+    public void encounter(Array<Integer> enemies) {
         this.entities = enemies;
         changeScreen(ScreenState.Fighting);
 
+    }
+
+    public Screen getLastScreen() {
+        return lastScreen;
     }
 
     public enum ScreenState {None, Loading, Menu, Game, Credits, Fighting, Intro, Help, GameOver}

@@ -1,6 +1,7 @@
 package at.klujam.game.Mechanics;
 
 import at.klujam.game.Mechanics.Entities.*;
+import at.klujam.game.ScreenManager;
 import at.klujam.game.screens.GameplayScreen;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -38,6 +39,9 @@ public class World {
             go.update(delta);
         }
         goal.update(delta);
+        if (!boss.isDead() && whiteTeethCount == maxWhite && yellowTeethCount == maxYellow) {
+            boss.update(delta);
+        }
     }
 
     public void render(float delta, SpriteBatch batch) {
@@ -48,7 +52,7 @@ public class World {
             go.render(delta, batch);
         }
         goal.render(delta, batch);
-        if (whiteTeethCount == maxWhite && yellowTeethCount == maxYellow) {
+        if (!boss.isDead() && whiteTeethCount == maxWhite && yellowTeethCount == maxYellow) {
             boss.render(delta, batch);
         }
         batch.end();
@@ -79,17 +83,16 @@ public class World {
         this.playerTwo = playerTwo;
     }
 
-    public synchronized int getNumTooth() {
-        synchronized (this) {
-            return whiteTeethCount;
-        }
-    }
-
     public void setGoal(Goal goal) {
         this.goal = goal;
     }
 
     public void setBoss(Boss boss) {
         this.boss = boss;
+    }
+
+    public void finishGame() {
+        gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
+        gameplayScreen.parentGame.getSoundManager().playSpeech("GameWon");
     }
 }
