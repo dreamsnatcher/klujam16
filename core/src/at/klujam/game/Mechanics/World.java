@@ -22,6 +22,9 @@ public class World {
     public GameplayScreen gameplayScreen;
     public DPlayerOne player;
     public DPlayerTwo playerTwo;
+    public int maxWhite, maxYellow;
+    public int whiteTeethCount;
+    public int yellowTeethCount;
 
     public World(GameplayScreen gameplayScreen) {
         this.gameplayScreen = gameplayScreen;
@@ -46,6 +49,14 @@ public class World {
         batch.end();
     }
 
+    public void addTooth(GameObject.Type type) {
+        if (type == GameObject.Type.Tooth1) {
+            whiteTeethCount += 1;
+        } else if (type == GameObject.Type.Tooth2) {
+            yellowTeethCount += 1;
+        }
+    }
+
     public void addGameObject(GameObject object) {
         this.gameObjects.add(object);
     }
@@ -61,5 +72,11 @@ public class World {
 
     public void setPlayerTwo(DPlayerTwo playerTwo) {
         this.playerTwo = playerTwo;
+    }
+
+    public synchronized int getNumTooth() {
+        synchronized (this) {
+            return whiteTeethCount;
+        }
     }
 }

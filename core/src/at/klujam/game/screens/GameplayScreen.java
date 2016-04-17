@@ -1,6 +1,7 @@
 package at.klujam.game.screens;
 
 import at.klujam.game.Game;
+import at.klujam.game.Mechanics.Entities.GameObject;
 import at.klujam.game.Mechanics.World;
 import at.klujam.game.ScreenManager;
 import at.klujam.game.util.Constants;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -83,6 +85,9 @@ public class GameplayScreen extends ScreenAdapter {
                     sr.rect(bounds.x, bounds.y, bounds.width, bounds.height);
                 }
             }
+            for (GameObject gameObject : world.gameObjects) {
+                sr.rect(gameObject.bounds.x, gameObject.bounds.y, gameObject.bounds.width, gameObject.bounds.height);
+            }
             sr.end();
         }
     }
@@ -90,12 +95,14 @@ public class GameplayScreen extends ScreenAdapter {
     public void renderGUI(SpriteBatch batch) {
         batch.setProjectionMatrix(camGui.combined);
         batch.begin();
-        font.draw(batch, "Something", 10, Gdx.graphics.getHeight() - 10);
-        font.draw(batch, "something else", 130, Gdx.graphics.getHeight() - 10);
+        batch.draw(parentGame.getAssMan().get("gameplay/tooth_1_000.png", Texture.class), 0, Gdx.graphics.getHeight() - parentGame.getAssMan().get("gameplay/tooth_1_000.png", Texture.class).getHeight() / 2 - 20);
+        batch.draw(parentGame.getAssMan().get("gameplay/tooth_0_000.png", Texture.class), Gdx.graphics.getWidth() - 60 - parentGame.getAssMan().get("gameplay/tooth_0_000.png", Texture.class).getWidth(), Gdx.graphics.getHeight() - parentGame.getAssMan().get("gameplay/tooth_0_000.png", Texture.class).getHeight() / 2 - 20);
+        font.draw(batch, world.yellowTeethCount + "/" + world.maxYellow, parentGame.getAssMan().get("gameplay/tooth_1_000.png", Texture.class).getWidth() + 10, Gdx.graphics.getHeight() - 20);
+        font.draw(batch, world.whiteTeethCount + "/" + world.maxWhite, Gdx.graphics.getWidth() - 50, Gdx.graphics.getHeight() - 20);
         batch.end();
     }
 
-    protected void renderTiles(){
+    protected void renderTiles() {
         System.out.println("GamePlayScreen.renderTiles called");
     }
 
@@ -111,7 +118,7 @@ public class GameplayScreen extends ScreenAdapter {
         if (Gdx.input.isKeyPressed(Input.Keys.E)) {
             cam.zoom -= 0.02;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)){
+        if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)) {
             parentGame.getScreenManager().changeScreen(ScreenManager.ScreenState.Fighting);
         }
     }
@@ -123,7 +130,7 @@ public class GameplayScreen extends ScreenAdapter {
 //        cam.viewportWidth = 30f;
 //        cam.viewportHeight = 30f * height / width;
 //        cam.update();
-        cam.setToOrtho(false, width/ Constants.TILE_SIZE,height/Constants.TILE_SIZE);
+        cam.setToOrtho(false, width / Constants.TILE_SIZE, height / Constants.TILE_SIZE);
     }
 
     public void cameraFollow(float deltaTime) {

@@ -17,9 +17,9 @@ public class DPlayerOne extends SkeletonControlledObject {
 
     public DPlayerOne(Vector2 position, Vector2 dimension, World world) {
         super(position, dimension, world);
-        bounds = new Rectangle(position.x, position.y, scale.x * Constants.TILE_SIZE * 0.75f, scale.y * 0.8f* Constants.TILE_SIZE);
+        bounds = new Rectangle(position.x, position.y, scale.x * Constants.TILE_SIZE * 0.75f, scale.y * 0.8f * Constants.TILE_SIZE);
         type = Type.Player;
-
+        collectedType = Type.Tooth1;
         this.speed = 5f;
         this.idleAnimation = world.gameplayScreen.parentGame.getAnimator()
                 .loadAnimation("gameplay/gobo_1__00", 5, 0.3f);
