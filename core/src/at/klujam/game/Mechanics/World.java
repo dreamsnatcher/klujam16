@@ -93,6 +93,6 @@ public class World {
 
     public void finishGame() {
         gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
-        gameplayScreen.parentGame.getSoundManager().playSpeech("GameWon");
+//        gameplayScreen.parentGame.getSoundManager().playSpeech("GameWon");
     }
 }
