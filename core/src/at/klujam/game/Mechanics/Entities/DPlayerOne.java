@@ -22,15 +22,15 @@ public class DPlayerOne extends SkeletonControlledObject {
         collectedType = Type.Tooth1;
         this.speed = 5f;
         this.idleAnimation = world.gameplayScreen.parentGame.getAnimator()
-                .loadAnimation("gameplay/gobo_1__00", 5, 0.3f);
+                .loadAnimation("gameplay/gobo_2_00", 5, 0.3f);
         this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().
-                loadAnimation("gameplay/gobo_1_back_00", 6, 0.3f);
+                loadAnimation("gameplay/gobo_2_back_00", 6, 0.3f);
         this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator()
-                .loadAnimation("gameplay/gobo_1__00", 5, 0.2f);
+                .loadAnimation("gameplay/gobo_2_00", 5, 0.2f);
         this.movingRightAnimation = world.gameplayScreen.parentGame.getAnimator()
-                .loadAnimation("gameplay/gobo_1_right_00", 5, 0.3f);
+                .loadAnimation("gameplay/gobo_2_right_00", 5, 0.3f);
         this.movingLeftAnimation = world.gameplayScreen.parentGame.getAnimator()
-                .loadAnimation("gameplay/gobo_1_left_00", 4, 0.3f);
+                .loadAnimation("gameplay/gobo_2_left_00", 4, 0.3f);
     }
 
     @Override
