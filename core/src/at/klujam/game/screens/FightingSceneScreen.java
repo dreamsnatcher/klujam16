@@ -42,13 +42,14 @@ public class FightingSceneScreen extends GameplayScreen {
     private final ArrayList<F_Entity> entities;
     private final TextButton.TextButtonStyle buttonStyleSelected;
     private final TextButton.TextButtonStyle buttonStyle;
+    private final Vector2[] pos = {pos0, pos1, posFloor};
     TextButton playerOneBackButton;
     int statePlayerOne = SELECT_ENEMY;
     int statePlayerTwo = SELECT_ENEMY;
     TextButton playerTwoBackButton;
     Skin buttonSkins;
     BitmapFont font;
-    FightWorld fightingWorld;
+    public FightWorld fightingWorld;
     Stage stage;
 
     int buttonHeigth = 64;
@@ -79,9 +80,12 @@ public class FightingSceneScreen extends GameplayScreen {
     private final float WAITENEMYTIME = 3f;
     private float waittimer = 0;
     private Array<F_Enemy> enemies;
+    public static Vector2 pos0 = new Vector2((Gdx.graphics.getWidth()/10f) *1,(Gdx.graphics.getHeight()/10f)*6f);
+    public static Vector2 pos1 = new Vector2((Gdx.graphics.getWidth()/10f) *9,(Gdx.graphics.getHeight()/10f)*6f);
+    public static Vector2 posFloor = new Vector2((Gdx.graphics.getWidth()/2f)-128,(Gdx.graphics.getHeight()/10f)*5f);
 
 
-    public FightingSceneScreen(Game game) {
+    public FightingSceneScreen(Game game, List<Integer> addedEnemies) {
         super(game);
         stage = new Stage(new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         fightingWorld = new FightWorld(this);
@@ -228,9 +232,12 @@ public class FightingSceneScreen extends GameplayScreen {
         entities.add(fightingWorld.playerOne);
         entities.add(fightingWorld.playerTwo);
         float heightOpponents = ((Gdx.graphics.getHeight() / 10f)*8);
-        entities.add(new F_Enemy(new Vector2(Gdx.graphics.getWidth()/10f*2, heightOpponents),fightingWorld, F_Enemy.Bitch));
-        entities.add(new F_Enemy(new Vector2(Gdx.graphics.getWidth()/10*5, heightOpponents),fightingWorld,F_Enemy.PIXIE));
-        entities.add(new F_Enemy(new Vector2(Gdx.graphics.getWidth()/10*8, heightOpponents),fightingWorld,F_Enemy.UNICORN));
+        for (int i = 0; i < addedEnemies.size(); i++) {
+            Integer enemy = addedEnemies.get(i);
+            if (enemy != F_Enemy.NONE) {
+                entities.add(new F_Enemy(pos[i], this.fightingWorld, enemy));
+            }
+        }
 
         for (F_Entity f : entities) {
             fightingWorld.f_entities.add(f);
@@ -241,6 +248,7 @@ public class FightingSceneScreen extends GameplayScreen {
         Gdx.input.setInputProcessor(multiplexer);
         multiplexer.addProcessor(stage);
     }
+
 
     private void applyAbilityPlayerOne(F_Ability ability) {
         if(currentEnemyPlayerOne<0 || currentEnemyPlayerOne>= entities.size()){
@@ -414,7 +422,7 @@ public class FightingSceneScreen extends GameplayScreen {
                 waittimer+=delta;
             }
             else if(waittimer>WAITENEMYTIME){
-                if(currentEnemy+1 < enemies.size){
+                if(currentEnemy+1 <= enemies.size){
                     currentEnemy++;
                     waittimer=0;
                 }
@@ -531,4 +539,5 @@ public class FightingSceneScreen extends GameplayScreen {
             }
         }
     }
+
 }
