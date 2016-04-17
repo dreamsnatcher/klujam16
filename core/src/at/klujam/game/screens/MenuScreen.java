@@ -98,7 +98,7 @@ public class MenuScreen extends ScreenAdapter {
                         } else if (menuStrings[i].equals("Enter Dungeon")) {
                             parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Intro);
                         } else if (menuStrings[i].equals("Hall of Creators")) {
-                            parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Fighting);
+                            parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
                         }
                     }
                 }

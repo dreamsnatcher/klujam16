@@ -84,6 +84,7 @@ public class Game extends ApplicationAdapter {
         assMan.load("music/song1.mp3", Music.class);
         assMan.load("music/song2.mp3", Music.class);
         assMan.load("music/fight_music.mp3", Music.class);
+		assMan.load("music/latin-loop.wav", Music.class);
 
 		//Entities
 		assMan.load("gameplay/spritesheet.png", Texture.class);

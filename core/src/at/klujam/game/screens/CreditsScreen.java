@@ -38,7 +38,7 @@ public class CreditsScreen extends ScreenAdapter {
         gradientTop = parentGame.getAssMan().get("credits/gradient_top.png");
         gradientBottom = parentGame.getAssMan().get("credits/gradient_bottom.png");
 
-        creditsFont = parentGame.getAssMan().get("menu/Ravie_42.fnt");
+        creditsFont = parentGame.getAssMan().get("fonts/celtic.fnt");
 
         // Create camera that projects the game onto the actual screen size.
         cam = new OrthographicCamera(Game.GAME_WIDTH, Game.GAME_HEIGHT);

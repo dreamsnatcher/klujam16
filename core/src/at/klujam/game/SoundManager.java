@@ -63,6 +63,9 @@ public class SoundManager {
         event2speech.put("pokus_heal_2", "speech/Pokus-Heal02.mp3");
         event2speech.put("hokus_heal_1", "speech/Hokus-Heal01.mp3");
 
+        event2speech.put("GameOver", "GameOver-generic.mp3");
+        event2speech.put("GameWon", "GameWON-generic.mp3");
+
         event2speech.put("hokus_fight_start", "speech/Hokus-fight-start.mp3");
         event2speech.put("pokus_fight_start", "speech/Pokus-fight-start.mp3");
         event2speech.put("hokus_armor", "speech/Hokus-armor.mp3");
@@ -71,6 +74,7 @@ public class SoundManager {
         event2music.put("song1", "music/song1.mp3");
         event2music.put("song2", "music/song2.mp3");
         event2music.put("fight_music","music/fight_music.mp3");
+        event2music.put("light","music/latin-loop.wav");
 
         //event2speech.put("song1", "music/blip.wav");
         //event2speech.put("song2", "music/explosion.wav");
