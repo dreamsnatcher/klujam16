@@ -13,13 +13,13 @@ import com.badlogic.gdx.math.MathUtils;
  */
 public class Heal extends F_Ability {
 
-    public Heal(String name, FightWorld fworld, F_Entity origin) {
-        super(name, fworld, origin);
+    public Heal(String name, FightWorld fworld, F_Entity origin, int mod) {
+        super(name, fworld, origin, mod);
     }
 
     public void useOn(F_Entity target){
 
-        float v = origin.baseDamage / 2;
+        float v = origin.baseDamage / (1.5f) + mod;
         target.heal(v);
         target.SetStateText(Color.GREEN, "+" + v, 3f);
 

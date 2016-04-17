@@ -12,14 +12,17 @@ import at.klujam.game.Mechanics.FightWorld;
  */
 public class ArmorUp extends F_Ability {
 
-    public ArmorUp(String name, FightWorld fworld, F_Entity origin) {
-        super(name, fworld, origin);
+    public ArmorUp(String name, FightWorld fworld, F_Entity origin, int mod) {
+        super(name, fworld, origin, mod);
     }
 
     public void useOn(F_Entity target){
+        if(origin.baseDamage>=10)
+            target.armor+=6;
+        else
+            target.armor += origin.baseDamage/2 + mod;
 
-        target.armor += (origin.baseDamage-1);
-        target.SetStateText(Color.BLUE, "+" + (origin.baseDamage-1), 3);
+        target.SetStateText(Color.GOLD, "+" + (origin.baseDamage/2 + mod), 3);
         if(origin instanceof F_Player_One){
 
             fworld.fightingSceneScreen.parentGame.getSoundManager().playSpeech("pokus_attack");

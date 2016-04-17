@@ -13,14 +13,14 @@ import com.badlogic.gdx.math.MathUtils;
  */
 public class Attack extends F_Ability {
 
-    public Attack(String name, FightWorld fworld, F_Entity origin) {
-        super(name, fworld, origin);
+    public Attack(String name, FightWorld fworld, F_Entity origin, int mod) {
+        super(name, fworld, origin, mod);
     }
 
     public void useOn(F_Entity target){
 
-        target.inflict_damage(origin.baseDamage);
-        target.SetStateText(Color.RED, "-" + origin.baseDamage, 3);
+        target.inflict_damage(origin.baseDamage/2 + mod);
+        target.SetStateText(Color.RED, "-" + origin.baseDamage/2 + mod, 3);
 
         if(origin instanceof F_Player_One){
             switch(MathUtils.random(1,5)){

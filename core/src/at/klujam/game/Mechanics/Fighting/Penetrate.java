@@ -12,13 +12,13 @@ import at.klujam.game.Mechanics.FightWorld;
  */
 public class Penetrate extends F_Ability {
 
-    public Penetrate(String name, FightWorld fworld, F_Entity origin) {
-        super(name, fworld, origin);
+    public Penetrate(String name, FightWorld fworld, F_Entity origin, int mod) {
+        super(name, fworld, origin, mod);
     }
 
     public void useOn(F_Entity target){
 
-        target.armor -= ((origin.baseDamage-4)/2);
+        target.armor -= ((origin.baseDamage-4)/2)+mod;
         target.SetStateText(Color.RED, "Armor down!", 3);
         if(origin instanceof F_Player_One){
 

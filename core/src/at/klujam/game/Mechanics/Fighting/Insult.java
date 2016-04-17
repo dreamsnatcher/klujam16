@@ -9,14 +9,14 @@ import com.badlogic.gdx.graphics.Color;
  */
 public class Insult extends F_Ability {
 
-    public Insult(String name, FightWorld fworld, F_Entity origin) {
-        super(name, fworld, origin);
+    public Insult(String name, FightWorld fworld, F_Entity origin, int mod) {
+        super(name, fworld, origin, mod);
     }
 
     public void useOn(F_Entity target){
         target.forceTarget(origin);
         target.SetStateText(Color.RED, "You swine!" , 2);
-        origin.armor++;
-        origin.SetStateText(Color.BLUE,"+1",3f);
+        origin.armor+=mod+1;
+        origin.SetStateText(Color.GOLD,"+"+(mod+1),3f);
     }
 }

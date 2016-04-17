@@ -10,11 +10,13 @@ public abstract class F_Ability {
     public String name;
     public FightWorld fworld;
     public F_Entity origin;
+    public int mod;
 
-    public F_Ability(String name,FightWorld fworld, F_Entity origin) {
+    public F_Ability(String name,FightWorld fworld, F_Entity origin, int mod) {
         this.name = name;
         this.fworld = fworld;
         this.origin = origin;
+        this.mod = mod;
     }
 
     public abstract void useOn(F_Entity target);
