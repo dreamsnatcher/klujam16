@@ -1,6 +1,5 @@
 package at.klujam.game.Mechanics.Entities;
 
-import at.klujam.game.Mechanics.States.State;
 import at.klujam.game.Mechanics.World;
 import at.klujam.game.ScreenManager;
 import com.badlogic.gdx.Gdx;
@@ -14,7 +13,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Veit on 06.02.2016.
@@ -123,12 +124,30 @@ public class SkeletonControlledObject extends MoveableObject {
         if ((int) movementCounter == (int) MathUtils.random((float) maxSteps)) {
             movementCounter = 0;
             maxSteps = STEPS;
-            world.gameplayScreen.parentGame.getScreenManager().changeScreen(ScreenManager.ScreenState.Fighting);
+            List<Integer> enemies = createRandomeEncounterMobGroup();
+            world.gameplayScreen.parentGame.getScreenManager().encounter(ScreenManager.ScreenState.Fighting, enemies);
         } else if (stepCounter >= maxSteps) {
             stepCounter = 0;
             movementCounter = 0;
             maxSteps -= 100;
         }
+    }
+
+    private List<Integer> createRandomeEncounterMobGroup() {
+        ArrayList<Integer> mobs = new ArrayList<Integer>();
+        int numMobs = MathUtils.random(1, 3);
+        for(int i = 0;i< numMobs; i++){
+            mobs.add(getRandomMob());
+        }
+        return mobs;
+    }
+
+    private Integer getRandomMob() {
+        List<Integer> allMobs = new ArrayList<Integer>();
+        allMobs.add(F_Enemy.Bitch);
+        allMobs.add(F_Enemy.UNICORN);
+        allMobs.add(F_Enemy.PIXIE);
+        return allMobs.get(MathUtils.random(0,2));
     }
 
     public void clipCollision(Rectangle bounds, Vector2 movement) {

@@ -3,6 +3,9 @@ package at.klujam.game;
 import at.klujam.game.screens.*;
 import com.badlogic.gdx.Screen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Mathias Lux, mathias@juggle.at, on 04.02.2016.
  */
@@ -10,6 +13,7 @@ public class ScreenManager {
     private Screen currentScreen, lastScreen;
     private ScreenState currentState, lastState;
     private Game parentGame;
+    private List<Integer> entities;
 
     public ScreenManager(Game game) {
         this.parentGame = game;
@@ -38,7 +42,8 @@ public class ScreenManager {
                 currentScreen = new DungeonScreen(parentGame, "Dungeon-new");
                 //currentScreen = new GameplayScreen(parentGame);
             } else if (state == ScreenState.Fighting) {
-                currentScreen = new FightingSceneScreen(parentGame);
+                FightingSceneScreen fightingSceneScreen = new FightingSceneScreen(parentGame, entities);
+                currentScreen = fightingSceneScreen;
             } else if (state == ScreenState.Intro) {
                 currentScreen = new IntroScreen(parentGame);
             }
@@ -73,6 +78,12 @@ public class ScreenManager {
 
     public void setParentGame(Game parentGame) {
         this.parentGame = parentGame;
+    }
+
+    public void encounter(ScreenState fighting, List<Integer> enemies) {
+        this.entities = enemies;
+        setCurrentState(ScreenState.Fighting);
+
     }
 
     public enum ScreenState {None, Loading, Menu, Game, Credits, Fighting, Intro, Help, GameOver}

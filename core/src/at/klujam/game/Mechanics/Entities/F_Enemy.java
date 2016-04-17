@@ -5,8 +5,6 @@ import at.klujam.game.Mechanics.Fighting.Attack;
 import at.klujam.game.Mechanics.Fighting.F_Ability;
 import at.klujam.game.Mechanics.Fighting.Heal;
 import at.klujam.game.Mechanics.Fighting.HeavyAttack;
-
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
@@ -20,6 +18,7 @@ public class F_Enemy extends F_Entity {
     public static final int Bitch = 0;
     public static final int PIXIE = 1;
     public static final int UNICORN = 2;
+    public static final Integer NONE = 3;
     private Random randomGenerator;
 
 
@@ -42,7 +41,9 @@ public class F_Enemy extends F_Entity {
                 baseDamage = 7 + randomGenerator.nextInt(3);
                 break;
             case PIXIE:
-                this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/pixie_pixelated.png");
+                this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/pixie_pixelated_big_000.png");
+                super.dyingAnimation = world.fightingSceneScreen.parentGame.getAnimator().loadAnimation("gameplay/pixie_pixelated_big_dying_00",6,0.3f);
+                super.animation = world.fightingSceneScreen.parentGame.getAnimator().loadAnimation("gameplay/pixie_pixelated_big_00",3,0.3f);
                 randomGenerator = new Random();
                 baseDamage = 3 + randomGenerator.nextInt(2);
                 break;

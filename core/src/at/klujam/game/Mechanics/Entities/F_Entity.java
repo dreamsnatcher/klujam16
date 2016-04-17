@@ -45,6 +45,9 @@ public abstract class F_Entity{
     private String stateString;
     private float animate =0;
     private float nextAnimation = MathUtils.random(0,15);
+    Animation dyingAnimation;
+    float dyingAnimationdelta = 0;
+    float scale = 1;
 
 
     public F_Entity(Vector2 position, FightWorld world) {
@@ -86,13 +89,18 @@ public abstract class F_Entity{
     }
     public void render(float delta, SpriteBatch spriteBatch) {
 
+
         if(nextAnimation <= 0){
             doAnimation();
             nextAnimation = MathUtils.random(3f,20f);
         }
         nextAnimation-=delta;
 
-        if(animation!=null && animate <= animation.getAnimationDuration() ){
+        if(isDead() && dyingAnimation != null){
+            TextureRegion texture = dyingAnimation.getKeyFrame(dyingAnimationdelta,false);
+            spriteBatch.draw(texture, position.x, position.y);
+            dyingAnimationdelta++;
+        } else if(animation!=null && animate <= animation.getAnimationDuration() ){
             TextureRegion texture = animation.getKeyFrame(animate,true);
             spriteBatch.draw(texture, position.x, position.y);
             animate+=delta;
