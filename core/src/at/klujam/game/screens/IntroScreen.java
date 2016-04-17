@@ -25,13 +25,20 @@ public class IntroScreen extends ScreenAdapter {
 
     String[] credits = ("Teeth are the most important and valuable resource in Ever-no-neverwhere,\n" +
             "the mythical land of fairies, pixies, goblins, unicorns, and more.\n"+
-            "The dust of ground up children’s teeth is used as food and provides the creatures of the mythical world with their magical powers at the same time.\n"+
-            "Tootsie the Toasted Tooth Fairy and queen of Ever-no-neverwhere is supposed to divide the teeth equally among all residents of the realm.\n"+
-            "However, she has recently began smoking exorbitant amounts of weed and decided to keep all teeth for herself to extort obedience from all other residents by starving them out.\n"+
+            "The dust of ground up children’s teeth is used as food and provides the creatures\n" +
+            "of the mythical world with their magical powers at the same time.\n"+
+            "Tootsie the Toasted Tooth Fairy and queen of Ever-no-neverwhere is supposed\n" +
+            "to divide the teeth equally among all residents of the realm.\n"+
+            "However, she has recently began smoking exorbitant amounts of weed and decided to keep all teeth\n" +
+            "for herself to extort obedience from all other residents by starving them out.\n"+
             "She has also hired a gang of loathsome, loyal minions to guard the invaluable resource in her castle.\n"+
-            "Desperate for magical energy Gorm the Gormless Goblin King has sent out two of his most trusted and brave warrior-mages Hokus the Holy and Pokus the Poetic to gather provisions of teeth for winter.\n"+
-            "While making their way through the evil fairy’s realm they are captured and thrown into the castle dungeon.\n"+
-            "They will have to break out and try to collect as many teeth as possible in the process, so the goblins can survive the cold months.\n"+
+            "Desperate for magical energy Gorm the Gormless Goblin King has sent out two of his most\n" +
+            "trusted and brave warrior-mages Hokus the Holy and Pokus the Poetic\n" +
+            "to gather provisions of teeth for winter.\n"+
+            "While making their way through the evil fairy’s realm\n" +
+            "they are captured and thrown into the castle dungeon.\n"+
+            "They will have to break out and try to collect as many teeth\n" +
+            "as possible in the process, so the goblins can survive the cold months.\n"+
             "On their dangerous path they will have to overcome various of the fairy’s minions,\n"+
             "like Buttercup the Bit**y Butterfly, Unibrow the Unethical Unicorn, or Pinkie the Pixilated Pixie.\n"+
             "Help them beat their adversaries and safe the goblin nation.").split("\\n");

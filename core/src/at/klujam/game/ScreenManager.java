@@ -33,9 +33,11 @@ public class ScreenManager {
         if (state != currentState) { // only if state changes.
             currentState = state;
             if (state == ScreenState.Menu) {
+                parentGame.getSoundManager().playMusic("song2");
                 currentScreen = new MenuScreen(parentGame);
             } else if (state == ScreenState.Credits) {
                 currentScreen = new CreditsScreen(parentGame);
+                parentGame.getSoundManager().playMusic("light");
             } else if (state == ScreenState.Game) {
                 parentGame.getSoundManager().playMusic("song1");
                 currentScreen = new DungeonScreen(parentGame, "Dungeon-new");
