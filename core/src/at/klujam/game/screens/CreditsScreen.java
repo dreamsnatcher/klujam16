@@ -41,6 +41,7 @@ public class CreditsScreen extends ScreenAdapter {
             "Sound Engineering:\n"+
             "Mathias Lux\n"+
             "Armin Lippitz\n"+
+            "Philipp Zellot\n"+
             "\n"+
             "Story & Level Design:\n"+
             "Armin Lippitz\n"+
