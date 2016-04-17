@@ -73,6 +73,12 @@ public class FightingSceneScreen extends GameplayScreen {
     private Mask lower_mask;
     private Mask full_mask;
     private List<F_Entity> party;
+    private boolean fightFinished;
+    private int currentEnemy;
+    private boolean currentEnemyFinished;
+    private final float WAITENEMYTIME = 3f;
+    private float waittimer = 0;
+    private Array<F_Enemy> enemies;
 
 
     public FightingSceneScreen(Game game) {
@@ -295,7 +301,7 @@ public class FightingSceneScreen extends GameplayScreen {
 
     @Override
     public void render(float delta) {
-        handleInput();
+        handleInput(delta);
         // camera:
         cam.update();
         guiBatch.setProjectionMatrix(cam.combined);
@@ -319,7 +325,7 @@ public class FightingSceneScreen extends GameplayScreen {
 
     }
 
-    private void handleInput() {
+    private void handleInput(float delta) {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             parentGame.getSoundManager().playEvent("blip");
             parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
@@ -362,45 +368,69 @@ public class FightingSceneScreen extends GameplayScreen {
             SelectForPlayerTwo(null);
         }
 
+
         if(statePlayerOne == ENEMY_TURN_STARTED && statePlayerTwo== ENEMY_TURN_STARTED){
-            DoEnemyAttack();
-            setButtonGroupPlayerOne(playerOneAbilitiesButtonGroup, allButtonsPlayerOne);
-            setButtonGroupPlayerTwo(playerTwoAbilitiesButtonGroup, allButtonsPlayerTwo);
-            if(!fightingWorld.playerOne.isDead())
-                statePlayerOne = SELECT_ENEMY;
-            if(!fightingWorld.playerTwo.isDead())
-                statePlayerTwo = SELECT_ENEMY;
+            enemies = new Array<F_Enemy>();
+            for (F_Entity ent:entities ) {
+                if(ent instanceof F_Enemy ){
+                    enemies.add((F_Enemy)ent);
+                }
+            }
+            DoEnemyAttack(delta);
+
         }
         int enemyCount = 0;
         for (F_Entity ent:entities ) {
-            if(ent instanceof F_Enemy && !ent.isDead()){
+            if(ent instanceof F_Enemy  && !ent.isDead()) {
                 enemyCount++;
             }
+
         }
         if(enemyCount == 0){
             parentGame.getScreenManager().changeScreen(ScreenManager.ScreenState.Game);
         }
-
-        //If player is dead and has buttons, remove buttons.
-        if(currentButtonsPlayerOne.size >0 && fightingWorld.playerOne.isDead()){
-            setButtonGroupPlayerOne(new Array<TextButton>(),currentButtonsPlayerOne);
-        }
-
-        if(currentButtonsPlayerTwo.size >0 && fightingWorld.playerTwo.isDead()){
-            setButtonGroupPlayerTwo(new Array<TextButton>(),currentButtonsPlayerTwo);
-        }
     }
+
+
+
+
 
     private F_Entity getEmenyPlayerOne() {
         return entities.get(currentEnemyPlayerOne);
+
+
     }
 
-    private void DoEnemyAttack() {
-        for(F_Entity entity : entities){
-            if(entity instanceof F_Enemy && !entity.isDead()){
-                ((F_Enemy)entity).attack(party);
+    private void DoEnemyAttack(float delta) {
+        System.out.println("Waittimer: " + waittimer);
+        System.out.println("Enemies: " + enemies.size);
+            if(waittimer<=0){
+                if(!enemies.get(currentEnemy).isDead()) {
+                    enemies.get(currentEnemy).attack(party);
+                    waittimer += 1; //rein gehen
+                }else {
+                    waittimer+=5; //Überspringen
+                }
             }
-        }
+            else if (waittimer>0 && waittimer<=WAITENEMYTIME){
+                waittimer+=delta;
+            }
+            else if(waittimer>WAITENEMYTIME){
+                if(currentEnemy+1 < enemies.size){
+                    currentEnemy++;
+                    waittimer=0;
+                }
+                else{
+                    setButtonGroupPlayerOne(playerOneAbilitiesButtonGroup, allButtonsPlayerOne);
+                    setButtonGroupPlayerTwo(playerTwoAbilitiesButtonGroup, allButtonsPlayerTwo);
+                    if(!fightingWorld.playerOne.isDead())
+                        statePlayerOne = SELECT_ENEMY;
+                    if(!fightingWorld.playerTwo.isDead())
+                        statePlayerTwo = SELECT_ENEMY;
+                    waittimer = 0;
+                    currentEnemy = 0;
+                }
+            }
     }
 
     private void SelectForPlayerTwo(F_Entity f_enemy) {
