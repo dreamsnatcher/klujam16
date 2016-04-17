@@ -148,7 +148,7 @@ public class SkeletonControlledObject extends MoveableObject {
     }
 
     private void checkGameFinish() {
-        if (world.goal.bounds.overlaps(this.bounds)) {
+        if (world.goal.state == Goal.STATE_ACTIVE && world.goal.bounds.overlaps(this.bounds)) {
             world.finishGame();
         }
     }
