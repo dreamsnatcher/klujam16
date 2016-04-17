@@ -34,7 +34,8 @@ public class F_Enemy extends F_Entity {
         this.type = type;
         switch (type) {
             case Bitch:
-                this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/bitch_butterfly.png");
+                this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/bitch_butterfly_big_000.png");
+                animation = world.fightingSceneScreen.parentGame.getAnimator().loadAnimation("gameplay/bitch_butterfly_big_00",4,0.3f);
                 randomGenerator = new Random();
                 baseDamage = 4 + randomGenerator.nextInt(10);
                 break;

@@ -84,6 +84,7 @@ public class Game extends ApplicationAdapter {
         assMan.load("music/song1.mp3", Music.class);
         assMan.load("music/song2.mp3", Music.class);
         assMan.load("music/fight_music.mp3", Music.class);
+		assMan.load("music/latin-loop.wav", Music.class);
 
 		//Entities
 		assMan.load("gameplay/spritesheet.png", Texture.class);
@@ -195,6 +196,18 @@ public class Game extends ApplicationAdapter {
 		assMan.load("gameplay/tooth_fairy_004.png", Texture.class);
 		assMan.load("gameplay/tooth_fairy_005.png", Texture.class);
 
+		assMan.load("gameplay/tooth_fairy_small_000.png", Texture.class);
+		assMan.load("gameplay/tooth_fairy_small_001.png", Texture.class);
+		assMan.load("gameplay/tooth_fairy_small_002.png", Texture.class);
+		assMan.load("gameplay/tooth_fairy_small_003.png", Texture.class);
+		assMan.load("gameplay/tooth_fairy_small_004.png", Texture.class);
+		assMan.load("gameplay/tooth_fairy_small_005.png", Texture.class);
+
+		assMan.load("gameplay/bitch_butterfly_big_000.png", Texture.class);
+		assMan.load("gameplay/bitch_butterfly_big_001.png", Texture.class);
+		assMan.load("gameplay/bitch_butterfly_big_002.png", Texture.class);
+		assMan.load("gameplay/bitch_butterfly_big_003.png", Texture.class);
+		assMan.load("gameplay/bitch_butterfly_big_004.png", Texture.class);
 
 		assMan.load("gameplay/portal_inactive.png", Texture.class);
 		assMan.load("gameplay/portal_000.png", Texture.class);
@@ -227,6 +240,13 @@ public class Game extends ApplicationAdapter {
 		assMan.load("gameplay/pixie_pixelated_big_002.png",Texture.class);
 		assMan.load("gameplay/pixie_pixelated_big_003.png",Texture.class);
 		assMan.load("gameplay/pixie_pixelated_big_004.png",Texture.class);
+
+
+		assMan.load("gameplay/bitch_butterfly_big_000.png",Texture.class);
+		assMan.load("gameplay/bitch_butterfly_big_001.png",Texture.class);
+		assMan.load("gameplay/bitch_butterfly_big_002.png",Texture.class);
+		assMan.load("gameplay/bitch_butterfly_big_003.png",Texture.class);
+		assMan.load("gameplay/bitch_butterfly_big_004.png",Texture.class);
 
 		assMan.load("gameplay/unibrow_big_000.png",Texture.class);
 		assMan.load("gameplay/unibrow_big_001.png",Texture.class);

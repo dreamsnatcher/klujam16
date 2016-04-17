@@ -17,7 +17,7 @@ public class Boss extends GameObject {
         super(position, dimension);
         bounds = new Rectangle(position.x, position.y, scale.x * Constants.TILE_SIZE, scale.y * Constants.TILE_SIZE);
         type = Type.Boss;
-        idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/tooth_fairy_00", 6, 0.3f);
+        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/tooth_fairy_small_00", 6, 0.3f);
     }
 
     @Override
