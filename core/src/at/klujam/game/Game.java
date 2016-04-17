@@ -196,6 +196,11 @@ public class Game extends ApplicationAdapter {
 		assMan.load("gameplay/tooth_fairy_004.png", Texture.class);
 		assMan.load("gameplay/tooth_fairy_005.png", Texture.class);
 
+		assMan.load("gameplay/bitch_butterfly_big_000.png", Texture.class);
+		assMan.load("gameplay/bitch_butterfly_big_001.png", Texture.class);
+		assMan.load("gameplay/bitch_butterfly_big_002.png", Texture.class);
+		assMan.load("gameplay/bitch_butterfly_big_003.png", Texture.class);
+		assMan.load("gameplay/bitch_butterfly_big_004.png", Texture.class);
 
 		assMan.load("gameplay/portal_inactive.png", Texture.class);
 		assMan.load("gameplay/portal_000.png", Texture.class);
@@ -228,6 +233,13 @@ public class Game extends ApplicationAdapter {
 		assMan.load("gameplay/pixie_pixelated_big_002.png",Texture.class);
 		assMan.load("gameplay/pixie_pixelated_big_003.png",Texture.class);
 		assMan.load("gameplay/pixie_pixelated_big_004.png",Texture.class);
+
+
+		assMan.load("gameplay/bitch_butterfly_big_000.png",Texture.class);
+		assMan.load("gameplay/bitch_butterfly_big_001.png",Texture.class);
+		assMan.load("gameplay/bitch_butterfly_big_002.png",Texture.class);
+		assMan.load("gameplay/bitch_butterfly_big_003.png",Texture.class);
+		assMan.load("gameplay/bitch_butterfly_big_004.png",Texture.class);
 
 		assMan.load("gameplay/unibrow_big_000.png",Texture.class);
 		assMan.load("gameplay/unibrow_big_001.png",Texture.class);
