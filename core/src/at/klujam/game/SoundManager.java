@@ -15,6 +15,7 @@ public class SoundManager {
     private HashMap<String, String> event2music;
     private HashMap<String, String> event2speech;
     private Music currentMusic;
+    private Music intro;
 
 
     public SoundManager(Game parentGame) {
@@ -114,5 +115,13 @@ public class SoundManager {
     public void stopMusic(){
         if(currentMusic!=null)
             currentMusic.stop();
+    }
+
+    public void playIntro(){
+        stopMusic();
+        intro = Gdx.audio.newMusic(Gdx.files.internal("speech/INTRO.mp3"));
+        currentMusic = intro;
+        currentMusic.play();
+
     }
 }
