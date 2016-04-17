@@ -52,11 +52,20 @@ public class Game extends ApplicationAdapter {
 
         assMan.load("speech/Hokus-fight-start.mp3", Sound.class);
         assMan.load("speech/Pokus-attack01.mp3", Sound.class);
+        assMan.load("speech/Pokus-attack02.mp3", Sound.class);
+        assMan.load("speech/Pokus-attack03.mp3", Sound.class);
+        assMan.load("speech/Pokus-attack04.mp3", Sound.class);
+        assMan.load("speech/Pokus-attack05.mp3", Sound.class);
+        assMan.load("speech/Hokus-attack01.mp3", Sound.class);
+        assMan.load("speech/Hokus-attack02.mp3", Sound.class);
+        assMan.load("speech/Hokus-attack03.mp3", Sound.class);
+        assMan.load("speech/Hokus-attack05.mp3", Sound.class);
         assMan.load("speech/Pokus-fight-start.mp3", Sound.class);
-
+        assMan.load("speech/Hokus-armor.mp3", Sound.class);
 
         assMan.load("music/song1.mp3", Music.class);
         assMan.load("music/song2.mp3", Music.class);
+        assMan.load("music/fight_music.mp3", Music.class);
 
 		//Entities
 		assMan.load("gameplay/spritesheet.png", Texture.class);
@@ -139,6 +148,19 @@ public class Game extends ApplicationAdapter {
 		assMan.load("gameplay/floor.png", Texture.class);
 		assMan.load("gameplay/gobo_1_big_000.png", Texture.class);
 
+		assMan.load("gameplay/pixie_pixelated_big_000.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_001.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_002.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_003.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_004.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_dying_000.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_dying_001.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_dying_002.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_dying_003.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_dying_004.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_dying_005.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_dying_006.png", Texture.class);
+		assMan.load("gameplay/pixie_pixelated_big_dying_007.png", Texture.class);
 
 		//Stuff
 		assMan.load("gameplay/selected1.png", Texture.class);

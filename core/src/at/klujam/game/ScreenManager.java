@@ -46,6 +46,12 @@ public class ScreenManager {
     }
 
     public void changeScreen(ScreenState newState) {
+        if(newState == ScreenState.Game){
+            parentGame.getSoundManager().playMusic("song1");
+        }
+        else if(newState == ScreenState.Fighting){
+            parentGame.getSoundManager().playMusic("fight_music");
+        }
         if (lastState != ScreenState.None && lastState == newState) {
             currentScreen = lastScreen;
             currentState = newState;
@@ -54,6 +60,9 @@ public class ScreenManager {
         } else {
             lastState = currentState;
             lastScreen = currentScreen;
+            if(newState == ScreenState.Fighting){
+                parentGame.getSoundManager().playMusic("fight_music");
+            }
             setCurrentState(newState);
         }
     }
