@@ -397,6 +397,12 @@ public class FightingSceneScreen extends GameplayScreen {
         if(enemyCount == 0){
             parentGame.getScreenManager().changeScreen(ScreenManager.ScreenState.Game);
         }
+
+        //End, exit, failed, dead!!!
+        if(fightingWorld.playerOne.isDead() && fightingWorld.playerTwo.isDead()){
+            parentGame.getSoundManager().playSpeech("GameOver");
+            parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
+        }
     }
 
 
