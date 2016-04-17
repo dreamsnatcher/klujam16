@@ -31,14 +31,23 @@ public class SoundManager {
         event2sound.put("rage", "sfx/rage.wav");
 
         event2speech = new HashMap<String, String>(20);
-        event2speech.put("hokus_attack", "speech/Pokus-attack01.mp3");
-        event2speech.put("pokus_attack", "speech/Pokus-attack01.mp3");
+        event2speech.put("hokus_attack_1", "speech/Hokus-attack01.mp3");
+        event2speech.put("hokus_attack_2", "speech/Hokus-attack02.mp3");
+        event2speech.put("hokus_attack_3", "speech/Hokus-attack03.mp3");
+        event2speech.put("hokus_attack_4", "speech/Hokus-attack05.mp3");
+        event2speech.put("pokus_attack_1", "speech/Pokus-attack01.mp3");
+        event2speech.put("pokus_attack_2", "speech/Pokus-attack02.mp3");
+        event2speech.put("pokus_attack_3", "speech/Pokus-attack03.mp3");
+        event2speech.put("pokus_attack_4", "speech/Pokus-attack04.mp3");
+        event2speech.put("pokus_attack_5", "speech/Pokus-attack05.mp3");
         event2speech.put("hokus_fight_start", "speech/Hokus-fight-start.mp3");
         event2speech.put("pokus_fight_start", "speech/Pokus-fight-start.mp3");
+        event2speech.put("hokus_armor", "speech/Hokus-armor.mp3");
 
         event2music = new HashMap<String, String>(20);
         event2music.put("song1", "music/song1.mp3");
         event2music.put("song2", "music/song2.mp3");
+        event2music.put("fight_music","music/fight_music.mp3");
 
         //event2speech.put("song1", "music/blip.wav");
         //event2speech.put("song2", "music/explosion.wav");
