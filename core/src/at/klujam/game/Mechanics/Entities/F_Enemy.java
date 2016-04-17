@@ -18,6 +18,7 @@ public class F_Enemy extends F_Entity {
     public static final int Bitch = 0;
     public static final int PIXIE = 1;
     public static final int UNICORN = 2;
+    public static final int BOSS = 4;
     public static final Integer NONE = 3;
     public int type;
 
@@ -26,12 +27,12 @@ public class F_Enemy extends F_Entity {
 
     public F_Enemy(Vector2 position, FightWorld world, int type) {
         super(position, world);
-        this.abilities.add(new Attack("Attack",world,this));
-        this.abilities.add(new Attack("Attack",world,this));
-        this.abilities.add(new HeavyAttack("Attack",world,this));
-        this.abilities.add(new Heal("Insult",world,this));
+        this.abilities.add(new Attack("Attack", world, this));
+        this.abilities.add(new Attack("Attack", world, this));
+        this.abilities.add(new HeavyAttack("Attack", world, this));
+        this.abilities.add(new Heal("Insult", world, this));
         this.type = type;
-        switch (type){
+        switch (type) {
             case Bitch:
                 this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/bitch_butterfly.png");
                 randomGenerator = new Random();
@@ -50,14 +51,18 @@ public class F_Enemy extends F_Entity {
                 randomGenerator = new Random();
                 baseDamage = 3 + randomGenerator.nextInt(2);
                 break;
-
+            case BOSS:
+                this.texture = world.fightingSceneScreen.parentGame.getAssMan().get("gameplay/tooth_fairy_000.png");
+                randomGenerator = new Random();
+                baseDamage = 10 + randomGenerator.nextInt(5);
+                break;
         }
     }
 
 
     public void attack(List<F_Entity> party) {
         F_Ability f_ability = getRandom(abilities);
-        if(f_ability instanceof Heal && forcedEntity == null){
+        if (f_ability instanceof Heal && forcedEntity == null) {
             f_ability.useOn(this);
             return;
         }
@@ -73,6 +78,6 @@ public class F_Enemy extends F_Entity {
 
     private <T> T getRandom(List<T> party) {
         int index = randomGenerator.nextInt(party.size());
-        return  party.get(index);
+        return party.get(index);
     }
 }
